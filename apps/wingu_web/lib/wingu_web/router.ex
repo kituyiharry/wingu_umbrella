@@ -19,6 +19,13 @@ defmodule WinguWeb.Router do
     get "/", PageController, :index
   end
 
+  scope "/api", WinguWeb do
+    resources "/companies", CompanyController, except: [:new, :edit] do
+      resources "/events", EventController, except: [:new, :edit]
+    end
+    resources "/clients", ClientController, except: [:new, :edit]
+  end
+
   # Other scopes may use custom stacks.
   # scope "/api", WinguWeb do
   #   pipe_through :api
