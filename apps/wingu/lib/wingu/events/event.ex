@@ -10,6 +10,8 @@ defmodule Wingu.Events.Event do
     field :description, :string
     field :title, :string
     field :company_id, :binary_id
+    field :from, :utc_datetime
+    field :to, :utc_datetime
     belongs_to :companies, Company, [define_field: false, foreign_key: :company_id]
 
     timestamps()
@@ -18,7 +20,7 @@ defmodule Wingu.Events.Event do
   @doc false
   def changeset(event, attrs) do
     event
-    |> cast(attrs, [:title, :description])
+    |> cast(attrs, [:title, :description, :from, :to])
     |> validate_required([:title, :description])
   end
 end
