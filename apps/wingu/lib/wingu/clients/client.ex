@@ -9,6 +9,9 @@ defmodule Wingu.Clients.Client do
     field :email, :string
     field :firstname, :string
     field :surname, :string
+    field :email_verified, :boolean, default: false
+    field :picture, :string
+    has_one :auth_data, Wingu.AuthData.AuthDatum
     many_to_many :companies, Wingu.Companies.Company,  join_through: "companies_clients"
     many_to_many :stations, Wingu.Stations.Station,  join_through: "stations_clients"
 
@@ -18,8 +21,8 @@ defmodule Wingu.Clients.Client do
   @doc false
   def changeset(client, attrs) do
     client
-    |> cast(attrs, [:firstname, :surname, :email])
-    |> validate_required([:firstname, :surname, :email])
+    |> cast(attrs, [:firstname, :surname, :email, :picture, :email_verified])
+    |> validate_required([:firstname, :surname, :email, :email_verified, :picture])
     |> unique_constraint(:email)
   end
 end

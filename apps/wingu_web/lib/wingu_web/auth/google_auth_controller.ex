@@ -9,4 +9,10 @@ defmodule WinguWeb.GoogleAuthController do
     IO.inspect {:params, params}
     conn |> redirect(to: WinguWeb.Router.Helpers.page_path(conn, :index))
   end
+
+  def request(conn,params) do
+    IO.inspect conn
+    IO.inspect params
+    conn
+  end
 end
