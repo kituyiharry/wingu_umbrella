@@ -6,7 +6,7 @@ defmodule WinguWeb.GraphQL.Schema do
     #Fields go here
      field :item, :item do
       arg :id, non_null(:id)
-      resolve fn %{id: item_id}, _ ->
+      resolve fn %{id: _item_id}, _ ->
         {:ok, %{name: 1, id: 1}}
       end
     end

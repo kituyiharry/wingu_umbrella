@@ -16,6 +16,22 @@ config :wingu_web, WinguWeb.Endpoint,
   render_errors: [view: WinguWeb.ErrorView, accepts: ~w(html json)],
   pubsub: [name: WinguWeb.PubSub, adapter: Phoenix.PubSub.PG2]
 
+config :wingu_web, WinguWeb.Guardian,
+  allowed_algos: ["HS512"],
+  issuer: "wingu_web",
+  secret_key: "7QBRmk6dIDrMyp/x4YiIZD/iAm11JX2hVEueYSMiTlAAEA5XuK8clRxplbprwA4+"
+
+config :ueberauth, Ueberauth,
+  providers: [
+    google: {Ueberauth.Strategy.Google, [
+      request_path:  "/auth/google",
+      callback_path: "/auth/google/callback"
+    ]}
+  ]
+
+config :ueberauth, Ueberauth.Strategy.Google.OAuth,
+  client_id: System.get_env("GOOGLE_CLIENT_ID"),
+  client_secret: System.get_env("GOOGLE_CLIENT_SECRET")
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env()}.exs"

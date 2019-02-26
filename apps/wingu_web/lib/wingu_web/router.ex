@@ -13,18 +13,27 @@ defmodule WinguWeb.Router do
     plug :accepts, ["json"]
   end
 
+  pipeline :authenticated do
+    plug WinguWeb.Authenticated
+  end
+
   scope "/", WinguWeb do
     pipe_through :browser
 
     get "/", PageController, :index
+    get "/auth/:provider",          GoogleAuthController, :request
+    get "/auth/:provider/callback", GoogleAuthController, :callback
   end
-
-  forward "/graphql",  Absinthe.Plug,
-    schema: WinguWeb.GraphQL.Schema
 
   forward "/graphiql", Absinthe.Plug.GraphiQL,
     schema: WinguWeb.GraphQL.Schema,
     interface: :playground
+
+  pipe_through [:authenticated]
+
+  forward "/graphql",  Absinthe.Plug,
+    schema: WinguWeb.GraphQL.Schema
+
 
   scope "/rest", WinguWeb do
     resources "/companies", CompanyController, except: [:new, :edit] do
