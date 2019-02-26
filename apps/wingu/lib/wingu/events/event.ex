@@ -21,6 +21,6 @@ defmodule Wingu.Events.Event do
   def changeset(event, attrs) do
     event
     |> cast(attrs, [:title, :description, :from, :to])
-    |> validate_required([:title, :description])
+    |> validate_required([:title, :description, :from, :to])
   end
 end

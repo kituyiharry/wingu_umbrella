@@ -19,7 +19,14 @@ defmodule WinguWeb.Router do
     get "/", PageController, :index
   end
 
-  scope "/api", WinguWeb do
+  forward "/graphql",  Absinthe.Plug,
+    schema: WinguWeb.GraphQL.Schema
+
+  forward "/graphiql", Absinthe.Plug.GraphiQL,
+    schema: WinguWeb.GraphQL.Schema,
+    interface: :playground
+
+  scope "/rest", WinguWeb do
     resources "/companies", CompanyController, except: [:new, :edit] do
       resources "/events", EventController, except: [:new, :edit]
     end
