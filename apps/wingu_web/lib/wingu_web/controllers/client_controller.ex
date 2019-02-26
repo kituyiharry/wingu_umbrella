@@ -15,7 +15,7 @@ defmodule WinguWeb.ClientController do
     with {:ok, %Client{} = client} <- Clients.create_client(client_params) do
       conn
       |> put_status(:created)
-      |> put_resp_header("location", Routes.client_path(conn, :show, client))
+      #|> put_resp_header("location", Routes.client_path(conn, :show, client))
       |> render("show.json", client: client)
     end
   end

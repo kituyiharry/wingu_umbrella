@@ -15,7 +15,7 @@ defmodule WinguWeb.StationController do
     with {:ok, %Station{} = station} <- Stations.create_station(station_params) do
       conn
       |> put_status(:created)
-      |> put_resp_header("location", Routes.station_path(conn, :show, station))
+      #|> put_resp_header("location", Routes.station_path(conn, :show, station))
       |> render("show.json", station: station)
     end
   end

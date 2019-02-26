@@ -15,7 +15,7 @@ defmodule WinguWeb.EventController do
     with {:ok, %Event{} = event} <- Events.create_event(event_params) do
       conn
       |> put_status(:created)
-      |> put_resp_header("location", Routes.event_path(conn, :show, event))
+      #|> put_resp_header("location", Routes.event_path(conn, :show, event))
       |> render("show.json", event: event)
     end
   end
