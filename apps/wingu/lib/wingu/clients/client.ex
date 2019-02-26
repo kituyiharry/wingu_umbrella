@@ -11,7 +11,6 @@ defmodule Wingu.Clients.Client do
     field :surname, :string
     field :email_verified, :boolean, default: false
     field :picture, :string
-    has_one :auth_data, Wingu.AuthData.AuthDatum
     many_to_many :companies, Wingu.Companies.Company,  join_through: "companies_clients"
     many_to_many :stations, Wingu.Stations.Station,  join_through: "stations_clients"
 
