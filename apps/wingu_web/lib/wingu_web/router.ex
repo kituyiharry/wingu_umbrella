@@ -11,6 +11,7 @@ defmodule WinguWeb.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
+    plug :fetch_session
   end
 
   pipeline :authenticated do
@@ -21,6 +22,7 @@ defmodule WinguWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
+    get "/signout",                GoogleAuthController, :delete
     get "/auth/:provider",          GoogleAuthController, :request
     get "/auth/:provider/callback", GoogleAuthController, :callback
   end
