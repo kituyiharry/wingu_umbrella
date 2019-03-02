@@ -11,8 +11,9 @@ defmodule Wingu.Clients.Client do
     field :surname, :string
     field :email_verified, :boolean, default: false
     field :picture, :string
-    many_to_many :companies, Wingu.Companies.Company,  join_through: "companies_clients"
-    many_to_many :stations, Wingu.Stations.Station,  join_through: "stations_clients"
+    has_many :companies_clients, Wingu.Companies.Clients, on_delete: :delete_all
+    has_many :companies, through: [:companies_clients, :companies]
+    many_to_many :stations, Wingu.Stations.Station,  join_through: "stations_clients", join_keys: [stations_id: :id, clients_id: :id]
 
     timestamps()
   end

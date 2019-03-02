@@ -8,7 +8,8 @@ defmodule Wingu.Companies.Company do
   schema "companies" do
     field :email, :string
     field :name, :string
-    many_to_many :clients, Wingu.Clients.Client,  join_through: "companies_clients"
+    has_many :companies_clients, Wingu.Companies.Clients, on_delete: :delete_all
+    has_many :clients, through: [:companies_clients, :clients]
 
     timestamps()
   end

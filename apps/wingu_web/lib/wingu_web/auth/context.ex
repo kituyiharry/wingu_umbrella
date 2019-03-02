@@ -1,7 +1,6 @@
 defmodule WinguWeb.Context do
   @behaviour Plug
 
-  import Plug.Conn
   alias WinguWeb.SessionController
   def init(opts), do: opts
 
