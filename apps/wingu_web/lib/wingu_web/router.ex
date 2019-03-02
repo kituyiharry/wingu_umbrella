@@ -18,6 +18,11 @@ defmodule WinguWeb.Router do
     plug WinguWeb.Authenticated
   end
 
+  pipeline :contextualize do
+    plug :fetch_session
+    plug WinguWeb.Context
+  end
+
   scope "/", WinguWeb do
     pipe_through :browser
 
@@ -27,17 +32,21 @@ defmodule WinguWeb.Router do
     get "/auth/:provider/callback", GoogleAuthController, :callback
   end
 
-  forward "/graphiql", Absinthe.Plug.GraphiQL,
-    schema: WinguWeb.GraphQL.Schema,
-    interface: :playground
 
-  pipe_through [:authenticated]
+  scope "/graphiql" do
+    pipe_through [:contextualize]
+    forward "/", Absinthe.Plug.GraphiQL,
+      schema: WinguWeb.GraphQL.Schema,
+      interface: :playground
+  end
 
-  forward "/graphql",  Absinthe.Plug,
-    schema: WinguWeb.GraphQL.Schema
-
+  scope "/graphql" do
+    forward "/",  Absinthe.Plug,
+      schema: WinguWeb.GraphQL.Schema
+  end
 
   scope "/rest", WinguWeb do
+    pipe_through [:authenticated]
     resources "/companies", CompanyController, except: [:new, :edit] do
       resources "/events", EventController, except: [:new, :edit]
     end

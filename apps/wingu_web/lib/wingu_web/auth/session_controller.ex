@@ -2,8 +2,6 @@ defmodule WinguWeb.SessionController do
   use WinguWeb, :controller
 
   def authenticate(%Plug.Conn{} = conn) do
-    token = get_session(conn,"guardian_default_token")
-    IO.inspect({:token, token})
     conn
     |> get_session("guardian_default_token")
     |> WinguWeb.Guardian.resource_from_token()
@@ -14,5 +12,4 @@ defmodule WinguWeb.SessionController do
     |> get_session("guardian_default_token")
     |> WinguWeb.Guardian.decode_and_verify()
   end
-
 end

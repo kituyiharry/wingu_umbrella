@@ -6,14 +6,17 @@ defmodule WinguWeb.Context do
   def init(opts), do: opts
 
   def call(conn, _) do
+    context = build_context(conn)
+    Absinthe.Plug.put_options(conn, context: context)
   end
 
   def build_context(conn) do
+    case SessionController.authorize(conn) do
+      {:ok, access}->
+        access
+      {:error, e} -> 
+        e
+    end
   end
 
-  # NOTE: This is a stub, just returning the first user and stubbing in the user
-  # as an administrator.
-  defp authorize(_token) do
-  end
-  
 end
