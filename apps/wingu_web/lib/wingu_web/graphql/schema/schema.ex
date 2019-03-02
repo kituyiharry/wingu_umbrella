@@ -2,7 +2,6 @@ defmodule WinguWeb.GraphQL.Schema do
   use Absinthe.Schema
 
   import_types WinguWeb.GraphQL.Schema.Types
-  require IO
   query do
     #Fields go here
      field :item, :item do
