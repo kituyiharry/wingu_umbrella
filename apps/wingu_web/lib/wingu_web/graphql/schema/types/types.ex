@@ -17,11 +17,13 @@ defmodule WinguWeb.GraphQL.Schema.Types do
   end
 
   object :company do
+    field  :id, :id
     field  :email, :string
     field  :name, :string
   end
 
   object :event do   
+    field  :id, :id
     field :description, :string
     field :title, :string
     field :from, :datetime
@@ -36,5 +38,12 @@ defmodule WinguWeb.GraphQL.Schema.Types do
   input_object :add_company do
     field  :email, :string
     field  :name, :string
+  end
+
+  input_object :add_event do
+    field  :title, :string
+    field  :description, :string
+    field  :from, :datetime
+    field  :to, :datetime
   end
 end
