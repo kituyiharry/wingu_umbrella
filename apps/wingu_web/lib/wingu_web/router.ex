@@ -37,18 +37,32 @@ defmodule WinguWeb.Router do
     pipe_through [:contextualize]
     forward "/", Absinthe.Plug.GraphiQL,
       schema: WinguWeb.GraphQL.Schema,
+      socket: WinguWeb.UserSocket,
       interface: :simple
   end
 
   scope "/graphql" do
     forward "/",  Absinthe.Plug,
-      schema: WinguWeb.GraphQL.Schema
+      schema: WinguWeb.GraphQL.Schema,
+      socket: WinguWeb.UserSocket
   end
 
   scope "/rest", WinguWeb do
     pipe_through [:authenticated]
     resources "/companies", CompanyController, except: [:new, :edit] do
       resources "/events", EventController, except: [:new, :edit]
+      resources "/forms", FormController, except: [:new, :edit] do
+        resources "/form_data", FormDatumController, except: [:new, :edit] do
+          resources "/section_data", SectionDatumController, except: [:new, :edit] do
+            resources "/text_node_data", TextNodeDatumController, except: [:new, :edit]
+          end
+        end
+        resources "/form_templates", FormTemplateController, except: [:new, :edit] do
+          resources "/section_nodes", SectionNodeController, except: [:new, :edit] do
+            resources "/description_nodes", DescriptionNodeController, except: [:new, :edit]
+          end
+        end
+      end
     end
     resources "/clients", ClientController, except: [:new, :edit]
   end

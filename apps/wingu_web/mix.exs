@@ -52,7 +52,8 @@ defmodule WinguWeb.MixProject do
       {:poison, "~> 3.1"},
       {:guardian, "~> 1.2"},
       {:ueberauth, "~> 0.5.0"},
-      {:ueberauth_google, "~> 0.8"}
+      {:ueberauth_google, "~> 0.8"},
+      {:absinthe_phoenix, "~> 1.4.0"}
     ]
   end
 

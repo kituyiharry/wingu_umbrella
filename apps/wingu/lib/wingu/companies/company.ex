@@ -11,6 +11,8 @@ defmodule Wingu.Companies.Company do
     has_many :companies_clients, Wingu.Companies.Clients, on_delete: :delete_all
     has_many :clients, through: [:companies_clients, :clients]
     has_many :events, Wingu.Events.Event, on_delete: :delete_all
+    has_many :stations, Wingu.Stations.Station, on_delete: :delete_all
+    has_many :forms, Wingu.Forms.Form, on_delete: :delete_all
 
     timestamps()
   end

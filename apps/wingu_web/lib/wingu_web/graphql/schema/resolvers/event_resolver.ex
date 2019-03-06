@@ -12,7 +12,7 @@ defmodule WinguWeb.GraphQL.Resolvers.EventResolver do
     {:ok, company.events}
   end
 
-  def update_event(_parent, %{id: params, change: changeattrs},%{context: %{"sub" => sub}}) do
+  def update_event(_parent, %{id: params, change: changeattrs},%{context: %{"sub" => _sub}}) do
     event = Events.get_event!(params)
     with {:ok, %Events.Event{} = up_event} <- Events.update_event(event, changeattrs) do
       {:ok, up_event}
@@ -21,7 +21,7 @@ defmodule WinguWeb.GraphQL.Resolvers.EventResolver do
     end
   end
 
-  def delete_event(_parent, %{id: params}, %{context: %{"sub" => sub}}) do
+  def delete_event(_parent, %{id: params}, %{context: %{"sub" => _sub}}) do
     event = Events.get_event!(params)
     case Events.delete_event(event) do
       {:ok, ev} -> {:ok, ev}
@@ -29,7 +29,7 @@ defmodule WinguWeb.GraphQL.Resolvers.EventResolver do
     end
   end
 
-  defp clean(%{from: f, to: t} = params) do
+  defp clean(%{from: _f, to: _t} = params) do
     nparams = Map.update!(params,  :from, fn date -> DateTime.truncate(date, :second) end)
     fparams = Map.update!(nparams, :to,   fn date -> DateTime.truncate(date, :second) end)
     fparams

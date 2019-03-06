@@ -9,9 +9,10 @@ defmodule WinguWeb.Application do
     # List all child processes to be supervised
     children = [
       # Start the endpoint when the application starts
-      WinguWeb.Endpoint
+      WinguWeb.Endpoint,
       # Starts a worker by calling: WinguWeb.Worker.start_link(arg)
       # {WinguWeb.Worker, arg},
+      {Absinthe.Subscription, [WinguWeb.Endpoint]},
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

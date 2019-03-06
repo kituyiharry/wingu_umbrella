@@ -1,5 +1,6 @@
 defmodule WinguWeb.CompanyController do
   use WinguWeb, :controller
+  #use Absinthe.Phoenix.Controller, schema: WinguWeb.GraphQL.Schema
 
   alias Wingu.Companies
   alias Wingu.Companies.Company
