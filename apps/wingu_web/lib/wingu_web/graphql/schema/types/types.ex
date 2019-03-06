@@ -35,6 +35,49 @@ defmodule WinguWeb.GraphQL.Schema.Types do
     field :meta, :string
   end
 
+  object :description_node do
+    field :isrequired, :boolean
+    field :label, :string
+    field :placeholder, :string
+  end
+
+  object :form do
+    field :description, :string
+    field :name, :string
+    field :summary, :string
+  end
+
+  object :data do
+    field :client, :client
+    field :sections, list_of(:section_data)
+  end
+
+  object :section_data do
+    field :section, :section 
+    field :nodes, list_of(:text_node)
+  end
+
+  object :text_node do
+    field :value, :string
+    field :node, :descnode
+  end
+
+  object :template do
+    field :sections, list_of(:section)
+  end
+
+  object :section do
+    field :name, :string
+    field :description, :string
+    field :nodes, list_of(:descnode)
+  end
+
+  object :descnode do
+    field :isrequired, :string
+    field :label, :string
+    field :placeholder, :string
+  end
+
   input_object :add_company do
     field  :email, :string
     field  :name, :string

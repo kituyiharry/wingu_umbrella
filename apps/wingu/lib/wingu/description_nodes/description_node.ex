@@ -10,8 +10,8 @@ defmodule Wingu.DescriptionNodes.DescriptionNode do
     field :label, :string
     field :placeholder, :string
     field :section_nodes_id, :binary_id
-    belongs_to :section_nodes, Wingu.SectionNodes.SectionNode, [define_field: false]
-    has_many :text_node_data, Wingu.TextNodeData.TextNodeDatum
+    belongs_to :section_node, Wingu.SectionNodes.SectionNode, [define_field: false, foreign_key: :section_nodes_id]
+    has_many :text_node_data, Wingu.TextNodeData.TextNodeDatum, foreign_key: :description_nodes_id
 
     timestamps()
   end

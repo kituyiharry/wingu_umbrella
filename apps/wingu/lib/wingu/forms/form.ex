@@ -10,8 +10,9 @@ defmodule Wingu.Forms.Form do
     field :name, :string
     field :summary, :string
     field :companies_id, :binary_id
-    has_many :form_data, Wingu.FormData.FormDatum
-    has_many :form_templates, Wingu.FormTemplates.FormTemplate
+    belongs_to :company, Wingu.Companies.Company, define_field: :false, foreign_key: :companies_id
+    has_many :form_data, Wingu.FormData.FormDatum, foreign_key: :forms_id
+    has_many :form_templates, Wingu.FormTemplates.FormTemplate, foreign_key: :forms_id
 
     timestamps()
   end

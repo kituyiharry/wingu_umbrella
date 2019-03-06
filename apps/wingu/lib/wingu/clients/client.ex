@@ -13,7 +13,7 @@ defmodule Wingu.Clients.Client do
     field :picture, :string
     has_many :companies_clients, Wingu.Companies.Clients, on_delete: :delete_all
     has_many :companies, through: [:companies_clients, :companies]
-    has_many :form_data, Wingu.FormData.FormDatum
+    has_many :form_data, Wingu.FormData.FormDatum, foreign_key: :clients_id
     many_to_many :stations, Wingu.Stations.Station,  join_through: "stations_clients", join_keys: [stations_id: :id, clients_id: :id]
 
     timestamps()
