@@ -19,5 +19,7 @@ defmodule Wingu.Stations.Station do
     station
     |> cast(attrs, [:name, :meta])
     |> validate_required([:name, :meta])
+    |> validate_length(:name, min: 3, max: 140)
+    |> validate_length(:meta, min: 3, max: 280)
   end
 end

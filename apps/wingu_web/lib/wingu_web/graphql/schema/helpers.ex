@@ -1,5 +1,5 @@
 defmodule WinguWeb.GraphQL.Helpers do
-  def translate_error(%{errors: errors}=_changeset) do
+  def translate_error(%Ecto.Changeset{errors: errors}=_changeset) do
     Enum.map(errors, fn {field, error} ->
       Atom.to_string(field) <> " " <> translate_error(error)
     end)

@@ -7,7 +7,7 @@ defmodule Wingu.FormTemplates.FormTemplate do
   @foreign_key_type :binary_id
   schema "form_templates" do
     field :forms_id, :binary_id
-    has_many :sections_nodes, Wingu.SectionNodes.SectionNode, foreign_key: :form_templates_id
+    has_many :sections_nodes, Wingu.SectionNodes.SectionNode, foreign_key: :form_templates_id, on_delete: :delete_all
     belongs_to :forms, Wingu.Forms.Form, [define_field: false, foreign_key: :forms_id]
 
     timestamps()

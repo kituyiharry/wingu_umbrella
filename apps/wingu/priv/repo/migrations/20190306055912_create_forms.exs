@@ -7,7 +7,7 @@ defmodule Wingu.Repo.Migrations.CreateForms do
       add :name, :string
       add :summary, :string
       add :description, :text
-      add :companies_id, references(:companies, on_delete: :nothing, type: :binary_id)
+      add :companies_id, references(:companies, on_delete: :delete_all, type: :binary_id)
 
       timestamps()
     end

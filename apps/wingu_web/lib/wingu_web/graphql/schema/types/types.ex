@@ -1,5 +1,7 @@
 defmodule WinguWeb.GraphQL.Schema.Types do
   use Absinthe.Schema.Notation
+  use Absinthe.Ecto, repo: Wingu.Repo
+
   import_types Absinthe.Type.Custom
 
   object :item do
@@ -42,9 +44,33 @@ defmodule WinguWeb.GraphQL.Schema.Types do
   end
 
   object :form do
+    field :description,    :string
+    field :name,           :string
+    field :summary,        :string
+    field :template,       :template, resolve: assoc(:form_templates)
+  end
+
+  input_object :form_change do
+    field :name,        :string
+    field :summary,     :string
     field :description, :string
+    field :template,    :form_template_change
+  end
+
+  input_object :form_template_change do
+    field :sections, list_of(:form_section)
+  end
+
+  input_object :form_section do
     field :name, :string
-    field :summary, :string
+    field :description, :string
+    field :nodes, list_of(:subnodes)
+  end
+
+  input_object :subnodes do
+    field :required, :boolean
+    field :placeholder, :string
+    field :label, :string
   end
 
   object :data do
@@ -63,13 +89,13 @@ defmodule WinguWeb.GraphQL.Schema.Types do
   end
 
   object :template do
-    field :sections, list_of(:section)
+    field :sections, list_of(:section), resolve: assoc(:sections_nodes)
   end
 
   object :section do
     field :name, :string
     field :description, :string
-    field :nodes, list_of(:descnode)
+    field :nodes, list_of(:descnode), resolve: assoc(:description_nodes)
   end
 
   object :descnode do

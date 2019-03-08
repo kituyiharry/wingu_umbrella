@@ -7,7 +7,7 @@ defmodule Wingu.Repo.Migrations.CreateDescriptionNodes do
       add :label, :string
       add :placeholder, :string
       add :isrequired, :boolean, default: false, null: false
-      add :section_nodes_id, references(:section_nodes, on_delete: :nothing, type: :binary_id)
+      add :section_nodes_id, references(:section_nodes, on_delete: :delete_all, type: :binary_id)
 
       timestamps()
     end

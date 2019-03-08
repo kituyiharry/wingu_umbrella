@@ -24,6 +24,8 @@ defmodule Wingu.Clients.Client do
     client
     |> cast(attrs, [:firstname, :surname, :email, :picture, :email_verified])
     |> validate_required([:firstname, :surname, :email, :email_verified, :picture])
+    |> validate_length(:firstname, min: 1)
+    |> validate_length(:surname, min: 1)
     |> unique_constraint(:email)
   end
 end

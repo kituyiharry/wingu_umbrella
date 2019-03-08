@@ -4,7 +4,7 @@ defmodule Wingu.Repo.Migrations.CreateFormTemplates do
   def change do
     create table(:form_templates, primary_key: false) do
       add :id, :binary_id, primary_key: true
-      add :forms_id, references(:forms, on_delete: :nothing, type: :binary_id)
+      add :forms_id, references(:forms, on_delete: :delete_all, type: :binary_id)
 
       timestamps()
     end

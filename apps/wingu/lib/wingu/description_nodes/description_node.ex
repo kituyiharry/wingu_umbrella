@@ -21,5 +21,7 @@ defmodule Wingu.DescriptionNodes.DescriptionNode do
     description_node
     |> cast(attrs, [:label, :placeholder, :isrequired])
     |> validate_required([:label, :placeholder, :isrequired])
+    |> validate_length(:label, min: 3, max: 140)
+    |> validate_length(:placeholder, min: 3, max: 140)
   end
 end

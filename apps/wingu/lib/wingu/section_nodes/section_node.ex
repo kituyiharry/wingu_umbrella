@@ -21,5 +21,7 @@ defmodule Wingu.SectionNodes.SectionNode do
     section_node
     |> cast(attrs, [:name, :description])
     |> validate_required([:name, :description])
+    |> validate_length(:name, min: 3, max: 63)
+    |> validate_length(:description, min: 3, max: 280)
   end
 end

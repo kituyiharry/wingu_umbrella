@@ -16,10 +16,15 @@ defmodule WinguWeb.GraphQL.Schema do
 
     @desc "Events created within a company"
     field :company_events, list_of(:event) do
-      arg :company_id, :id
+      arg :company_id, :id 
       resolve &Resolvers.EventResolver.company_events/3
     end
 
+    @desc "Forms created by a company"
+    field :forms, list_of(:form) do
+      arg :company, :id
+      resolve &Resolvers.FormResolver.forms/3
+    end
   end
 
   mutation do
@@ -62,6 +67,15 @@ defmodule WinguWeb.GraphQL.Schema do
     field :delete_event, :event do
       arg :id, :id
       resolve &Resolvers.EventResolver.delete_event/3
+    end
+
+    @desc "Create new Form data"
+    field :new_form, :form do
+      arg :company, :id
+      arg :form, :form_change
+      # Use Catch all here for context implementations!!
+      #resolve fn _, _a, _b -> {:error, "Not implemented"} end
+      resolve &Resolvers.FormResolver.create_form/3
     end
   end
 end
