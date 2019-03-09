@@ -15,7 +15,7 @@ defmodule WinguWeb.FormController do
     with {:ok, %Form{} = form} <- Forms.create_form(form_params) do
       conn
       |> put_status(:created)
-      |> put_resp_header("location", Routes.form_path(conn, :show, form))
+      #|> put_resp_header("location", Routes.form_path(conn, :show, form))
       |> render("show.json", form: form)
     end
   end

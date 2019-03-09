@@ -15,7 +15,7 @@ defmodule WinguWeb.SectionNodeController do
     with {:ok, %SectionNode{} = section_node} <- SectionNodes.create_section_node(section_node_params) do
       conn
       |> put_status(:created)
-      |> put_resp_header("location", Routes.section_node_path(conn, :show, section_node))
+      #|> put_resp_header("location", Routes.section_node_path(conn, :show, section_node))
       |> render("show.json", section_node: section_node)
     end
   end

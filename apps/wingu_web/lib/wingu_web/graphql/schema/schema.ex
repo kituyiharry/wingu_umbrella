@@ -84,5 +84,11 @@ defmodule WinguWeb.GraphQL.Schema do
       arg :data, list_of(:section_fill)
       resolve &Resolvers.FormResolver.fill_form/3
     end
+
+    @desc "Delete a form and all associated data"
+    field :delete_form, :plainform do
+      arg :form, :id
+      resolve &Resolvers.FormResolver.delete_form/3
+    end
   end
 end

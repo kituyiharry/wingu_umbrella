@@ -15,7 +15,7 @@ defmodule WinguWeb.SectionDatumController do
     with {:ok, %SectionDatum{} = section_datum} <- SectionData.create_section_datum(section_datum_params) do
       conn
       |> put_status(:created)
-      |> put_resp_header("location", Routes.section_datum_path(conn, :show, section_datum))
+      #|> put_resp_header("location", Routes.section_datum_path(conn, :show, section_datum))
       |> render("show.json", section_datum: section_datum)
     end
   end

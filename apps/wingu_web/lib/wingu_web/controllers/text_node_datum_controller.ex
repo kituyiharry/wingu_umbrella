@@ -15,7 +15,7 @@ defmodule WinguWeb.TextNodeDatumController do
     with {:ok, %TextNodeDatum{} = text_node_datum} <- TextNodeData.create_text_node_datum(text_node_datum_params) do
       conn
       |> put_status(:created)
-      |> put_resp_header("location", Routes.text_node_datum_path(conn, :show, text_node_datum))
+      #|> put_resp_header("location", Routes.text_node_datum_path(conn, :show, text_node_datum))
       |> render("show.json", text_node_datum: text_node_datum)
     end
   end

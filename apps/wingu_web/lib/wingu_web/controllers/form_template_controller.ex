@@ -15,7 +15,7 @@ defmodule WinguWeb.FormTemplateController do
     with {:ok, %FormTemplate{} = form_template} <- FormTemplates.create_form_template(form_template_params) do
       conn
       |> put_status(:created)
-      |> put_resp_header("location", Routes.form_template_path(conn, :show, form_template))
+      #|> put_resp_header("location", Routes.form_template_path(conn, :show, form_template))
       |> render("show.json", form_template: form_template)
     end
   end

@@ -44,12 +44,18 @@ defmodule WinguWeb.GraphQL.Schema.Types do
     field :placeholder, :string
   end
 
+  object :plainform do
+    field :name,        :string
+    field :description, :string
+    field :summary,     :string
+  end
+
   object :form do
     field :id,             :id
     field :description,    :string
     field :name,           :string
     field :summary,        :string
-    field :template,       :template, resolve: assoc(:form_templates)
+    field :template,       :template,           resolve: assoc(:form_templates)
     field :form_data,      list_of(:form_data), resolve: assoc(:form_data)
   end
 

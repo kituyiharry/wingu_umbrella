@@ -15,7 +15,7 @@ defmodule WinguWeb.FormDatumController do
     with {:ok, %FormDatum{} = form_datum} <- FormData.create_form_datum(form_datum_params) do
       conn
       |> put_status(:created)
-      |> put_resp_header("location", Routes.form_datum_path(conn, :show, form_datum))
+      #|> put_resp_header("location", Routes.form_datum_path(conn, :show, form_datum))
       |> render("show.json", form_datum: form_datum)
     end
   end

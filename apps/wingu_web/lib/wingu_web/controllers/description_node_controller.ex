@@ -15,7 +15,7 @@ defmodule WinguWeb.DescriptionNodeController do
     with {:ok, %DescriptionNode{} = description_node} <- DescriptionNodes.create_description_node(description_node_params) do
       conn
       |> put_status(:created)
-      |> put_resp_header("location", Routes.description_node_path(conn, :show, description_node))
+      #|> put_resp_header("location", Routes.description_node_path(conn, :show, description_node))
       |> render("show.json", description_node: description_node)
     end
   end
