@@ -69,13 +69,20 @@ defmodule WinguWeb.GraphQL.Schema do
       resolve &Resolvers.EventResolver.delete_event/3
     end
 
-    @desc "Create new Form data"
+    @desc "Create new Form information"
     field :new_form, :form do
       arg :company, :id
       arg :form, :form_change
       # Use Catch all here for context implementations!!
       #resolve fn _, _a, _b -> {:error, "Not implemented"} end
       resolve &Resolvers.FormResolver.create_form/3
+    end
+
+    @desc "Create form data"
+    field :fill_form, :form_data do
+      arg :form_id, :id
+      arg :data, list_of(:section_fill)
+      resolve &Resolvers.FormResolver.fill_form/3
     end
   end
 end

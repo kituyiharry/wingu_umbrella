@@ -8,7 +8,7 @@ defmodule Wingu.FormData.FormDatum do
   schema "form_data" do
     field :forms_id, :binary_id
     field :clients_id, :binary_id
-    has_many :section_data, Wingu.SectionData.SectionDatum, foreign_key: :form_data_id
+    has_many :section_data, Wingu.SectionData.SectionDatum, foreign_key: :form_data_id, on_delete: :delete_all
     belongs_to :form, Wingu.Forms.Form, define_field: false, foreign_key: :forms_id
     belongs_to :client, Wingu.Clients.Client, define_field: false, foreign_key: :clients_id
 

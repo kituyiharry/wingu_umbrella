@@ -9,7 +9,7 @@ defmodule Wingu.SectionNodes.SectionNode do
     field :description, :string
     field :name, :string
     field :form_templates_id, :binary_id
-    has_many :description_nodes, Wingu.DescriptionNodes.DescriptionNode, foreign_key: :section_nodes_id
+    has_many :description_nodes, Wingu.DescriptionNodes.DescriptionNode, foreign_key: :section_nodes_id, on_delete: :delete_all
     has_many  :section_data, Wingu.SectionData.SectionDatum, foreign_key: :sections_nodes_id
     belongs_to :form_template, Wingu.FormTemplates.FormTemplate, [define_field: false, foreign_key: :form_templates_id]
 

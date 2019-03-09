@@ -20,5 +20,6 @@ defmodule Wingu.TextNodeData.TextNodeDatum do
     text_node_datum
     |> cast(attrs, [:node_value])
     |> validate_required([:node_value])
+    |> validate_length(:node_value, min: 3, max: 240)
   end
 end

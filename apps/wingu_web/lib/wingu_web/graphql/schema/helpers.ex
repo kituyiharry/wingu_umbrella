@@ -10,4 +10,8 @@ defmodule WinguWeb.GraphQL.Helpers do
       count -> Gettext.dngettext(WinguWeb.Gettext, "errors", msg, msg, count, opts)
     end
   end
+
+  def translate_error(error) when is_binary(error) do
+    error
+  end
 end
