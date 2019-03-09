@@ -4,15 +4,10 @@ defmodule WinguWeb.GraphQL.Schema.Types do
 
   import_types Absinthe.Type.Custom
 
-  object :item do
-    field :id,    :id
-    field :name,  :string
-  end
-
   object :client do
     field :firstname,       :string
     field :surname,         :string
-    field :id, :id
+    field :id,              :id
     field :email_verified,  :boolean
     field :picture,         :string
     field  :email,          :string
