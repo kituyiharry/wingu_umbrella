@@ -8,7 +8,11 @@ defmodule Wingu.Companies.Company do
   schema "companies" do
     field :email, :string
     field :name, :string
-    many_to_many :clients, Wingu.Clients.Client,  join_through: "companies_clients"
+    has_many :companies_clients, Wingu.Companies.Clients, on_delete: :delete_all
+    has_many :clients, through: [:companies_clients, :clients]
+    has_many :events, Wingu.Events.Event, on_delete: :delete_all
+    has_many :stations, Wingu.Stations.Station, on_delete: :delete_all
+    has_many :forms, Wingu.Forms.Form, foreign_key: :companies_id, on_delete: :delete_all
 
     timestamps()
   end
@@ -18,6 +22,7 @@ defmodule Wingu.Companies.Company do
     company
     |> cast(attrs, [:email, :name])
     |> validate_required([:email, :name])
+    |> validate_length(:name, min: 1, max: 63)
     |> unique_constraint(:email)
   end
 end

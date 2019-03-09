@@ -1,5 +1,6 @@
 defmodule WinguWeb.CompanyController do
   use WinguWeb, :controller
+  #use Absinthe.Phoenix.Controller, schema: WinguWeb.GraphQL.Schema
 
   alias Wingu.Companies
   alias Wingu.Companies.Company
@@ -15,7 +16,7 @@ defmodule WinguWeb.CompanyController do
     with {:ok, %Company{} = company} <- Companies.create_company(company_params) do
       conn
       |> put_status(:created)
-      |> put_resp_header("location", Routes.company_path(conn, :show, company))
+      #|> put_resp_header("location", Routes.company_path(conn, :show, company))
       |> render("show.json", company: company)
     end
   end

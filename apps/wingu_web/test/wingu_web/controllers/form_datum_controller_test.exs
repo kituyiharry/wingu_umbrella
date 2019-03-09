@@ -1,0 +1,86 @@
+defmodule WinguWeb.FormDatumControllerTest do
+  use WinguWeb.ConnCase
+
+  alias Wingu.FormData
+  alias Wingu.FormData.FormDatum
+
+  @create_attrs %{
+
+  }
+  @update_attrs %{
+
+  }
+  @invalid_attrs %{}
+
+  def fixture(:form_datum) do
+    {:ok, form_datum} = FormData.create_form_datum(@create_attrs)
+    form_datum
+  end
+
+  setup %{conn: conn} do
+    {:ok, conn: put_req_header(conn, "accept", "application/json")}
+  end
+
+  describe "index" do
+    test "lists all form_data", %{conn: conn} do
+      conn = get(conn, Routes.form_datum_path(conn, :index))
+      assert json_response(conn, 200)["data"] == []
+    end
+  end
+
+  describe "create form_datum" do
+    test "renders form_datum when data is valid", %{conn: conn} do
+      conn = post(conn, Routes.form_datum_path(conn, :create), form_datum: @create_attrs)
+      assert %{"id" => id} = json_response(conn, 201)["data"]
+
+      conn = get(conn, Routes.form_datum_path(conn, :show, id))
+
+      assert %{
+               "id" => id
+             } = json_response(conn, 200)["data"]
+    end
+
+    test "renders errors when data is invalid", %{conn: conn} do
+      conn = post(conn, Routes.form_datum_path(conn, :create), form_datum: @invalid_attrs)
+      assert json_response(conn, 422)["errors"] != %{}
+    end
+  end
+
+  describe "update form_datum" do
+    setup [:create_form_datum]
+
+    test "renders form_datum when data is valid", %{conn: conn, form_datum: %FormDatum{id: id} = form_datum} do
+      conn = put(conn, Routes.form_datum_path(conn, :update, form_datum), form_datum: @update_attrs)
+      assert %{"id" => ^id} = json_response(conn, 200)["data"]
+
+      conn = get(conn, Routes.form_datum_path(conn, :show, id))
+
+      assert %{
+               "id" => id
+             } = json_response(conn, 200)["data"]
+    end
+
+    test "renders errors when data is invalid", %{conn: conn, form_datum: form_datum} do
+      conn = put(conn, Routes.form_datum_path(conn, :update, form_datum), form_datum: @invalid_attrs)
+      assert json_response(conn, 422)["errors"] != %{}
+    end
+  end
+
+  describe "delete form_datum" do
+    setup [:create_form_datum]
+
+    test "deletes chosen form_datum", %{conn: conn, form_datum: form_datum} do
+      conn = delete(conn, Routes.form_datum_path(conn, :delete, form_datum))
+      assert response(conn, 204)
+
+      assert_error_sent 404, fn ->
+        get(conn, Routes.form_datum_path(conn, :show, form_datum))
+      end
+    end
+  end
+
+  defp create_form_datum(_) do
+    form_datum = fixture(:form_datum)
+    {:ok, form_datum: form_datum}
+  end
+end

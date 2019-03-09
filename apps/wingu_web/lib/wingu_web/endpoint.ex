@@ -1,5 +1,6 @@
 defmodule WinguWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :wingu_web
+  use Absinthe.Phoenix.Endpoint
 
   socket "/socket", WinguWeb.UserSocket,
     websocket: true,

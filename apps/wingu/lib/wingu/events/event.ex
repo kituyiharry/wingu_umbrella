@@ -22,5 +22,7 @@ defmodule Wingu.Events.Event do
     event
     |> cast(attrs, [:title, :description, :from, :to])
     |> validate_required([:title, :description, :from, :to])
+    |> validate_length(:title, min: 3, max: 63)
+    |> validate_length(:description, min: 3, max: 280)
   end
 end

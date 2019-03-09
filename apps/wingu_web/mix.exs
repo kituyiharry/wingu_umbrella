@@ -48,11 +48,12 @@ defmodule WinguWeb.MixProject do
       {:plug_cowboy, "~> 2.0"},
       {:absinthe, "~> 1.4.13"},
       {:absinthe_plug, "~> 1.4"},
-      #{:absinthe_ecto, ">= 0.0.0"},
+      {:absinthe_ecto, ">= 0.0.0"},
       {:poison, "~> 3.1"},
       {:guardian, "~> 1.2"},
       {:ueberauth, "~> 0.5.0"},
-      {:ueberauth_google, "~> 0.8"}
+      {:ueberauth_google, "~> 0.8"},
+      {:absinthe_phoenix, "~> 1.4.0"}
     ]
   end
 

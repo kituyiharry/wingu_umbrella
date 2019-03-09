@@ -1,5 +1,7 @@
 defmodule WinguWeb.UserSocket do
   use Phoenix.Socket
+  use Absinthe.Phoenix.Socket,
+    schema: WinguWeb.GraphQL.Schema
 
   ## Channels
   # channel "room:*", WinguWeb.RoomChannel
