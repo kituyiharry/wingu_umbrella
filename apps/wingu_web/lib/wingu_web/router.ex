@@ -47,6 +47,9 @@ defmodule WinguWeb.Router do
       socket: WinguWeb.UserSocket
   end
 
+  @doc """
+  Deprecated in favor of GraphQL Api, but relevant files are backed up
+  `ex
   scope "/rest", WinguWeb do
     if Mix.env() in [:dev , :prod] do
       pipe_through [:authenticated]
@@ -68,6 +71,7 @@ defmodule WinguWeb.Router do
     end
     resources "/clients", ClientController, except: [:new, :edit]
   end
+  """
 
   # Other scopes may use custom stacks.
   # scope "/api", WinguWeb do

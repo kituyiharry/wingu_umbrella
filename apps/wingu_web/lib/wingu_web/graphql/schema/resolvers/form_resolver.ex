@@ -1,6 +1,6 @@
 defmodule WinguWeb.GraphQL.Resolvers.FormResolver do
   alias Wingu.{Companies, Repo, Forms, FormTemplates, SectionNodes, DescriptionNodes, Clients, TextNodeData}
-  alias WinguWeb.{GraphQL.Helpers}
+  alias WinguWeb.GraphQL.TransactionHelper
   alias Ecto.Multi
 
   import Ecto.Query
@@ -11,38 +11,11 @@ defmodule WinguWeb.GraphQL.Resolvers.FormResolver do
     {:ok, company.forms}
   end
 
-  defp handle_fetch(repo, module, id) do
-    case repo.get(module, id) do
-      %^module{} = model ->
-        {:ok, model}
-      nil -> 
-        {:error, "A struct couldn't be found"}
-      _ ->
-        {:error, "Unknown error"}
-    end
-  end
-
-  defp handle_transaction(multi, key) do
-    case Repo.transaction(multi) do
-      {:ok, match} ->
-        {:ok, Map.get(match, key)}
-      {:error, _key, change, _ops} ->
-        {:error, Helpers.translate_error(change)}
-      _ ->
-        {:error, "Unknown operation"}
-    end
-  end
-
   def create_form(_parent, %{company: company, form: %{name: n, summary: s, description: d, template: t}}, %{context: %{"sub" => _id}}) do    
     ## Substitute to Multi format, easy to handle
     mul = Multi.new()
           |> Multi.run(:get_company, fn repo,_change -> 
-            case repo.get(Companies.Company, company) do
-              %Companies.Company{} = com ->
-                {:ok, com}
-              _ ->
-                {:error, "Unable to fetch the company"}
-            end
+            TransactionHelper.handle_fetch(repo, Companies.Company, company)
           end)
           |> Multi.insert(:form, fn %{get_company: company} -> 
             # Associate the form and Convert into a Form Changeset
@@ -72,7 +45,7 @@ defmodule WinguWeb.GraphQL.Resolvers.FormResolver do
               end)
             end)
           end)
-    handle_transaction(mul, :form)
+    TransactionHelper.handle_transaction(mul, :form)
   end
 
   def fill_form(_parent, %{form_id: id, data: sections}, %{context: %{"sub" =>  sub}}) do
@@ -113,7 +86,7 @@ defmodule WinguWeb.GraphQL.Resolvers.FormResolver do
         end)
       end) 
     end) 
-    handle_transaction(formdata, :formdata)
+    TransactionHelper.handle_transaction(formdata, :formdata)
   end
 
   def is_form_filled(repo, %{context: %{form: form}}, data) when is_list(data) do
@@ -140,11 +113,11 @@ defmodule WinguWeb.GraphQL.Resolvers.FormResolver do
   def delete_form(_parent, %{form: form}, %{context: %{"sub" => _sub}}) do
     delform = Multi.new()
               |> Multi.run(:fetch_form, fn repo, _changes -> 
-                handle_fetch(repo, Forms.Form, form)
+                TransactionHelper.handle_fetch(repo, Forms.Form, form)
               end)
               |> Multi.delete(:delete, fn %{fetch_form: form} -> 
                 form
               end)
-    handle_transaction(delform, :delete)
+    TransactionHelper.handle_transaction(delform, :delete)
   end
 end
