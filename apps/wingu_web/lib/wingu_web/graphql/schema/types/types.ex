@@ -93,7 +93,7 @@ defmodule WinguWeb.GraphQL.Schema.Types do
   end
 
   object :section_data do
-    field :section, :section, resolve: assoc(:section_node) 
+    field :section, :section,            resolve: assoc(:section_node) 
     field :nodes,   list_of(:text_node), resolve: assoc(:text_node_data)
   end
 

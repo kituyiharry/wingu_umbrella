@@ -1,5 +1,5 @@
 defmodule WinguWeb.GraphQL.Resolvers.FormResolver do
-  alias Wingu.{Companies, Repo, Forms, FormData, FormTemplates, SectionNodes, DescriptionNodes, Clients, TextNodeData}
+  alias Wingu.{Companies, Repo, Forms, FormTemplates, SectionNodes, DescriptionNodes, Clients, TextNodeData}
   alias WinguWeb.{GraphQL.Helpers}
   alias Ecto.Multi
 
@@ -9,6 +9,28 @@ defmodule WinguWeb.GraphQL.Resolvers.FormResolver do
   def forms(_parent, %{company: id}, %{context: %{"sub" => _id}}) do
     company = Companies.get_company!(id) |> Repo.preload(:forms)
     {:ok, company.forms}
+  end
+
+  defp handle_fetch(repo, module, id) do
+    case repo.get(module, id) do
+      %^module{} = model ->
+        {:ok, model}
+      nil -> 
+        {:error, "A struct couldn't be found"}
+      _ ->
+        {:error, "Unknown error"}
+    end
+  end
+
+  defp handle_transaction(multi, key) do
+    case Repo.transaction(multi) do
+      {:ok, match} ->
+        {:ok, Map.get(match, key)}
+      {:error, _key, change, _ops} ->
+        {:error, Helpers.translate_error(change)}
+      _ ->
+        {:error, "Unknown operation"}
+    end
   end
 
   def create_form(_parent, %{company: company, form: %{name: n, summary: s, description: d, template: t}}, %{context: %{"sub" => _id}}) do    
@@ -50,14 +72,7 @@ defmodule WinguWeb.GraphQL.Resolvers.FormResolver do
               end)
             end)
           end)
-    case Repo.transaction(mul) do
-      {:ok, %{:form => form}} ->
-        {:ok, form}
-      {:error, _key, change, _ops} ->
-        {:error, Helpers.translate_error(change)}
-      _ ->
-        {:error, "Unknown operation"}
-    end
+    handle_transaction(mul, :form)
   end
 
   def fill_form(_parent, %{form_id: id, data: sections}, %{context: %{"sub" =>  sub}}) do
@@ -98,14 +113,7 @@ defmodule WinguWeb.GraphQL.Resolvers.FormResolver do
         end)
       end) 
     end) 
-    case Repo.transaction(formdata) do
-      {:ok, %{:formdata => formdata}} ->
-        {:ok, formdata}
-      {:error, _key, change, _ops} ->
-        {:error, Helpers.translate_error(change)}
-      _ ->
-        {:error, "Unknown operation"}
-    end
+    handle_transaction(formdata, :formdata)
   end
 
   def is_form_filled(repo, %{context: %{form: form}}, data) when is_list(data) do
@@ -120,30 +128,23 @@ defmodule WinguWeb.GraphQL.Resolvers.FormResolver do
     case Enum.reduce(data, {0, 0}, fn section, {itemcount, subcount} -> {itemcount+1, subcount+length(section.nodes)} end) do
       ^form_template ->
         {:ok, form_template}
-      e->
+      _e->
         {:error, "Form is missing some values or sections"}
     end
   end
 
-  def delete_form(_parent, %{form: form}, %{context: %{"sub" => sub}}) do
+  def is_form_filled(_repo, %{context: %{form: _form}}, _data) do
+    {:error, "No information supplied"}
+  end
+
+  def delete_form(_parent, %{form: form}, %{context: %{"sub" => _sub}}) do
     delform = Multi.new()
               |> Multi.run(:fetch_form, fn repo, _changes -> 
-                {:ok, repo.get!(Forms.Form, form)}
+                handle_fetch(repo, Forms.Form, form)
               end)
               |> Multi.delete(:delete, fn %{fetch_form: form} -> 
                 form
               end)
-    case Repo.transaction(delform) do
-      {:ok, %{:delete => form}} ->
-        {:ok, form}
-      {:error, _key, change, _ops} ->
-        {:error, Helpers.translate_error(change)}
-      _ ->
-        {:error, "Unknown operation"}
-    end
-  end
-
-  def is_form_filled(repo, %{context: %{form: form}}, data) do
-    {:error, "No information supplied"}
+    handle_transaction(delform, :delete)
   end
 end
