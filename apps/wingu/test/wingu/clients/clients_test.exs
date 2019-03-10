@@ -6,9 +6,9 @@ defmodule Wingu.ClientsTest do
   describe "clients" do
     alias Wingu.Clients.Client
 
-    @valid_attrs %{email: "some email", firstname: "some firstname", surname: "some surname"}
-    @update_attrs %{email: "some updated email", firstname: "some updated firstname", surname: "some updated surname"}
-    @invalid_attrs %{email: nil, firstname: nil, surname: nil}
+    @valid_attrs %{email: "email@server.domain", firstname: "some firstname", surname: "some surname", picture: "endpoint@server.com/resource.png"}
+    @update_attrs %{email: "email@other.domain", firstname: "some updated firstname", surname: "some updated surname", picture: "endpoint.server.com/nres.jpg"}
+    @invalid_attrs %{email: nil, firstname: nil, surname: nil, picture: nil}
 
     def client_fixture(attrs \\ %{}) do
       {:ok, client} =
@@ -31,7 +31,7 @@ defmodule Wingu.ClientsTest do
 
     test "create_client/1 with valid data creates a client" do
       assert {:ok, %Client{} = client} = Clients.create_client(@valid_attrs)
-      assert client.email == "some email"
+      assert client.email == "email@server.domain"
       assert client.firstname == "some firstname"
       assert client.surname == "some surname"
     end
@@ -43,7 +43,7 @@ defmodule Wingu.ClientsTest do
     test "update_client/2 with valid data updates the client" do
       client = client_fixture()
       assert {:ok, %Client{} = client} = Clients.update_client(client, @update_attrs)
-      assert client.email == "some updated email"
+      assert client.email == "email@other.domain"
       assert client.firstname == "some updated firstname"
       assert client.surname == "some updated surname"
     end

@@ -48,7 +48,9 @@ defmodule WinguWeb.Router do
   end
 
   scope "/rest", WinguWeb do
-    pipe_through [:authenticated]
+    if Mix.env() in [:dev , :prod] do
+      pipe_through [:authenticated]
+    end
     resources "/companies", CompanyController, except: [:new, :edit] do
       resources "/events", EventController, except: [:new, :edit]
       resources "/forms", FormController, except: [:new, :edit] do

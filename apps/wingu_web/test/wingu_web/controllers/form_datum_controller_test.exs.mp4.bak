@@ -23,17 +23,17 @@ defmodule WinguWeb.FormDatumControllerTest do
 
   describe "index" do
     test "lists all form_data", %{conn: conn} do
-      conn = get(conn, Routes.form_datum_path(conn, :index))
+      conn = get(conn, Routes.company_form_form_datum_path(conn, :index))
       assert json_response(conn, 200)["data"] == []
     end
   end
 
   describe "create form_datum" do
     test "renders form_datum when data is valid", %{conn: conn} do
-      conn = post(conn, Routes.form_datum_path(conn, :create), form_datum: @create_attrs)
+      conn = post(conn, Routes.company_form_form_datum_path(conn, :create), form_datum: @create_attrs)
       assert %{"id" => id} = json_response(conn, 201)["data"]
 
-      conn = get(conn, Routes.form_datum_path(conn, :show, id))
+      conn = get(conn, Routes.company_form_form_datum_path(conn, :show, id))
 
       assert %{
                "id" => id
@@ -41,7 +41,7 @@ defmodule WinguWeb.FormDatumControllerTest do
     end
 
     test "renders errors when data is invalid", %{conn: conn} do
-      conn = post(conn, Routes.form_datum_path(conn, :create), form_datum: @invalid_attrs)
+      conn = post(conn, Routes.company_form_form_datum_path(conn, :create), form_datum: @invalid_attrs)
       assert json_response(conn, 422)["errors"] != %{}
     end
   end
@@ -50,10 +50,10 @@ defmodule WinguWeb.FormDatumControllerTest do
     setup [:create_form_datum]
 
     test "renders form_datum when data is valid", %{conn: conn, form_datum: %FormDatum{id: id} = form_datum} do
-      conn = put(conn, Routes.form_datum_path(conn, :update, form_datum), form_datum: @update_attrs)
+      conn = put(conn, Routes.company_form_form_datum_path(conn, :update, form_datum), form_datum: @update_attrs)
       assert %{"id" => ^id} = json_response(conn, 200)["data"]
 
-      conn = get(conn, Routes.form_datum_path(conn, :show, id))
+      conn = get(conn, Routes.company_form_form_datum_path(conn, :show, id))
 
       assert %{
                "id" => id
@@ -61,7 +61,7 @@ defmodule WinguWeb.FormDatumControllerTest do
     end
 
     test "renders errors when data is invalid", %{conn: conn, form_datum: form_datum} do
-      conn = put(conn, Routes.form_datum_path(conn, :update, form_datum), form_datum: @invalid_attrs)
+      conn = put(conn, Routes.company_form_form_datum_path(conn, :update, form_datum), form_datum: @invalid_attrs)
       assert json_response(conn, 422)["errors"] != %{}
     end
   end
@@ -70,11 +70,11 @@ defmodule WinguWeb.FormDatumControllerTest do
     setup [:create_form_datum]
 
     test "deletes chosen form_datum", %{conn: conn, form_datum: form_datum} do
-      conn = delete(conn, Routes.form_datum_path(conn, :delete, form_datum))
+      conn = delete(conn, Routes.company_form_form_datum_path(conn, :delete, form_datum))
       assert response(conn, 204)
 
       assert_error_sent 404, fn ->
-        get(conn, Routes.form_datum_path(conn, :show, form_datum))
+        get(conn, Routes.company_form_form_datum_path(conn, :show, form_datum))
       end
     end
   end
