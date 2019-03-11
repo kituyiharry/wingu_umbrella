@@ -11,8 +11,6 @@ defmodule WinguWeb.SectionNodeView do
   end
 
   def render("section_node.json", %{section_node: section_node}) do
-    %{id: section_node.id,
-      name: section_node.name,
-      description: section_node.description}
+    %{id: section_node.id, name: section_node.name, description: section_node.description}
   end
 end

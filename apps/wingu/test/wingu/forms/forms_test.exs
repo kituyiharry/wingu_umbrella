@@ -7,7 +7,11 @@ defmodule Wingu.FormsTest do
     alias Wingu.Forms.Form
 
     @valid_attrs %{description: "some description", name: "some name", summary: "some summary"}
-    @update_attrs %{description: "some updated description", name: "some updated name", summary: "some updated summary"}
+    @update_attrs %{
+      description: "some updated description",
+      name: "some updated name",
+      summary: "some updated summary"
+    }
     @invalid_attrs %{description: nil, name: nil, summary: nil}
 
     def form_fixture(attrs \\ %{}) do

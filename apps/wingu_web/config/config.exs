@@ -23,15 +23,18 @@ config :wingu_web, WinguWeb.Guardian,
 
 config :ueberauth, Ueberauth,
   providers: [
-    google: {Ueberauth.Strategy.Google, [
-      request_path:  "/auth/google",
-      callback_path: "/auth/google/callback"
-    ]}
+    google:
+      {Ueberauth.Strategy.Google,
+       [
+         request_path: "/auth/google",
+         callback_path: "/auth/google/callback"
+       ]}
   ]
 
 config :ueberauth, Ueberauth.Strategy.Google.OAuth,
   client_id: System.get_env("GOOGLE_CLIENT_ID"),
   client_secret: System.get_env("GOOGLE_CLIENT_SECRET")
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env()}.exs"

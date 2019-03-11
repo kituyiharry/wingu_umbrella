@@ -11,9 +11,6 @@ defmodule WinguWeb.ClientView do
   end
 
   def render("client.json", %{client: client}) do
-    %{id: client.id,
-      firstname: client.firstname,
-      surname: client.surname,
-      email: client.email}
+    %{id: client.id, firstname: client.firstname, surname: client.surname, email: client.email}
   end
 end

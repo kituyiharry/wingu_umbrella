@@ -1,4 +1,4 @@
-defmodule WinguWeb.GraphQL.Resolvers.ClientResolver do 
+defmodule WinguWeb.GraphQL.Resolvers.ClientResolver do
   @moduledoc ~S"""
   #######################################################################
   #                           ClientResolver                            #
@@ -13,9 +13,10 @@ defmodule WinguWeb.GraphQL.Resolvers.ClientResolver do
 
   @doc "Returns information about the connected client from the absinthe context"
   def client(_parent, _args, %{context: %{"sub" => sub}}) do
-    case Repo.get(Clients.Client,sub) do
+    case Repo.get(Clients.Client, sub) do
       %Clients.Client{} = client ->
         {:ok, client}
+
       _ ->
         {:error, "Account not available"}
     end

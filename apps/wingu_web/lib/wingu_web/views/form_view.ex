@@ -11,9 +11,6 @@ defmodule WinguWeb.FormView do
   end
 
   def render("form.json", %{form: form}) do
-    %{id: form.id,
-      name: form.name,
-      summary: form.summary,
-      description: form.description}
+    %{id: form.id, name: form.name, summary: form.summary, description: form.description}
   end
 end

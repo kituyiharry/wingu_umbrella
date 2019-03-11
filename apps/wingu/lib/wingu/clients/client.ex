@@ -3,7 +3,7 @@ defmodule Wingu.Clients.Client do
   #######################################################################
   #                            Client Module                            #
   #######################################################################
-  
+
   @author: Harry Kituyi
   @mail: kituyiharry@gmail.com
 
@@ -12,7 +12,6 @@ defmodule Wingu.Clients.Client do
   """
   use Ecto.Schema
   import Ecto.Changeset
-
 
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
@@ -25,7 +24,10 @@ defmodule Wingu.Clients.Client do
     has_many :companies_clients, Wingu.Companies.Clients, on_delete: :delete_all
     has_many :companies, through: [:companies_clients, :companies]
     has_many :form_data, Wingu.FormData.FormDatum, foreign_key: :clients_id
-    many_to_many :stations, Wingu.Stations.Station,  join_through: "stations_clients", join_keys: [stations_id: :id, clients_id: :id]
+
+    many_to_many :stations, Wingu.Stations.Station,
+      join_through: "stations_clients",
+      join_keys: [stations_id: :id, clients_id: :id]
 
     timestamps()
   end

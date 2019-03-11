@@ -33,20 +33,22 @@ defmodule Wingu.FormDataTest do
       assert {:ok, %FormDatum{} = form_datum} = FormData.create_form_datum(@valid_attrs)
     end
 
-    #test "create_form_datum/1 with invalid data returns error changeset" do
-      #assert {:error, %Ecto.Changeset{}} = FormData.create_form_datum(@invalid_attrs)
-    #end
+    # test "create_form_datum/1 with invalid data returns error changeset" do
+    # assert {:error, %Ecto.Changeset{}} = FormData.create_form_datum(@invalid_attrs)
+    # end
 
     test "update_form_datum/2 with valid data updates the form_datum" do
       form_datum = form_datum_fixture()
-      assert {:ok, %FormDatum{} = form_datum} = FormData.update_form_datum(form_datum, @update_attrs)
+
+      assert {:ok, %FormDatum{} = form_datum} =
+               FormData.update_form_datum(form_datum, @update_attrs)
     end
 
-    #test "update_form_datum/2 with invalid data returns error changeset" do
-      #form_datum = form_datum_fixture()
-      #assert {:error, %Ecto.Changeset{}} = FormData.update_form_datum(form_datum, @invalid_attrs)
-      #assert form_datum == FormData.get_form_datum!(form_datum.id)
-    #end
+    # test "update_form_datum/2 with invalid data returns error changeset" do
+    # form_datum = form_datum_fixture()
+    # assert {:error, %Ecto.Changeset{}} = FormData.update_form_datum(form_datum, @invalid_attrs)
+    # assert form_datum == FormData.get_form_datum!(form_datum.id)
+    # end
 
     test "delete_form_datum/1 deletes the form_datum" do
       form_datum = form_datum_fixture()

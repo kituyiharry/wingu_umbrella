@@ -6,10 +6,18 @@ defmodule Wingu.EventsTest do
   describe "events" do
     alias Wingu.Events.Event
 
-    @valid_attrs %{description: "some description", title: "some title", from: DateTime.utc_now(), 
-      to: DateTime.add(DateTime.utc_now(), 7200, :second)}
-    @update_attrs %{description: "some updated description", title: "some updated title", from: DateTime.utc_now(), 
-      to: DateTime.add(DateTime.utc_now(), 360, :second) }
+    @valid_attrs %{
+      description: "some description",
+      title: "some title",
+      from: DateTime.utc_now(),
+      to: DateTime.add(DateTime.utc_now(), 7200, :second)
+    }
+    @update_attrs %{
+      description: "some updated description",
+      title: "some updated title",
+      from: DateTime.utc_now(),
+      to: DateTime.add(DateTime.utc_now(), 360, :second)
+    }
     @invalid_attrs %{description: nil, title: nil}
 
     def event_fixture(attrs \\ %{}) do

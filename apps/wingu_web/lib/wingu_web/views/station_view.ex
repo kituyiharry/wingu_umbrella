@@ -11,8 +11,6 @@ defmodule WinguWeb.StationView do
   end
 
   def render("station.json", %{station: station}) do
-    %{id: station.id,
-      name: station.name,
-      meta: station.meta}
+    %{id: station.id, name: station.name, meta: station.meta}
   end
 end

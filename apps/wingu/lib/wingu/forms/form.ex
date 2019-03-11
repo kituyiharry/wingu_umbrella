@@ -3,7 +3,7 @@ defmodule Wingu.Forms.Form do
   #######################################################################
   #                                Form                                 #
   #######################################################################
-  
+
   @author: Harry Kituyi
   @mail: kituyiharry@gmail.com
 
@@ -13,7 +13,6 @@ defmodule Wingu.Forms.Form do
   use Ecto.Schema
   import Ecto.Changeset
 
-
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
   schema "forms" do
@@ -21,9 +20,12 @@ defmodule Wingu.Forms.Form do
     field :name, :string
     field :summary, :string
     field :companies_id, :binary_id
-    belongs_to :company, Wingu.Companies.Company, define_field: :false, foreign_key: :companies_id
+    belongs_to :company, Wingu.Companies.Company, define_field: false, foreign_key: :companies_id
     has_many :form_data, Wingu.FormData.FormDatum, foreign_key: :forms_id, on_delete: :delete_all
-    has_one :form_templates, Wingu.FormTemplates.FormTemplate, foreign_key: :forms_id, on_delete: :delete_all
+
+    has_one :form_templates, Wingu.FormTemplates.FormTemplate,
+      foreign_key: :forms_id,
+      on_delete: :delete_all
 
     timestamps()
   end

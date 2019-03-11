@@ -3,7 +3,7 @@ defmodule Wingu.Events.Event do
   #######################################################################
   #                            Event struct                             #
   #######################################################################
-  
+
   @author: Harry Kituyi
   @mail: kituyiharry@gmail.com
 
@@ -22,7 +22,7 @@ defmodule Wingu.Events.Event do
     field :company_id, :binary_id
     field :from, :utc_datetime
     field :to, :utc_datetime
-    belongs_to :companies, Company, [define_field: false, foreign_key: :company_id]
+    belongs_to :companies, Company, define_field: false, foreign_key: :company_id
 
     timestamps()
   end

@@ -6,8 +6,18 @@ defmodule Wingu.ClientsTest do
   describe "clients" do
     alias Wingu.Clients.Client
 
-    @valid_attrs %{email: "email@server.domain", firstname: "some firstname", surname: "some surname", picture: "endpoint@server.com/resource.png"}
-    @update_attrs %{email: "email@other.domain", firstname: "some updated firstname", surname: "some updated surname", picture: "endpoint.server.com/nres.jpg"}
+    @valid_attrs %{
+      email: "email@server.domain",
+      firstname: "some firstname",
+      surname: "some surname",
+      picture: "endpoint@server.com/resource.png"
+    }
+    @update_attrs %{
+      email: "email@other.domain",
+      firstname: "some updated firstname",
+      surname: "some updated surname",
+      picture: "endpoint.server.com/nres.jpg"
+    }
     @invalid_attrs %{email: nil, firstname: nil, surname: nil, picture: nil}
 
     def client_fixture(attrs \\ %{}) do

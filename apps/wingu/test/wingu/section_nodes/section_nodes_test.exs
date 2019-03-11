@@ -41,14 +41,20 @@ defmodule Wingu.SectionNodesTest do
 
     test "update_section_node/2 with valid data updates the section_node" do
       section_node = section_node_fixture()
-      assert {:ok, %SectionNode{} = section_node} = SectionNodes.update_section_node(section_node, @update_attrs)
+
+      assert {:ok, %SectionNode{} = section_node} =
+               SectionNodes.update_section_node(section_node, @update_attrs)
+
       assert section_node.description == "some updated description"
       assert section_node.name == "some updated name"
     end
 
     test "update_section_node/2 with invalid data returns error changeset" do
       section_node = section_node_fixture()
-      assert {:error, %Ecto.Changeset{}} = SectionNodes.update_section_node(section_node, @invalid_attrs)
+
+      assert {:error, %Ecto.Changeset{}} =
+               SectionNodes.update_section_node(section_node, @invalid_attrs)
+
       assert section_node == SectionNodes.get_section_node!(section_node.id)
     end
 

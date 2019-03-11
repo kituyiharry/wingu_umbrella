@@ -16,6 +16,6 @@ defmodule WinguWeb.Guardian do
     # found in the `"sub"` key. In `above subject_for_token/2` we returned
     # the resource id so here we'll rely on that to look it up.
     resource = Wingu.Clients.get_client!(id)
-    {:ok,  resource}
+    {:ok, resource}
   end
 end

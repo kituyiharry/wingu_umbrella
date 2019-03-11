@@ -11,8 +11,6 @@ defmodule WinguWeb.EventView do
   end
 
   def render("event.json", %{event: event}) do
-    %{id: event.id,
-      title: event.title,
-      description: event.description}
+    %{id: event.id, title: event.title, description: event.description}
   end
 end

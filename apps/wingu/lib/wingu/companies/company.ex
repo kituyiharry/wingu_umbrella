@@ -3,7 +3,7 @@ defmodule Wingu.Companies.Company do
   #######################################################################
   #                           Company Struct                            #
   #######################################################################
-  
+
   @author: Harry Kituyi
   @mail: kituyiharry@gmail.com
 
@@ -11,7 +11,6 @@ defmodule Wingu.Companies.Company do
   """
   use Ecto.Schema
   import Ecto.Changeset
-
 
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id

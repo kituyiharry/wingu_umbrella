@@ -11,9 +11,11 @@ defmodule WinguWeb.DescriptionNodeView do
   end
 
   def render("description_node.json", %{description_node: description_node}) do
-    %{id: description_node.id,
+    %{
+      id: description_node.id,
       label: description_node.label,
       placeholder: description_node.placeholder,
-      isrequired: description_node.isrequired}
+      isrequired: description_node.isrequired
+    }
   end
 end

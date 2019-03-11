@@ -30,7 +30,9 @@ defmodule Wingu.TextNodeDataTest do
     end
 
     test "create_text_node_datum/1 with valid data creates a text_node_datum" do
-      assert {:ok, %TextNodeDatum{} = text_node_datum} = TextNodeData.create_text_node_datum(@valid_attrs)
+      assert {:ok, %TextNodeDatum{} = text_node_datum} =
+               TextNodeData.create_text_node_datum(@valid_attrs)
+
       assert text_node_datum.node_value == "some node_value"
     end
 
@@ -40,20 +42,29 @@ defmodule Wingu.TextNodeDataTest do
 
     test "update_text_node_datum/2 with valid data updates the text_node_datum" do
       text_node_datum = text_node_datum_fixture()
-      assert {:ok, %TextNodeDatum{} = text_node_datum} = TextNodeData.update_text_node_datum(text_node_datum, @update_attrs)
+
+      assert {:ok, %TextNodeDatum{} = text_node_datum} =
+               TextNodeData.update_text_node_datum(text_node_datum, @update_attrs)
+
       assert text_node_datum.node_value == "some updated node_value"
     end
 
     test "update_text_node_datum/2 with invalid data returns error changeset" do
       text_node_datum = text_node_datum_fixture()
-      assert {:error, %Ecto.Changeset{}} = TextNodeData.update_text_node_datum(text_node_datum, @invalid_attrs)
+
+      assert {:error, %Ecto.Changeset{}} =
+               TextNodeData.update_text_node_datum(text_node_datum, @invalid_attrs)
+
       assert text_node_datum == TextNodeData.get_text_node_datum!(text_node_datum.id)
     end
 
     test "delete_text_node_datum/1 deletes the text_node_datum" do
       text_node_datum = text_node_datum_fixture()
       assert {:ok, %TextNodeDatum{}} = TextNodeData.delete_text_node_datum(text_node_datum)
-      assert_raise Ecto.NoResultsError, fn -> TextNodeData.get_text_node_datum!(text_node_datum.id) end
+
+      assert_raise Ecto.NoResultsError, fn ->
+        TextNodeData.get_text_node_datum!(text_node_datum.id)
+      end
     end
 
     test "change_text_node_datum/1 returns a text_node_datum changeset" do

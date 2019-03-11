@@ -27,14 +27,14 @@ defmodule WinguWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
-    get "/signout",                GoogleAuthController, :delete
-    get "/auth/:provider",          GoogleAuthController, :request
+    get "/signout", GoogleAuthController, :delete
+    get "/auth/:provider", GoogleAuthController, :request
     get "/auth/:provider/callback", GoogleAuthController, :callback
   end
 
-
   scope "/graphiql" do
     pipe_through [:contextualize]
+
     forward "/", Absinthe.Plug.GraphiQL,
       schema: WinguWeb.GraphQL.Schema,
       socket: WinguWeb.UserSocket,
@@ -42,7 +42,7 @@ defmodule WinguWeb.Router do
   end
 
   scope "/graphql" do
-    forward "/",  Absinthe.Plug,
+    forward "/", Absinthe.Plug,
       schema: WinguWeb.GraphQL.Schema,
       socket: WinguWeb.UserSocket
   end

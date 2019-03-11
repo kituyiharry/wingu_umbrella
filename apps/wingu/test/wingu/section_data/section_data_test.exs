@@ -30,23 +30,26 @@ defmodule Wingu.SectionDataTest do
     end
 
     test "create_section_datum/1 with valid data creates a section_datum" do
-      assert {:ok, %SectionDatum{} = section_datum} = SectionData.create_section_datum(@valid_attrs)
+      assert {:ok, %SectionDatum{} = section_datum} =
+               SectionData.create_section_datum(@valid_attrs)
     end
 
-    #test "create_section_datum/1 with invalid data returns error changeset" do
-      #assert {:error, %Ecto.Changeset{}} = SectionData.create_section_datum(@invalid_attrs)
-    #end
+    # test "create_section_datum/1 with invalid data returns error changeset" do
+    # assert {:error, %Ecto.Changeset{}} = SectionData.create_section_datum(@invalid_attrs)
+    # end
 
     test "update_section_datum/2 with valid data updates the section_datum" do
       section_datum = section_datum_fixture()
-      assert {:ok, %SectionDatum{} = section_datum} = SectionData.update_section_datum(section_datum, @update_attrs)
+
+      assert {:ok, %SectionDatum{} = section_datum} =
+               SectionData.update_section_datum(section_datum, @update_attrs)
     end
 
-    #test "update_section_datum/2 with invalid data returns error changeset" do
-      #section_datum = section_datum_fixture()
-      #assert {:error, %Ecto.Changeset{}} = SectionData.update_section_datum(section_datum, @invalid_attrs)
-      #assert section_datum == SectionData.get_section_datum!(section_datum.id)
-    #end
+    # test "update_section_datum/2 with invalid data returns error changeset" do
+    # section_datum = section_datum_fixture()
+    # assert {:error, %Ecto.Changeset{}} = SectionData.update_section_datum(section_datum, @invalid_attrs)
+    # assert section_datum == SectionData.get_section_datum!(section_datum.id)
+    # end
 
     test "delete_section_datum/1 deletes the section_datum" do
       section_datum = section_datum_fixture()
