@@ -62,7 +62,7 @@ defmodule WinguWeb.GraphQL.Resolvers.EventResolver do
     TransactionHelper.handle_transaction(delevent, :delete_event)
   end
 
-  @doc "Sanitizes date parameters"
+  @doc false
   defp clean(%{from: _f, to: _t} = params) do
     nparams = Map.update!(params, :from, fn date -> DateTime.truncate(date, :second) end)
     fparams = Map.update!(nparams, :to, fn date -> DateTime.truncate(date, :second) end)

@@ -15,7 +15,7 @@ use Mix.Config
 # before starting your production server.
 config :wingu_web, WinguWeb.Endpoint,
   force_ssl: [hsts: true]
-  http: [:inet6, port: System.get_env("PORT") || 4000],
+  http: [:inet6, port: {:system, "PORT"} || 4000],
   https: [
     :inet6,
     port: 4001,
@@ -24,8 +24,11 @@ config :wingu_web, WinguWeb.Endpoint,
     keyfile: "priv/cert/selfsigned_key.pem"
   ],
   #url: [host: "example.com", port: 80],
-  url: [host: "localhost"],
-  cache_static_manifest: "priv/static/cache_manifest.json"
+  url: [host: "localhost", port: {:system, "PORT"}],
+  cache_static_manifest: "priv/static/cache_manifest.json",
+  server: true,
+  root: ".",
+  version: Application.spec(:wingu_web, :vsn)
 
 # ## SSL Support
 #
