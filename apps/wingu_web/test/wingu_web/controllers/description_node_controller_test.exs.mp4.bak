@@ -1,0 +1,96 @@
+defmodule WinguWeb.DescriptionNodeControllerTest do
+  use WinguWeb.ConnCase
+
+  alias Wingu.DescriptionNodes
+  alias Wingu.DescriptionNodes.DescriptionNode
+
+  @create_attrs %{
+    isrequired: true,
+    label: "some label",
+    placeholder: "some placeholder"
+  }
+  @update_attrs %{
+    isrequired: false,
+    label: "some updated label",
+    placeholder: "some updated placeholder"
+  }
+  @invalid_attrs %{isrequired: nil, label: nil, placeholder: nil}
+
+  def fixture(:description_node) do
+    {:ok, description_node} = DescriptionNodes.create_description_node(@create_attrs)
+    description_node
+  end
+
+  setup %{conn: conn} do
+    {:ok, conn: put_req_header(conn, "accept", "application/json")}
+  end
+
+  describe "index" do
+    test "lists all description_nodes", %{conn: conn} do
+      conn = get(conn, Routes.company_form_form_template_section_node_description_node_path(conn, :index))
+      assert json_response(conn, 200)["data"] == []
+    end
+  end
+
+  describe "create description_node" do
+    test "renders description_node when data is valid", %{conn: conn} do
+      conn = post(conn, Routes.company_form_form_template_section_node_description_node_path(conn, :create), description_node: @create_attrs)
+      assert %{"id" => id} = json_response(conn, 201)["data"]
+
+      conn = get(conn, Routes.company_form_form_template_section_node_description_node_path(conn, :show, id))
+
+      assert %{
+               "id" => id,
+               "isrequired" => true,
+               "label" => "some label",
+               "placeholder" => "some placeholder"
+             } = json_response(conn, 200)["data"]
+    end
+
+    test "renders errors when data is invalid", %{conn: conn} do
+      conn = post(conn, Routes.company_form_form_template_section_node_description_node_path(conn, :create), description_node: @invalid_attrs)
+      assert json_response(conn, 422)["errors"] != %{}
+    end
+  end
+
+  describe "update description_node" do
+    setup [:create_description_node]
+
+    test "renders description_node when data is valid", %{conn: conn, description_node: %DescriptionNode{id: id} = description_node} do
+      conn = put(conn, Routes.company_form_form_template_section_node_description_node_path(conn, :update, description_node), description_node: @update_attrs)
+      assert %{"id" => ^id} = json_response(conn, 200)["data"]
+
+      conn = get(conn, Routes.company_form_form_template_section_node_description_node_path(conn, :show, id))
+
+      assert %{
+               "id" => id,
+               "isrequired" => false,
+               "label" => "some updated label",
+               "placeholder" => "some updated placeholder"
+             } = json_response(conn, 200)["data"]
+    end
+
+    test "renders errors when data is invalid", %{conn: conn, description_node: description_node} do
+      conn = put(conn, Routes.description_node_path(conn, :update, description_node), description_node: @invalid_attrs)
+      assert json_response(conn, 422)["errors"] != %{}
+    end
+  end
+
+  describe "delete description_node" do
+    setup [:create_description_node]
+
+    test "deletes chosen description_node", %{conn: conn, description_node: description_node} do
+      conn = delete(conn, Routes.company_form_form_template_section_node_description_node_path(conn, :delete, description_node))
+      assert response(conn, 204)
+
+      assert_error_sent 404, fn ->
+        get(conn, Routes.company_form_form_template_section_node_description_node_path(conn, :show, description_node))
+      end
+    end
+  end
+
+  defp create_description_node(_) do
+    description_node = fixture(:description_node)
+    {:ok, description_node: description_node}
+  end
+end

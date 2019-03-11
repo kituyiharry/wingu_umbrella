@@ -1,0 +1,92 @@
+defmodule WinguWeb.SectionNodeControllerTest do
+  use WinguWeb.ConnCase
+
+  alias Wingu.SectionNodes
+  alias Wingu.SectionNodes.SectionNode
+
+  @create_attrs %{
+    description: "some description",
+    name: "some name"
+  }
+  @update_attrs %{
+    description: "some updated description",
+    name: "some updated name"
+  }
+  @invalid_attrs %{description: nil, name: nil}
+
+  def fixture(:section_node) do
+    {:ok, section_node} = SectionNodes.create_section_node(@create_attrs)
+    section_node
+  end
+
+  setup %{conn: conn} do
+    {:ok, conn: put_req_header(conn, "accept", "application/json")}
+  end
+
+  describe "index" do
+    test "lists all section_nodes", %{conn: conn} do
+      conn = get(conn, Routes.company_form_form_template_section_node_path(conn, :index))
+      assert json_response(conn, 200)["data"] == []
+    end
+  end
+
+  describe "create section_node" do
+    test "renders section_node when data is valid", %{conn: conn} do
+      conn = post(conn, Routes.company_form_form_template_section_node_path(conn, :create), section_node: @create_attrs)
+      assert %{"id" => id} = json_response(conn, 201)["data"]
+
+      conn = get(conn, Routes.company_form_form_template_section_node_path(conn, :show, id))
+
+      assert %{
+               "id" => id,
+               "description" => "some description",
+               "name" => "some name"
+             } = json_response(conn, 200)["data"]
+    end
+
+    test "renders errors when data is invalid", %{conn: conn} do
+      conn = post(conn, Routes.company_form_form_template_section_node_path(conn, :create), section_node: @invalid_attrs)
+      assert json_response(conn, 422)["errors"] != %{}
+    end
+  end
+
+  describe "update section_node" do
+    setup [:create_section_node]
+
+    test "renders section_node when data is valid", %{conn: conn, section_node: %SectionNode{id: id} = section_node} do
+      conn = put(conn, Routes.company_form_form_template_section_node_path(conn, :update, section_node), section_node: @update_attrs)
+      assert %{"id" => ^id} = json_response(conn, 200)["data"]
+
+      conn = get(conn, Routes.company_form_form_template_section_node_path(conn, :show, id))
+
+      assert %{
+               "id" => id,
+               "description" => "some updated description",
+               "name" => "some updated name"
+             } = json_response(conn, 200)["data"]
+    end
+
+    test "renders errors when data is invalid", %{conn: conn, section_node: section_node} do
+      conn = put(conn, Routes.company_form_form_template_section_node_path(conn, :update, section_node), section_node: @invalid_attrs)
+      assert json_response(conn, 422)["errors"] != %{}
+    end
+  end
+
+  describe "delete section_node" do
+    setup [:create_section_node]
+
+    test "deletes chosen section_node", %{conn: conn, section_node: section_node} do
+      conn = delete(conn, Routes.company_form_form_template_section_node_path(conn, :delete, section_node))
+      assert response(conn, 204)
+
+      assert_error_sent 404, fn ->
+        get(conn, Routes.company_form_form_template_section_node_path(conn, :show, section_node))
+      end
+    end
+  end
+
+  defp create_section_node(_) do
+    section_node = fixture(:section_node)
+    {:ok, section_node: section_node}
+  end
+end

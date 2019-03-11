@@ -1,0 +1,86 @@
+defmodule WinguWeb.FormTemplateControllerTest do
+  use WinguWeb.ConnCase
+
+  alias Wingu.FormTemplates
+  alias Wingu.FormTemplates.FormTemplate
+
+  @create_attrs %{
+
+  }
+  @update_attrs %{
+
+  }
+  @invalid_attrs %{}
+
+  def fixture(:form_template) do
+    {:ok, form_template} = FormTemplates.create_form_template(@create_attrs)
+    form_template
+  end
+
+  setup %{conn: conn} do
+    {:ok, conn: put_req_header(conn, "accept", "application/json")}
+  end
+
+  describe "index" do
+    test "lists all form_templates", %{conn: conn} do
+      conn = get(conn, Routes.company_form_form_template_path(conn, :index))
+      assert json_response(conn, 200)["data"] == []
+    end
+  end
+
+  describe "create form_template" do
+    test "renders form_template when data is valid", %{conn: conn} do
+      conn = post(conn, Routes.company_form_form_template_path(conn, :create), form_template: @create_attrs)
+      assert %{"id" => id} = json_response(conn, 201)["data"]
+
+      conn = get(conn, Routes.company_form_form_template_path(conn, :show, id))
+
+      assert %{
+               "id" => id
+             } = json_response(conn, 200)["data"]
+    end
+
+    test "renders errors when data is invalid", %{conn: conn} do
+      conn = post(conn, Routes.company_form_form_template_path(conn, :create), form_template: @invalid_attrs)
+      assert json_response(conn, 422)["errors"] != %{}
+    end
+  end
+
+  describe "update form_template" do
+    setup [:create_form_template]
+
+    test "renders form_template when data is valid", %{conn: conn, form_template: %FormTemplate{id: id} = form_template} do
+      conn = put(conn, Routes.company_form_form_template_path(conn, :update, form_template), form_template: @update_attrs)
+      assert %{"id" => ^id} = json_response(conn, 200)["data"]
+
+      conn = get(conn, Routes.company_form_form_template_path(conn, :show, id))
+
+      assert %{
+               "id" => id
+             } = json_response(conn, 200)["data"]
+    end
+
+    test "renders errors when data is invalid", %{conn: conn, form_template: form_template} do
+      conn = put(conn, Routes.company_form_form_template_path(conn, :update, form_template), form_template: @invalid_attrs)
+      assert json_response(conn, 422)["errors"] != %{}
+    end
+  end
+
+  describe "delete form_template" do
+    setup [:create_form_template]
+
+    test "deletes chosen form_template", %{conn: conn, form_template: form_template} do
+      conn = delete(conn, Routes.company_form_form_template_path(conn, :delete, form_template))
+      assert response(conn, 204)
+
+      assert_error_sent 404, fn ->
+        get(conn, Routes.company_form_form_template_path(conn, :show, form_template))
+      end
+    end
+  end
+
+  defp create_form_template(_) do
+    form_template = fixture(:form_template)
+    {:ok, form_template: form_template}
+  end
+end
