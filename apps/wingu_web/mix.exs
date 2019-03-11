@@ -53,7 +53,7 @@ defmodule WinguWeb.MixProject do
       {:guardian, "~> 1.2"},
       {:ueberauth, "~> 0.5.0"},
       {:ueberauth_google, "~> 0.8"},
-      {:absinthe_phoenix, "~> 1.4.0"}
+      {:absinthe_phoenix, "~> 1.4.0"},
     ]
   end
 

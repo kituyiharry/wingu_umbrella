@@ -14,7 +14,7 @@ use Mix.Config
 # which you should run after static files are built and
 # before starting your production server.
 config :wingu_web, WinguWeb.Endpoint,
-  force_ssl: [hsts: true]
+  force_ssl: [hsts: true],
   http: [:inet6, port: {:system, "PORT"} || 4000],
   https: [
     :inet6,
