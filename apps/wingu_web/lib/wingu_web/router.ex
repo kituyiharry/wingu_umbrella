@@ -27,14 +27,14 @@ defmodule WinguWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
-    get "/signout",                GoogleAuthController, :delete
-    get "/auth/:provider",          GoogleAuthController, :request
+    get "/signout", GoogleAuthController, :delete
+    get "/auth/:provider", GoogleAuthController, :request
     get "/auth/:provider/callback", GoogleAuthController, :callback
   end
 
-
   scope "/graphiql" do
     pipe_through [:contextualize]
+
     forward "/", Absinthe.Plug.GraphiQL,
       schema: WinguWeb.GraphQL.Schema,
       socket: WinguWeb.UserSocket,
@@ -42,11 +42,14 @@ defmodule WinguWeb.Router do
   end
 
   scope "/graphql" do
-    forward "/",  Absinthe.Plug,
+    forward "/", Absinthe.Plug,
       schema: WinguWeb.GraphQL.Schema,
       socket: WinguWeb.UserSocket
   end
 
+  @doc """
+  Deprecated in favor of GraphQL Api, but relevant files are backed up
+  `ex
   scope "/rest", WinguWeb do
     if Mix.env() in [:dev , :prod] do
       pipe_through [:authenticated]
@@ -68,6 +71,7 @@ defmodule WinguWeb.Router do
     end
     resources "/clients", ClientController, except: [:new, :edit]
   end
+  """
 
   # Other scopes may use custom stacks.
   # scope "/api", WinguWeb do

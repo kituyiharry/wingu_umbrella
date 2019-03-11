@@ -1,4 +1,14 @@
 defmodule Wingu.Events.Event do
+  @moduledoc ~S"""
+  #######################################################################
+  #                            Event struct                             #
+  #######################################################################
+
+  @author: Harry Kituyi
+  @mail: kituyiharry@gmail.com
+
+  a struct for information about events created under a company
+  """
   use Ecto.Schema
   import Ecto.Changeset
 
@@ -12,7 +22,7 @@ defmodule Wingu.Events.Event do
     field :company_id, :binary_id
     field :from, :utc_datetime
     field :to, :utc_datetime
-    belongs_to :companies, Company, [define_field: false, foreign_key: :company_id]
+    belongs_to :companies, Company, define_field: false, foreign_key: :company_id
 
     timestamps()
   end

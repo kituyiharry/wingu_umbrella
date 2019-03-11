@@ -12,7 +12,7 @@ defmodule WinguWeb.Application do
       WinguWeb.Endpoint,
       # Starts a worker by calling: WinguWeb.Worker.start_link(arg)
       # {WinguWeb.Worker, arg},
-      {Absinthe.Subscription, [WinguWeb.Endpoint]},
+      {Absinthe.Subscription, [WinguWeb.Endpoint]}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

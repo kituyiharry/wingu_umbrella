@@ -11,11 +11,11 @@ defmodule WinguWeb.Context do
 
   def build_context(conn) do
     case SessionController.authorize(conn) do
-      {:ok, access}->
+      {:ok, access} ->
         access
-      {:error, e} -> 
+
+      {:error, e} ->
         e
     end
   end
-
 end

@@ -11,7 +11,6 @@ defmodule WinguWeb.TextNodeDatumView do
   end
 
   def render("text_node_datum.json", %{text_node_datum: text_node_datum}) do
-    %{id: text_node_datum.id,
-      node_value: text_node_datum.node_value}
+    %{id: text_node_datum.id, node_value: text_node_datum.node_value}
   end
 end

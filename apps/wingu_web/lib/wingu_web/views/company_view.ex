@@ -11,8 +11,6 @@ defmodule WinguWeb.CompanyView do
   end
 
   def render("company.json", %{company: company}) do
-    %{id: company.id,
-      email: company.email,
-      name: company.name}
+    %{id: company.id, email: company.email, name: company.name}
   end
 end
