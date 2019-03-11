@@ -1,4 +1,15 @@
 defmodule Wingu.FormTemplates.FormTemplate do
+  @moduledoc ~S"""
+  #######################################################################
+  #                            Form Template                            #
+  #######################################################################
+  
+  @author: Harry Kituyi
+  @mail: kituyiharry@gmail.com
+
+  A Form Template carries information about structure and descriptions of 
+  sections and nodes in a form
+  """
   use Ecto.Schema
   import Ecto.Changeset
 

@@ -1,4 +1,14 @@
 defmodule Wingu.Companies.Clients do
+  @moduledoc ~S"""
+  #######################################################################
+  #                      Companies & Clients Join                       #
+  #######################################################################
+  
+  @author: Harry Kituyi
+  @mail: kituyiharry@gmail.com
+
+  Join table between Companies and Clients allowing for many_to_many associations
+  """
   use Ecto.Schema
   import Ecto.Changeset
 

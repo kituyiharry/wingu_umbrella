@@ -1,4 +1,15 @@
 defmodule Wingu.FormData.FormDatum do
+  @moduledoc ~S"""
+  #######################################################################
+  #                             Form Datum                              #
+  #######################################################################
+  
+  @author: Harry Kituyi
+  @mail: kituyiharry@gmail.com
+
+  Collects a set of data connected to a form based on a template on the associated
+  form
+  """
   use Ecto.Schema
   import Ecto.Changeset
 

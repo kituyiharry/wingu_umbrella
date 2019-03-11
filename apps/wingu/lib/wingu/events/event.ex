@@ -1,4 +1,14 @@
 defmodule Wingu.Events.Event do
+  @moduledoc ~S"""
+  #######################################################################
+  #                            Event struct                             #
+  #######################################################################
+  
+  @author: Harry Kituyi
+  @mail: kituyiharry@gmail.com
+
+  a struct for information about events created under a company
+  """
   use Ecto.Schema
   import Ecto.Changeset
 

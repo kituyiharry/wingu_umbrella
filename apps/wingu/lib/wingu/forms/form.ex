@@ -1,4 +1,15 @@
 defmodule Wingu.Forms.Form do
+  @moduledoc ~S"""
+  #######################################################################
+  #                                Form                                 #
+  #######################################################################
+  
+  @author: Harry Kituyi
+  @mail: kituyiharry@gmail.com
+
+  A Struct relating its internal structure [`Wingu.FormTemplates.FormTemplate`] 
+  with associated data of [`Wingu.FormData.FormDatum`]
+  """
   use Ecto.Schema
   import Ecto.Changeset
 

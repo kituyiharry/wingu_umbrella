@@ -1,4 +1,14 @@
 defmodule Wingu.DescriptionNodes.DescriptionNode do
+  @moduledoc ~S"""
+  #######################################################################
+  #                           DescriptionNode                           #
+  #######################################################################
+
+  @author: Harry Kituyi
+  @mail: kituyiharry@gmail.com
+
+  A DescriptionNode in a form containing labels an placeholder for data required
+  """
   use Ecto.Schema
   import Ecto.Changeset
 

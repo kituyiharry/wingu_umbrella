@@ -1,4 +1,15 @@
 defmodule Wingu.SectionNodes.SectionNode do
+  @moduledoc ~S"""
+  #######################################################################
+  #                             SectionNode                             #
+  #######################################################################
+
+  @author: Harry Kituyi
+  @mail: kituyiharry@gmail.com
+
+  Associates a given `Wingu.FormTemplates.FormTemplate` with its 
+  `Wingu.DescriptionNodes.DescriptionNode`
+  """
   use Ecto.Schema
   import Ecto.Changeset
 

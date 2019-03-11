@@ -1,4 +1,15 @@
 defmodule Wingu.Clients.Client do
+  @moduledoc ~S"""
+  #######################################################################
+  #                            Client Module                            #
+  #######################################################################
+  
+  @author: Harry Kituyi
+  @mail: kituyiharry@gmail.com
+
+  Client Struct containing a schema for a single client which contains various user
+  metadata. Some information obtained via openid using Google auth
+  """
   use Ecto.Schema
   import Ecto.Changeset
 

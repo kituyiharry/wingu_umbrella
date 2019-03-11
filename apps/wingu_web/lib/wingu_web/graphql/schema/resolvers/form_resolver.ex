@@ -1,4 +1,14 @@
 defmodule WinguWeb.GraphQL.Resolvers.FormResolver do
+  @moduledoc ~S"""
+  #######################################################################
+  #                            FormResolver                             #
+  #######################################################################
+  
+  @author: Harry Kituyi
+  @mail: kituyiharry@gmail.com
+
+  A GraphQL Resolver for Forms
+  """
   alias Wingu.{Companies, Repo, Forms, FormTemplates, SectionNodes, DescriptionNodes, Clients, TextNodeData}
   alias WinguWeb.GraphQL.TransactionHelper
   alias Ecto.Multi
@@ -6,11 +16,13 @@ defmodule WinguWeb.GraphQL.Resolvers.FormResolver do
   import Ecto.Query
   require IO
 
+  @doc "Collects forms belonging to a certain company"
   def forms(_parent, %{company: id}, %{context: %{"sub" => _id}}) do
     company = Companies.get_company!(id) |> Repo.preload(:forms)
     {:ok, company.forms}
   end
 
+  @doc "Creates a form with associated template for a company"
   def create_form(_parent, %{company: company, form: %{name: n, summary: s, description: d, template: t}}, %{context: %{"sub" => _id}}) do    
     ## Substitute to Multi format, easy to handle
     mul = Multi.new()
@@ -48,6 +60,7 @@ defmodule WinguWeb.GraphQL.Resolvers.FormResolver do
     TransactionHelper.handle_transaction(mul, :form)
   end
 
+  @doc "Fills a form for a client"
   def fill_form(_parent, %{form_id: id, data: sections}, %{context: %{"sub" =>  sub}}) do
     formdata = Multi.new()
     # Get the associated client and form as context operation 
@@ -89,6 +102,7 @@ defmodule WinguWeb.GraphQL.Resolvers.FormResolver do
     TransactionHelper.handle_transaction(formdata, :formdata)
   end
 
+  @doc "Checks whether the form is filled"
   def is_form_filled(repo, %{context: %{form: form}}, data) when is_list(data) do
     preload = repo.preload(form, :form_templates)
     temp  = preload.form_templates
@@ -106,10 +120,12 @@ defmodule WinguWeb.GraphQL.Resolvers.FormResolver do
     end
   end
 
+  @doc "Called when the form data sections has no information, no need to run"
   def is_form_filled(_repo, %{context: %{form: _form}}, _data) do
     {:error, "No information supplied"}
   end
 
+  @doc "Deletes a form for a company"
   def delete_form(_parent, %{form: form}, %{context: %{"sub" => _sub}}) do
     delform = Multi.new()
               |> Multi.run(:fetch_form, fn repo, _changes -> 

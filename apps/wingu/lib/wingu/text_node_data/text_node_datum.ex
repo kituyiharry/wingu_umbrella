@@ -1,4 +1,11 @@
 defmodule Wingu.TextNodeData.TextNodeDatum do
+  @moduledoc ~S"""
+  #######################################################################
+  #                            TextNodeData                             #
+  #######################################################################
+
+  Relates a given `Wingu.DescriptionNodes.DescriptionNode`
+  """
   use Ecto.Schema
   import Ecto.Changeset
 

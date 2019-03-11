@@ -1,4 +1,15 @@
 defmodule Wingu.SectionData.SectionDatum do
+  @moduledoc ~S"""
+  #######################################################################
+  #                             SectionData                             #
+  #######################################################################
+
+  @author: Harry Kituyi
+  @mail: kituyiharry@gmail.com
+
+  SectionData Collects various [`Wingu.TextNodeData.TextNodeDatum`] filled 
+  for a certain [`Wingu.Forms.Form`]  
+  """
   use Ecto.Schema
   import Ecto.Changeset
 
