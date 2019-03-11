@@ -4,6 +4,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const { VueLoaderPlugin } = require('vue-loader')
 
 module.exports = (env, options) => ({
   optimization: {
@@ -19,8 +20,28 @@ module.exports = (env, options) => ({
     filename: 'app.js',
     path: path.resolve(__dirname, '../priv/static/js')
   },
+  resolve: {
+    alias: {
+        vue: 'vue/dist/vue.esm.js'
+    }
+  },
   module: {
     rules: [
+      { 
+        test: /\.vue$/,
+        loader: 'vue-loader',
+        options: {
+          loaders: {
+            css: ['vue-style-loader', {
+              loader: 'css-loader',
+            }],
+            js: [
+              'babel-loader',
+            ],
+          },
+          cacheBusting: true,
+        },
+      },
       {
         test: /\.js$/,
         exclude: /node_modules/,
@@ -31,11 +52,13 @@ module.exports = (env, options) => ({
       {
         test: /\.css$/,
         use: [MiniCssExtractPlugin.loader, 'css-loader']
-      }
+      },
+      { test: /\.(png|woff|woff2|eot|ttf|svg)$/, loader: 'url-loader?limit=100000'}
     ]
   },
   plugins: [
     new MiniCssExtractPlugin({ filename: '../css/app.css' }),
-    new CopyWebpackPlugin([{ from: 'static/', to: '../' }])
+    new CopyWebpackPlugin([{ from: 'static/', to: '../' }]),
+    new VueLoaderPlugin()
   ]
 });
