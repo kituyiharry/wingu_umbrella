@@ -23,7 +23,8 @@ defmodule Wingu.Umbrella.MixProject do
   # and cannot be accessed from applications inside the apps folder
   defp deps do
     [
-      {:credo, "~> 1.0"}
+      {:credo, "~> 1.0"},
+      {:distillery, "~> 2.0"},
     ]
   end
 end
