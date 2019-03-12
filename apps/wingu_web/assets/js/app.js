@@ -21,6 +21,15 @@ import Vuetify from 'vuetify'
 import VueRouter from 'vue-router'
 
 import App from './vue/App.vue'
+import Landing from './vue/routes/landing/Landing.vue'
+
+const routes = [
+  {path: '/', component: Landing}
+]
+
+const router = new VueRouter({
+  routes
+})
 
 Vue.use(Vuetify)
 Vue.use(VueRouter)
@@ -28,5 +37,6 @@ Vue.use(VueRouter)
 new Vue({
   el: '#sahihi',
   components: { App },
+  router,
   template: '<App />'
 })
