@@ -1,7 +1,8 @@
 // We need to import the CSS so that webpack will load it.
 // The MiniCssExtractPlugin is used to separate it out into
 // its own CSS file.
-import css from "../css/app.css"
+import "../css/app.css"
+import "vuetify/dist/vuetify.min.css"
 
 // webpack automatically bundles all modules in your
 // entry points. Those entry points can be configured
@@ -15,3 +16,17 @@ import "phoenix_html"
 //
 // Local files can be imported directly using relative paths, for example:
 // import socket from "./socket"
+import Vue from 'vue'
+import Vuetify from 'vuetify'
+import VueRouter from 'vue-router'
+
+import App from './vue/App.vue'
+
+Vue.use(Vuetify)
+Vue.use(VueRouter)
+/* eslint-disable no-new */
+new Vue({
+  el: '#sahihi',
+  components: { App },
+  template: '<App />'
+})
