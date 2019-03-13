@@ -1,6 +1,7 @@
 defmodule WinguWeb.GoogleAuthController do
   use WinguWeb, :controller
   plug Ueberauth
+  require IO
 
   alias Wingu.{Clients.Client, Repo}
 
