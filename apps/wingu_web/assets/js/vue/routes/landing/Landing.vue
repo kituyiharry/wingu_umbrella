@@ -89,7 +89,7 @@
         </v-icon>
       </v-btn>
     </v-toolbar>
-    <v-navigation-drawer v-if='$vuetify.breakpoint.smAndDown' app right clipped v-model='drawer'>
+    <v-navigation-drawer width='400' v-if='$vuetify.breakpoint.smAndDown' app right clipped v-model='drawer'>
       <v-card height='80' flat>
       </v-card>
       <v-toolbar height='80' dark color='primary' flat absolute>
@@ -170,7 +170,7 @@
               </span>
               <span class='mt-4' style='display:flex; align-items:center; justify-content: center'>
                 <v-icon 
-                  data-aos='zoom-in' :data-aos-delay='(index+1)*200' data-aos-offset='-200' class='mx-1' 
+                  data-aos='zoom-in' :data-aos-delay='(index+1)*100' data-aos-offset='-200' class='mx-1' 
                   v-for='(icon,index) in ["mail", "gesture", "attachment", "cloud" ]' :key='icon'>
                   {{ icon }}
                 </v-icon>
