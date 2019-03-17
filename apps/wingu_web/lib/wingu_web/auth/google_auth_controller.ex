@@ -1,6 +1,7 @@
 defmodule WinguWeb.GoogleAuthController do
   use WinguWeb, :controller
   plug Ueberauth
+  require IO
 
   alias Wingu.{Clients.Client, Repo}
 
@@ -40,7 +41,7 @@ defmodule WinguWeb.GoogleAuthController do
   defp encode_and_reply(conn, client, _creds) do
     conn
     |> WinguWeb.Guardian.Plug.sign_in(client)
-    |> redirect(to: "/")
+    |> redirect(to: "/#/home")
   end
 
   def delete(conn, _params) do

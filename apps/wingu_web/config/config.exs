@@ -11,7 +11,7 @@ config :wingu_web,
 
 # Configures the endpoint
 config :wingu_web, WinguWeb.Endpoint,
-  url: [host: "localhost"],
+  url: [host: "0.0.0.0"],
   secret_key_base: "1NoxqZCU6HAm4ljaWZG8yincWVs9jSXZEqXTYVagYkUBDX2czffDCcckbbvP6p0H",
   render_errors: [view: WinguWeb.ErrorView, accepts: ~w(html json)],
   pubsub: [name: WinguWeb.PubSub, adapter: Phoenix.PubSub.PG2]

@@ -1,5 +1,6 @@
 defmodule WinguWeb.Context do
   @behaviour Plug
+  require IO
 
   alias WinguWeb.SessionController
   def init(opts), do: opts
