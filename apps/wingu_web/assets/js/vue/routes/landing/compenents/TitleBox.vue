@@ -37,7 +37,9 @@
     <v-flex md6>
       <v-card data-aos='fade-up' data-aos-duration='200' hover color='transparent' height='400' :width='$vuetify.breakpoint.lgAndUp ? "550" : "500"' 
         style='border-radius: 8px;'>
-        <v-img height='400' src="/images/doc.jpg">
+        <v-img height='400' 
+          lazy-src="/images/doc.jpg"
+          src="/images/doc.jpg">
           <template v-slot:placeholder>
             <v-layout
               fill-height

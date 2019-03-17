@@ -136,6 +136,7 @@
       <v-card dark flat tile height='470' color='#996fd6'>
         <v-img v-if='$vuetify.breakpoint.smAndDown'
           src="/images/doc.png"
+          lazy-src="/images/doc.png"
           height="470"
           gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0, .7), rgba(0,0,0,1)"
           >
