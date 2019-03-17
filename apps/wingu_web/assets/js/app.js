@@ -5,6 +5,7 @@ import "../css/app.css"
 import "vuetify/dist/vuetify.min.css"
 import "aos/dist/aos.css"
 import "material-design-icons/iconfont/material-icons.css"
+import "vuetify/es5/util/colors"
 
 // webpack automatically bundles all modules in your
 // entry points. Those entry points can be configured
@@ -29,9 +30,11 @@ import AOS from 'aos'
 
 import App from './vue/App.vue'
 import Landing from './vue/routes/landing/Landing.vue'
+import Home from './vue/routes/home/Home.vue'
 
 const routes = [
-  {path: '/', component: Landing}
+  {path: '/', component: Landing},
+  {path: '/home', component: Home}
 ]
 const router = new VueRouter({
   routes
@@ -56,7 +59,12 @@ AOS.init({
 
 Vue.$httpLink = Vue.prototype.$httpLink = httpLink
 Vue.$AOS = Vue.prototype.$AOS = AOS
-Vue.use(Vuetify)
+Vue.use(Vuetify, {
+  theme: {
+    primary: "#996fd6",
+    secondary: "deep-orange"
+  }
+})
 Vue.use(VueRouter)
 Vue.use(VueApollo)
 
