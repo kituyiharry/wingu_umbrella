@@ -231,12 +231,12 @@ export default{
           {item: "Lobbies", route: "", action: "event_seat"},
           {item: "Mail", route: "", action: "mail"},
         ]},
-      {name: "Finance", action: "credit_card", subname: "Process payments faster", 
+      {name: "Finance", action: "credit_card", subname: "Process payments efficiently", 
         description: "Apply modern mobile payment processing workflows to your business",
         submodels: [
           {item: "Payments", route: "", action: "attach_money"}
         ]},
-      {name: "Develop", action: "developer_mode", subname: "Build neat integrations", 
+      {name: "Develop", action: "developer_mode", subname: "Build integrations", 
         description: "Create templates and document able to display information on related data",
         submodels: [
           {item: "Coming soon", route: "", action: "timelapse"}
