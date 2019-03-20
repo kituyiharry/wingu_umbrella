@@ -12,3 +12,12 @@ export const CLIENT = gql`
     }
   }
 `
+export const COMPANIES = gql`
+  query CompaniesQuery{
+    myCompanies{
+      id
+      email
+      name
+    }
+  }
+`

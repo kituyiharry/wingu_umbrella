@@ -89,7 +89,7 @@
         </v-icon>
       </v-btn>
     </v-toolbar>
-    <v-navigation-drawer width='400' v-if='$vuetify.breakpoint.smAndDown' app right clipped v-model='drawer'>
+    <v-navigation-drawer width='300' v-if='$vuetify.breakpoint.smAndDown' app right clipped v-model='drawer'>
       <v-card height='80' flat>
       </v-card>
       <v-toolbar height='80' dark color='primary' flat absolute>
@@ -157,10 +157,10 @@
               <h3 data-aos='fade' data-aos-delay='200' class='text-xs-center mx-3'>
                 Read the words in reverse, over and over again
               </h3>
-              <span data-aos='flip-left' data-aos-delay='250' 
+              <span data-aos='flip-left' data-aos-delay='250' data-aos-offset='-200'
                 style='display:flex; align-items:center; justify-content: center'
                 class='mt-5'>
-                <v-btn color='deep-orange' round >
+                <v-btn @click='$router.push("/home")' color='deep-orange' round >
                   <v-icon left>
                     group_add
                   </v-icon>

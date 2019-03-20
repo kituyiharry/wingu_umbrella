@@ -37,9 +37,10 @@ import Store from './vue/store/store.js'
 
 const routes = [
   {path: '/', component: Landing},
-  {path: '/home', component: Home}
+  {path: '/home', component: Home},
 ]
 const router = new VueRouter({
+  base: '/',
   routes
 })
 const httpLink = new createHttpLink({
@@ -78,10 +79,10 @@ const store = new Vuex.Store({
   }
 })
 new Vue({
-  el: '#sahihi',
+  //el: '#sahihi',
   apolloProvider: apolloProvider,
   components: { App },
   router,
   store,
   template: '<App />'
-})
+}).$mount('#sahihi')
