@@ -12,19 +12,19 @@
           </v-icon>
         </v-btn>
       </div>
-      <v-slide-y-reverse-transition hide-on-leave>
+      <v-slide-y-transition hide-on-leave>
         <span v-show='!showRegister' style='font-size: 20px; font-weight: bold;'>
           Select station
         </span>
-      </v-slide-y-reverse-transition>
-      <v-slide-y-transition hide-on-leave>
+      </v-slide-y-transition>
+      <v-slide-y-reverse-transition hide-on-leave>
         <span v-show='showRegister' style='font-size: 20px; font-weight: bold;'>
           Register your business
         </span>
-      </v-slide-y-transition>
+      </v-slide-y-reverse-transition>
     </v-card-title>
     <v-divider />
-    <v-slide-y-reverse-transition hide-on-leave>
+    <v-slide-y-transition hide-on-leave>
       <div v-show='!showRegister'>
         <v-card-text>
           Smooth animations help make a UI feel great. Using Vue's transition system and re-usable functional components, you can easily control the motion of your application
@@ -32,27 +32,37 @@
         <v-divider />
         <v-card-text id='stations' style='max-height: 230px;overflow-y:scroll;'>
           <v-layout row wrap v-if='$store.state.store.companies.length > 0' class='d-flex align-center justify-content-center'>
-            <v-flex xs4 sm2 lg2 v-for='i in $store.state.store.companies' :key='i.id' d-flex align-center justify-content-center>
-              <v-layout column align-center pa-2>
-                <v-avatar data-aos='zoom-in' data-aos-anchor='#stations' :data-aos-delay='(i+1)*50'>
-                  <v-img src='/images/sahihi.png' alt=''>
-                    <template v-slot:placeholder>
-                      <v-layout
-                        fill-height
-                        align-center
-                        justify-center
-                        ma-0>
-                        <v-progress-circular indeterminate color="orange"></v-progress-circular>
-                      </v-layout>
-                    </template>
-                  </v-img>
-                </v-avatar>
-                <span data-aos='fade' data-aos-anchor='#stations' data-aos-anchor-placement='center-bottom' :data-aos-delay='i*50'>
-                  <strong>
-                    {{ i.name }}
-                  </strong>
-                </span>
-              </v-layout>
+            <v-flex xs4 sm2 lg2 v-for='i in $store.state.store.companies' :key='i.id' class='d-flex align-center justify-content-center'>
+              <v-card hover @click='$router.push(`/b/${i.id}`)'
+                data-aos='fade-up' data-aos-anchor='#stations' data-aos-anchor-placement='bottom-bottom'
+                v-ripple color='primary' class='' style='border-radius: 8px;'>
+                <v-layout column align-center pa-2>
+                  <v-avatar data-aos='zoom-in' data-aos-anchor='#stations' 
+                    data-aos-anchor-placement='bottom-bottom' :data-aos-delay='(i+1)*100'>
+                    <v-img src='/images/sahihi.png' alt=''>
+                      <template v-slot:placeholder>
+                        <v-layout
+                          fill-height
+                          align-center
+                          justify-center
+                          ma-0>
+                          <v-progress-circular indeterminate color="orange"></v-progress-circular>
+                        </v-layout>
+                      </template>
+                    </v-img>
+                  </v-avatar>
+                  <!--<span class='text-xs-center' data-aos='fade' data-aos-anchor='#stations' data-aos-anchor-placement='center-bottom' :data-aos-delay='i*50'>-->
+                    <v-chip flat small label color='primary lighten-1' class='white--text'>
+                      <v-avatar tile class="deep-orange">
+                        <strong>
+                          {{ i.name | first }}
+                        </strong> 
+                      </v-avatar>
+                      {{ i.name }}
+                    </v-chip>
+                  </v-layout>
+                </v-card>
+                <!--</span>-->
             </v-flex>
           </v-layout>
           <span class='text-xs-center' v-else>
@@ -60,8 +70,8 @@
           </span>
         </v-card-text>
       </div>
-    </v-slide-y-reverse-transition>
-    <v-slide-y-transition hide-on-leave>
+    </v-slide-y-transition>
+    <v-slide-y-reverse-transition hide-on-leave>
       <div v-show='showRegister'> 
         <v-card-text>
           Use a counter prop to inform a user of the character limit. The counter does not perform any validation by itself. You will need to pair it with either the internal validation system, or a 3rd party library. 
@@ -89,12 +99,13 @@
           </v-layout>
         </v-card-text>
       </div>
-    </v-slide-y-transition>
+    </v-slide-y-reverse-transition>
     <v-divider />
     <v-card-actions> 
       <v-slide-x-transition hide-on-leave>
         <v-btn v-show='!showRegister' @click='$emit("emitOpenCard")' small outline round color='secondary'>
           register
+          <v-divider vertical/>
           <v-icon right small>
             business
           </v-icon>
@@ -126,7 +137,13 @@ export default{
   props: ['showRegister'],
   data: () => ({
     // showRegister: false,
-  })
+  }),
+  filters: {
+    first(letter){
+      let fl = letter.split(" ")
+      return(fl[0].slice(0,1))
+    }
+  }
 }
 </script>
 <style scoped type="text/css" media="screen">

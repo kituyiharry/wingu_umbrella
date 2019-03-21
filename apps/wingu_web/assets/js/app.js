@@ -32,12 +32,17 @@ import AOS from 'aos'
 import App from './vue/App.vue'
 import Landing from './vue/routes/landing/Landing.vue'
 import Home from './vue/routes/home/Home.vue'
+import Index from './vue/routes/home/subroutes/Index.vue'
+import CompanyView from './vue/routes/home/subroutes/CompanyView.vue'
 
 import Store from './vue/store/store.js'
 
 const routes = [
   {path: '/', component: Landing},
-  {path: '/home', component: Home},
+  {path: '/home', component: Home, children: [
+    {path: '/', component: Index},
+    {path: '/b/:id', component: CompanyView},
+  ]},
 ]
 const router = new VueRouter({
   base: '/',
