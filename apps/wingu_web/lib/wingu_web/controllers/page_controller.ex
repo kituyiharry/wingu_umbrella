@@ -2,7 +2,6 @@ defmodule WinguWeb.PageController do
   use WinguWeb, :controller
   alias WinguWeb.SessionController
 
-  require IO
 
   def index(conn, _params) do
     case SessionController.authenticate(conn) do

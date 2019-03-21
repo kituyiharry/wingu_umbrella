@@ -89,7 +89,7 @@
         </v-icon>
       </v-btn>
     </v-toolbar>
-    <v-navigation-drawer v-if='$vuetify.breakpoint.smAndDown' app right clipped v-model='drawer'>
+    <v-navigation-drawer width='300' v-if='$vuetify.breakpoint.smAndDown' app right clipped v-model='drawer'>
       <v-card height='80' flat>
       </v-card>
       <v-toolbar height='80' dark color='primary' flat absolute>
@@ -130,12 +130,13 @@
         </v-list-group>
       </v-list>
     </v-navigation-drawer>
-    <v-content class=''>
+    <v-content>
       <!--TODO: Link image creator-->
       <v-divider color='#996fd6'/>
       <v-card dark flat tile height='470' color='#996fd6'>
         <v-img v-if='$vuetify.breakpoint.smAndDown'
           src="/images/doc.png"
+          lazy-src="/images/doc.png"
           height="470"
           gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0, .7), rgba(0,0,0,1)"
           >
@@ -156,10 +157,10 @@
               <h3 data-aos='fade' data-aos-delay='200' class='text-xs-center mx-3'>
                 Read the words in reverse, over and over again
               </h3>
-              <span data-aos='flip-left' data-aos-delay='250' 
+              <span data-aos='flip-left' data-aos-delay='250' data-aos-offset='-200'
                 style='display:flex; align-items:center; justify-content: center'
                 class='mt-5'>
-                <v-btn color='deep-orange' round >
+                <v-btn @click='$router.push("/home")' color='deep-orange' round >
                   <v-icon left>
                     group_add
                   </v-icon>
@@ -170,7 +171,7 @@
               </span>
               <span class='mt-4' style='display:flex; align-items:center; justify-content: center'>
                 <v-icon 
-                  data-aos='zoom-in' :data-aos-delay='(index+1)*200' data-aos-offset='-200' class='mx-1' 
+                  data-aos='zoom-in' :data-aos-delay='(index+1)*100' data-aos-offset='-200' class='mx-1' 
                   v-for='(icon,index) in ["mail", "gesture", "attachment", "cloud" ]' :key='icon'>
                   {{ icon }}
                 </v-icon>
@@ -178,13 +179,13 @@
             </v-flex>
           </v-layout>
         </v-img>
-        <v-card-text v-else>
+        <v-card-text v-else class='mycontent'>
           <v-container fluid>
             <TitleBox />
           </v-container>
         </v-card-text>
       </v-card>
-      <v-container fluid fill-height>
+      <v-container class='mycontent' fluid fill-height>
         <v-layout row wrap> 
           <v-flex xs12 md6 offset-md3>
             <v-card color='transparent' flat tile>
@@ -230,12 +231,12 @@ export default{
           {item: "Lobbies", route: "", action: "event_seat"},
           {item: "Mail", route: "", action: "mail"},
         ]},
-      {name: "Finance", action: "credit_card", subname: "Process payments faster", 
+      {name: "Finance", action: "credit_card", subname: "Process payments efficiently", 
         description: "Apply modern mobile payment processing workflows to your business",
         submodels: [
           {item: "Payments", route: "", action: "attach_money"}
         ]},
-      {name: "Develop", action: "developer_mode", subname: "Build neat integrations", 
+      {name: "Develop", action: "developer_mode", subname: "Build integrations", 
         description: "Create templates and document able to display information on related data",
         submodels: [
           {item: "Coming soon", route: "", action: "timelapse"}
@@ -249,7 +250,7 @@ export default{
   }
 }
 </script>
-<style type="text/css" media="screen">
+<style scoped type="text/css" media="screen">
 noselect{
   user-select: none;
 }
@@ -306,5 +307,11 @@ margin-left: 72px;
   margin-left: 10px;
   height: 0px;
   width: 0px;
+}
+
+.mycontent{
+  max-width: 1366px;
+  margin-left: auto;
+  margin-right: auto;
 }
 </style>

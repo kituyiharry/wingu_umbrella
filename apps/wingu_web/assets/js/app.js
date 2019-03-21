@@ -23,6 +23,7 @@ import Vue from 'vue'
 import Vuetify from 'vuetify'
 import VueRouter from 'vue-router'
 import VueApollo from 'vue-apollo'
+import Vuex from 'vuex'
 import { ApolloClient } from 'apollo-client'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 import { createHttpLink } from 'apollo-link-http'
@@ -31,12 +32,20 @@ import AOS from 'aos'
 import App from './vue/App.vue'
 import Landing from './vue/routes/landing/Landing.vue'
 import Home from './vue/routes/home/Home.vue'
+import Index from './vue/routes/home/subroutes/Index.vue'
+import CompanyView from './vue/routes/home/subroutes/CompanyView.vue'
+
+import Store from './vue/store/store.js'
 
 const routes = [
   {path: '/', component: Landing},
-  {path: '/home', component: Home}
+  {path: '/home', component: Home, children: [
+    {path: '/', component: Index},
+    {path: '/b/:id', component: CompanyView},
+  ]},
 ]
 const router = new VueRouter({
+  base: '/',
   routes
 })
 const httpLink = new createHttpLink({
@@ -62,16 +71,23 @@ Vue.$AOS = Vue.prototype.$AOS = AOS
 Vue.use(Vuetify, {
   theme: {
     primary: "#996fd6",
-    secondary: "deep-orange"
+    secondary: "#F08000"
   }
 })
 Vue.use(VueRouter)
 Vue.use(VueApollo)
+Vue.use(Vuex)
 
+const store = new Vuex.Store({
+  modules: {
+    store: Store
+  }
+})
 new Vue({
-  el: '#sahihi',
+  //el: '#sahihi',
   apolloProvider: apolloProvider,
   components: { App },
   router,
+  store,
   template: '<App />'
-})
+}).$mount('#sahihi')
