@@ -130,7 +130,7 @@
         </v-list-group>
       </v-list>
     </v-navigation-drawer>
-    <v-content class=''>
+    <v-content>
       <!--TODO: Link image creator-->
       <v-divider color='#996fd6'/>
       <v-card dark flat tile height='470' color='#996fd6'>
@@ -179,13 +179,13 @@
             </v-flex>
           </v-layout>
         </v-img>
-        <v-card-text v-else>
+        <v-card-text v-else class='mycontent'>
           <v-container fluid>
             <TitleBox />
           </v-container>
         </v-card-text>
       </v-card>
-      <v-container fluid fill-height>
+      <v-container class='mycontent' fluid fill-height>
         <v-layout row wrap> 
           <v-flex xs12 md6 offset-md3>
             <v-card color='transparent' flat tile>
@@ -250,7 +250,7 @@ export default{
   }
 }
 </script>
-<style type="text/css" media="screen">
+<style scoped type="text/css" media="screen">
 noselect{
   user-select: none;
 }
@@ -307,5 +307,11 @@ margin-left: 72px;
   margin-left: 10px;
   height: 0px;
   width: 0px;
+}
+
+.mycontent{
+  max-width: 1366px;
+  margin-left: auto;
+  margin-right: auto;
 }
 </style>

@@ -31,10 +31,10 @@
         </v-card-text>
         <v-divider />
         <v-card-text id='stations' style='max-height: 230px;overflow-y:scroll;'>
-          <v-layout row wrap v-if='$store.state.store.companies.length > 0'>
+          <v-layout row wrap v-if='$store.state.store.companies.length > 0' class='d-flex align-center justify-content-center'>
             <v-flex xs4 sm2 lg2 v-for='i in $store.state.store.companies' :key='i.id' d-flex align-center justify-content-center>
               <v-layout column align-center pa-2>
-                <v-avatar data-aos='zoom-in' data-aos-anchor='#stations' :data-aos-delay='i*50'>
+                <v-avatar data-aos='zoom-in' data-aos-anchor='#stations' :data-aos-delay='(i+1)*50'>
                   <v-img src='/images/sahihi.png' alt=''>
                     <template v-slot:placeholder>
                       <v-layout
@@ -67,7 +67,7 @@
           Use a counter prop to inform a user of the character limit. The counter does not perform any validation by itself. You will need to pair it with either the internal validation system, or a 3rd party library. 
         </v-card-text>
         <v-divider />
-        <v-card-text style='overflow-y: scroll;'>
+        <v-card-text>
           <v-layout row wrap class='mt-1'>
             <v-flex xs12>
               <v-text-field prepend-inner-icon='business_center' box
