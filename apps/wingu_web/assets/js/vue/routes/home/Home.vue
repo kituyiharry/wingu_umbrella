@@ -1,6 +1,6 @@
 <template>
   <v-app style='font-family: "Montserrat", sans-serif;'> 
-    <v-toolbar app height='80' dark color='primary' class='elevation-1'>
+    <v-toolbar app height='80' :class='$vuetify.breakpoint.smAndUp ? "elevation-1" : "elevation-1" ' dark color='primary'>
       <v-btn outline data-aos='zoom-in' data-aos-delay='200' icon @click='$router.push("/")'>
         <v-icon small>
           home
@@ -61,6 +61,8 @@ export default {
     drawer: false,
     snackbar: false,
     error: "",
+    offsetTop: 0,
+    scroll: 0,
   }),
   methods: {
   },
