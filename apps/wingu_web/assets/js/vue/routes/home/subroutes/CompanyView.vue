@@ -1,6 +1,29 @@
 <template>
-  <v-content class=''>
-    <!--<v-divider v-if='$vuetify.breakpoint.xsOnly'/>-->
+  <v-content v-scroll='onScroll' class=''>
+    <!--<v-divider -->
+      <!--color='white'-->
+      <!--style='position: fixed; width: 100%;z-index: 3;'-->
+      <!--/>-->
+      <v-tabs
+        v-model="tabs"
+        centered
+        color="primary" :class='offsetTop > 25 ? "elv" : "elevation-0"'
+        dark 
+        style='position: fixed; width: 100%;z-index: 2;'
+        slider-color="white"
+        >
+        <v-tab
+          v-for="(n,ind) in speedDialModel"
+          :key="ind"
+          :active='2'
+          >
+          <v-icon class='mx-2' small>
+            {{ n.icon }}
+          </v-icon>
+          Item {{ ind }}
+        </v-tab>
+      </v-tabs>
+    <v-divider v-if='$vuetify.breakpoint.smAndDown'/>
     <v-speed-dial
       v-model="fab"
       direction="top"
@@ -35,7 +58,7 @@
         </v-icon>
       </v-btn>
     </v-speed-dial>
-    <v-container fluid :class='$vuetify.breakpoint.smAndDown ? "mygradient pa-0" :  "mygradient" '>
+    <v-container fluid :class='$vuetify.breakpoint.smAndDown ? "mygradient pa-0 mt-5" :  "mygradient mt-5" '>
       <v-layout row wrap fill-height>
         <v-flex xs12 sm8 md6>
           <!--style='max-height:286px; overflow-y: auto;'-->
@@ -85,7 +108,7 @@
             </v-card-text>
           </v-card>
         </v-flex>
-        <v-flex v-for='i in 3' :key='i' xs12 sm6 md4>
+        <v-flex v-for='(i,ind) in 3' :key='ind' xs12 sm6 md4>
           <v-card>
             <v-divider/>
             <v-card-title class='mytitle'>
@@ -98,7 +121,7 @@
             </v-card-title>
             <v-divider />
             <v-card-text class='text-xs-justify'>
-              Material is an adaptable system of guidelines, components, and tools that support the best practices of user interface design. Backed by open-source code, Material streamlines collaboration between designers and developers, and helps teams quickly build beautiful products.
+              Material is an adaptable system of guidelines, components, and tools that support the best practices of user interface design. 
             </v-card-text>
             <v-divider />
             <v-card-text>
@@ -127,15 +150,33 @@ export default {
     ],
     calMenu: false,
     fab: false,
+    offsetTop: 0,
+    documentClasses: [
+      {docClass: "Academic", subs: [ 
+        {name: "", summary: ""}, {name: "", summary: ""}
+      ]},
+      {docClass: "Legal", subs: [ 
+        {name: "", summary: ""}, {name: "", summary: ""},
+        {name: "", summary: ""}, {name: "", summary: ""},
+        {name: "", summary: ""}, {name: "", summary: ""},
+        {name: "", summary: ""}, {name: "", summary: ""},
+      ]},
+      {docClass: "Medical", subs: [ 
+        {name: "", summary: ""}, {name: "", summary: ""}
+      ]},
+    ],
     speedDialModel: [
       { action: "/", icon: "description", color: "red" },
-      { action: "/", icon: "chat", color: "green" },
+      { action: "/", icon: "mail", color: "green" },
       { action: "/", icon: "domain", color: "teal" },
     ]
   }),
   methods: {
     log(e){
       alert(e)
+    },
+    onScroll(e){
+      this.offsetTop = e.target.scrollingElement.scrollTop;
     }
   }
 }
@@ -156,5 +197,8 @@ export default {
 }
 .v-card--hover:hover {
   transform: translateY(-7.5px);
+}
+.elv{
+  box-shadow: 0 2px 1px -1px rgba(0,0,0,.2),0 1px 1px 0 rgba(0,0,0,0),0 1px 3px 0 rgba(0,0,0,0)!important;
 }
 </style>
