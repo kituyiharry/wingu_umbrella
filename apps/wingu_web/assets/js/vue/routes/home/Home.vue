@@ -1,19 +1,28 @@
 <template>
   <v-app style='font-family: "Montserrat", sans-serif;'> 
-    <v-toolbar app height='80' dark color='primary' class='elevation-1'>
-      <v-btn outline data-aos='zoom-in' data-aos-delay='200' icon @click='$router.push("/")'>
+      <!--height='80' -->
+    <v-toolbar app 
+      :class='$vuetify.breakpoint.smAndUp ? "elevation-1" : "elevation-1" ' dark color='primary'>
+      <v-btn small outline data-aos='zoom-in' data-aos-delay='200' icon @click='$router.push("/")'>
         <v-icon small>
           home
         </v-icon>
       </v-btn>
-      <v-btn data-aos='fade-right' flat round outline>
-        <v-icon small left>
-          android
-        </v-icon>
-        connect
-      </v-btn>
+      <v-toolbar-title>
+        Rocks
+      </v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-avatar v-if='$store.state.store.client.picture != undefined'>
+      <v-btn icon round flat>
+        <v-icon>
+          chat
+        </v-icon>
+      </v-btn>
+        <v-btn icon round flat>
+          <v-icon>
+            notifications_none
+          </v-icon>
+        </v-btn>
+      <v-avatar size='32' v-if='$store.state.store.client.picture != undefined'>
         <v-img
           :lazy-src="$store.state.store.client.picture"
           :src="$store.state.store.client.picture"
@@ -61,6 +70,8 @@ export default {
     drawer: false,
     snackbar: false,
     error: "",
+    offsetTop: 0,
+    scroll: 0,
   }),
   methods: {
   },

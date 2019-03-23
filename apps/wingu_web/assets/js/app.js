@@ -46,7 +46,15 @@ const routes = [
 ]
 const router = new VueRouter({
   base: '/',
-  routes
+  routes,
+  scrollBehavior () {
+    //return { x: 0, y: 0 }
+    return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve({ x: 0, y: 0 })
+    }, 200)
+  })
+  }
 })
 const httpLink = new createHttpLink({
   uri: '/graphql'
@@ -60,7 +68,6 @@ const apolloProvider = new VueApollo({
   defaultClient: apolloClient,
   //defaultOptions...
 })
-
 
 AOS.init({
   once: true, // whether animation should happen only once - while scrolling down

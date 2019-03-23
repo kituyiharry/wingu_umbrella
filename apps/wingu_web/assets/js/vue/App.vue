@@ -11,4 +11,7 @@ export default{
 </script>
 <style type="text/css" media="screen">
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,700|Raleway:500,600');
+html {
+  scroll-behavior: smooth;
+}
 </style>

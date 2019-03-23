@@ -105,7 +105,6 @@
       <v-slide-x-transition hide-on-leave>
         <v-btn v-show='!showRegister' @click='$emit("emitOpenCard")' small outline round color='secondary'>
           register
-          <v-divider vertical/>
           <v-icon right small>
             business
           </v-icon>
@@ -114,7 +113,7 @@
       <v-spacer></v-spacer>
       <v-scroll-x-reverse-transition hide-on-leave>
         <div v-show='showRegister'>
-          <v-btn disabled small outline color='success' flat round>
+          <v-btn @click='$router.push("/b/8b83339f-b60e-40a4-b169-afeec465ac0d")' small outline color='success' flat round>
             continue
             <v-icon small right>
               keyboard_arrow_right
