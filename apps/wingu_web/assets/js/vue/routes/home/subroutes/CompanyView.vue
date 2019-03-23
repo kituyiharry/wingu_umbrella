@@ -2,14 +2,14 @@
   <v-content v-scroll='onScroll' class=''>
     <!--<v-divider -->
       <!--color='white'-->
-      <!--style='position: fixed; width: 100%;z-index: 3;'-->
+      <!--v-if='$vuetify.breakpoint.xsOnly'-->
+      <!--style='position: fixed; width: 100%;z-index: 1;'-->
       <!--/>-->
       <v-tabs
-        v-model="tabs"
         centered
         color="primary" :class='offsetTop > 25 ? "elv" : "elevation-0"'
         dark 
-        style='position: fixed; width: 100%;z-index: 2;'
+        style='position: fixed; width: 100%;z-index: 1;'
         slider-color="white"
         >
         <v-tab
@@ -63,7 +63,7 @@
         <v-flex xs12 sm8 md6>
           <!--style='max-height:286px; overflow-y: auto;'-->
           <!--:full-width='$vuetify.breakpoint.lgAndDown'-->
-          <v-date-picker class='flat' 
+          <v-date-picker
             :events='events'
             :show-week='$vuetify.breakpoint.xsOnly'
             full-width
