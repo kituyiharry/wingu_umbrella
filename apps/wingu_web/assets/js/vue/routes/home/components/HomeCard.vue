@@ -1,7 +1,7 @@
 <template>
-  <v-card light flat
+  <v-card flat
     :class='$vuetify.breakpoint.smAndUp ?  
-    $vuetify.breakpoint.smOnly ? "ma-3 allborder" : "ma-4 allborder" 
+    $vuetify.breakpoint.smOnly ? "ma-2 allborder" : "ma-4 allborder" 
     : "halfborder"' 
     style='border-top-left-radius:16px; border-top-right-radius:16px;'>
     <v-card-title>

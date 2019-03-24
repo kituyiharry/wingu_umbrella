@@ -22,6 +22,7 @@ defmodule Wingu.Companies.Company do
     has_many :events, Wingu.Events.Event, on_delete: :delete_all
     has_many :stations, Wingu.Stations.Station, on_delete: :delete_all
     has_many :forms, Wingu.Forms.Form, foreign_key: :companies_id, on_delete: :delete_all
+    has_many :document_classes, Wingu.DocumentClasses.DocumentClass, foreign_key: :companies_id, on_delete: :delete_all
 
     timestamps()
   end

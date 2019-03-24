@@ -54,6 +54,13 @@ defmodule WinguWeb.GraphQL.Schema.Types do
     field(:form_data, list_of(:form_data), resolve: assoc(:form_data))
   end
 
+  object :docclass do
+    field :id, :id
+    field :classname, :string
+    field :class_description, :string
+    field :forms, list_of(:form), resolve: assoc(:forms)
+  end
+
   input_object :form_change do
     field(:name, :string)
     field(:summary, :string)
