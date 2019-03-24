@@ -251,55 +251,6 @@ export default{
 }
 </script>
 <style scoped type="text/css" media="screen">
-noselect{
-  user-select: none;
-}
-.dropbtn {
-  background-color: #3498DB;
-  color: white;
-  padding: 16px;
-  font-size: 16px;
-  border: none;
-  cursor: pointer;
-}
-
-/* Dropdown button on hover & focus */
-.dropbtn:hover, .dropbtn:focus {
-  background-color: #2980B9;
-}
-
-/* The container <div> - needed to position the dropdown content */
-.dropdown {
-  position: relative;
-  display: inline-block;
-}
-
-/* Dropdown Content (Hidden by Default) */
-.dropdown-content {
-  display: none;
-  position: absolute;
-  /*background-color: #f1f1f1;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);*/
-z-index: 1;
-margin-top: 58px;
-margin-left: 72px;
-}
-
-/* Links inside the dropdown */
-.dropdown-content a {
-  color: black;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-}
-
-/* Change color of dropdown links on hover */
-.dropdown-content a:hover {background-color: #ddd}
-
-/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
-.show {display:block;}
-
 .up-arrow {
   border-color: white transparent;
   border-style: solid;
@@ -313,5 +264,12 @@ margin-left: 72px;
   max-width: 1366px;
   margin-left: auto;
   margin-right: auto;
+}
+.v-toolbar__content{
+  max-width: 1366px;
+  margin: auto;
+}
+.v-menu__content{
+  box-shadow: 0 5px 5px -3px rgba(0,0,0,.2), 0 8px 10px 1px rgba(0,0,0,0.12), 0 3px 14px 2px rgba(0,0,0,0);
 }
 </style>

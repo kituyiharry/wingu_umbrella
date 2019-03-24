@@ -34,6 +34,7 @@ import Landing from './vue/routes/landing/Landing.vue'
 import Home from './vue/routes/home/Home.vue'
 import Index from './vue/routes/home/subroutes/Index.vue'
 import CompanyView from './vue/routes/home/subroutes/CompanyView.vue'
+import Dashboard from './vue/routes/home/subroutes/company_routes/Dashboard.vue'
 
 import Store from './vue/store/store.js'
 
@@ -41,11 +42,13 @@ const routes = [
   {path: '/', component: Landing},
   {path: '/home', component: Home, children: [
     {path: '/', component: Index},
-    {path: '/b/:id', component: CompanyView},
+    {path: '/b/:id', component: CompanyView, children: [
+      {path: '/', component: Dashboard},
+    ]},
   ]},
 ]
 const router = new VueRouter({
-  base: '/',
+  //base: '/',
   routes,
   scrollBehavior () {
     //return { x: 0, y: 0 }

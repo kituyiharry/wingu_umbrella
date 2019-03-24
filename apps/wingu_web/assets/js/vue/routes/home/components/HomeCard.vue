@@ -1,7 +1,7 @@
 <template>
   <v-card flat
     :class='$vuetify.breakpoint.smAndUp ?  
-    $vuetify.breakpoint.smOnly ? "ma-2 allborder" : "ma-4 allborder" 
+    $vuetify.breakpoint.smOnly ? "ma-2 allborder" : "ma-3 allborder" 
     : "halfborder"' 
     style='border-top-left-radius:16px; border-top-right-radius:16px;'>
     <v-card-title>
@@ -27,14 +27,17 @@
     <v-slide-y-transition hide-on-leave>
       <div v-show='!showRegister'>
         <v-card-text>
-          Smooth animations help make a UI feel great. Using Vue's transition system and re-usable functional components, you can easily control the motion of your application
+          Smooth animations help make a UI feel great. Using Vue's transition system and re-usable functional components, 
+          you can easily control the motion of your application
         </v-card-text>
         <v-divider />
         <v-card-text id='stations' style='max-height: 230px;overflow-y:scroll;'>
           <v-layout row wrap v-if='$store.state.store.companies.length > 0' class='d-flex align-center justify-content-center'>
             <v-flex xs4 sm2 lg2 v-for='i in $store.state.store.companies' :key='i.id' class='d-flex align-center justify-content-center'>
-              <v-card hover @click='$router.push(`/b/${i.id}`)'
+              <div
                 data-aos='fade-up' data-aos-anchor='#stations' data-aos-anchor-placement='bottom-bottom'
+                >
+              <v-card hover @click='$router.push(`/b/${i.id}`)'
                 v-ripple color='primary' class='' style='border-radius: 8px;'>
                 <v-layout column align-center pa-2>
                   <v-avatar data-aos='zoom-in' data-aos-anchor='#stations' 
@@ -62,6 +65,7 @@
                     </v-chip>
                   </v-layout>
                 </v-card>
+              </div>
                 <!--</span>-->
             </v-flex>
           </v-layout>

@@ -2,7 +2,7 @@
   <v-app :dark='dark' style='font-family: "Montserrat", sans-serif;'> 
     <v-toolbar app dense 
       height='80' 
-      :class='$vuetify.breakpoint.smAndUp ? "elevation-0" : "elevation-0" ' dark color='primary'>
+      class="elevation-0" dark color='primary'>
       <v-btn outline data-aos='zoom-in' data-aos-delay='100' icon @click='$router.go(-1)'>
         <v-icon small>
           arrow_back
