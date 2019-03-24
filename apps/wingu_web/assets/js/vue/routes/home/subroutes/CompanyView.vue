@@ -62,8 +62,9 @@
         </v-icon>
       </v-btn>
     </v-speed-dial>
-    <v-container fluid :class='$vuetify.breakpoint.smAndDown ? "mygradient pa-0 mt-5" :  "mygradient mt-5" '>
-      <v-layout row wrap fill-height>
+    <v-container
+      fluid :class='$vuetify.breakpoint.smAndDown ? "mygradient pa-0 mt-5" :  "mygradient mt-5" '>
+      <v-layout data-aos='fade-up' row wrap fill-height>
         <v-flex xs12 sm8 md6>
           <!--style='max-height:286px; overflow-y: auto;'-->
           <!--:full-width='$vuetify.breakpoint.lgAndDown'-->
@@ -112,29 +113,43 @@
             </v-card-text>
           </v-card>
         </v-flex>
-        <v-flex v-for='(i,ind) in 3' :key='ind' xs12 sm6 md4>
+        <v-flex xs12>
           <v-card>
-            <v-divider/>
-            <v-card-title class='mytitle'>
-              <v-btn small icon round color='secondary'>
+            <v-divider />
+            <v-card-title>
+              <v-btn color='secondary' small icon round>
                 <v-icon small>
                   description
                 </v-icon>
               </v-btn>
-              <strong>Forms</strong>
+              <span class='mytitle'>
+                <strong>
+                Your Documents
+                </strong>
+              </span>
             </v-card-title>
             <v-divider />
-            <v-card-text class='text-xs-justify'>
-              Material is an adaptable system of guidelines, components, and tools that support the best practices of user interface design. 
-            </v-card-text>
-            <v-divider />
-            <v-card-text>
-              <v-layout row wrap>
-                <v-flex xs12 text-xs-center>
-                  No forms available, create one!
+            <!--<v-card-text style='height: 213px;overflow-y: auto;'>-->
+              <v-card-text 
+                :style='$vuetify.breakpoint.smAndDown 
+                ? "height: 213px; overflow-y: auto;" : "max-height: 430px; overflow-y: auto;"'
+                >
+              <v-layout row :wrap='!$vuetify.breakpoint.xsOnly'>
+                <v-flex v-for='i in 24' :key='i' :pa-1='$vuetify.breakpoint.mdAndUp' xs12 md3 d-flex align-center justify-content-center>
+                  <v-card style='border-radius: 8px;' hover
+                    :class='$vuetify.breakpoint.xsOnly ? "mr-1 my-1" : "my-1"' 
+                    color='primary' height='150' :width='$vuetify.breakpoint.xsOnly ? 250 : ""'>
+                  </v-card>
                 </v-flex>
               </v-layout>
             </v-card-text>
+            <v-divider />
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn round outline small>
+                new
+              </v-btn>
+            </v-card-actions>
           </v-card>
         </v-flex>
       </v-layout>

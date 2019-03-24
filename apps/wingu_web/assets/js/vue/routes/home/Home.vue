@@ -21,6 +21,7 @@
         attach='#chat' 
         transition='slide-y-reverse-transition' 
         nudge-left='170'
+        nudge-bottom='5'
         open-on-hover close-on-content-click offset-y>
         <div id='chat' slot='activator'>
           <v-btn id='chat' outline data-aos='zoom-in' data-aos-delay='200' icon round flat>
@@ -41,6 +42,7 @@
         attach='#bell' 
         transition='slide-y-reverse-transition' 
         nudge-left='170'
+        nudge-bottom='5'
         open-on-hover close-on-content-click offset-y>
         <div id='bell' slot='activator' class='mr-2'>
           <v-btn  outline data-aos='zoom-in' data-aos-delay='300' icon round flat>
@@ -95,7 +97,9 @@
         </v-card>
       </v-menu>
     </v-toolbar>
-    <router-view></router-view>
+    <!--<transition name='slide-fade'>-->
+      <router-view></router-view>
+    <!--</transition>-->
     <v-snackbar
       v-model="snackbar"
       color='error'
