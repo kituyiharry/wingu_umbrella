@@ -51,8 +51,9 @@ export default{
 </script>
 <style scoped type="text/css" media="screen">
 .mycontent{
-  background-color: rgba(138, 119, 162, 1);
-  background-image: linear-gradient(to bottom, #00000011, #000000d6), url("/images/biz_b.jpg");
+  /*background-color: rgba(138, 119, 162, 1);*/
+  /*background-image: linear-gradient(to bottom, #00000011, #000000d6), url("/images/biz_b.jpg");*/
+  background-image: linear-gradient(to bottom, #AA076BFF, #61045FFF);
   background-repeat: no-repeat;
   background-position: top;
   background-size: cover;

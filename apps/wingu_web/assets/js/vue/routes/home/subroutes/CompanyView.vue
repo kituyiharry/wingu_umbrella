@@ -5,6 +5,9 @@
       <!--v-if='$vuetify.breakpoint.xsOnly'-->
       <!--style='position: fixed; width: 100%;z-index: 1;'-->
       <!--/>-->
+    <div 
+        data-aos='fade-down'
+      >
       <v-tabs
         centered
         color="primary" :class='offsetTop > 25 ? "elv" : "elevation-0"'
@@ -23,6 +26,7 @@
           Item {{ ind }}
         </v-tab>
       </v-tabs>
+    </div>
     <v-divider v-if='$vuetify.breakpoint.smAndDown'/>
     <v-speed-dial
       v-model="fab"

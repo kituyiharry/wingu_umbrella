@@ -83,7 +83,8 @@ defmodule WinguWeb.GraphQL.Schema do
 
     @desc "Create new Form information"
     field :new_form, :form do
-      arg(:company, :id)
+      arg(:company,  :id)
+      arg(:docclass, :id)
       arg(:form, :form_change)
       # Use Catch all here for context implementations!!
       # resolve fn _, _a, _b -> {:error, "Not implemented"} end
@@ -104,6 +105,15 @@ defmodule WinguWeb.GraphQL.Schema do
       arg(:form, :id)
       middleware :handle_auth
       resolve(&Resolvers.FormResolver.delete_form/3)
+    end
+
+    @desc "Create a Document Class"
+    field :create_doc_class, :docclass do
+      arg :company, :id
+      arg :name, :string
+      arg :description, :string
+      middleware :handle_auth
+      resolve &Resolvers.DocumentClassResolver.create_doc_class/3
     end
   end
 
