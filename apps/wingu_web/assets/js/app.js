@@ -35,6 +35,7 @@ import Home from './vue/routes/home/Home.vue'
 import Index from './vue/routes/home/subroutes/Index.vue'
 import CompanyView from './vue/routes/home/subroutes/CompanyView.vue'
 import Dashboard from './vue/routes/home/subroutes/company_routes/Dashboard.vue'
+import Forms from './vue/routes/home/subroutes/company_routes/Forms.vue'
 
 import Store from './vue/store/store.js'
 
@@ -44,19 +45,20 @@ const routes = [
     {path: '/', component: Index},
     {path: '/b/:id', component: CompanyView, children: [
       {path: '/', component: Dashboard},
+      {path: '/forms', component: Forms},
     ]},
   ]},
 ]
 const router = new VueRouter({
   //base: '/',
   routes,
-  scrollBehavior () {
+  scrollBehavior (to ) {
     //return { x: 0, y: 0 }
-    return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve({ x: 0, y: 0 })
-    }, 200)
-  })
+    return to.fullPath == "/home" ? new Promise((resolve) => {
+      setTimeout(() => {
+        resolve({ x: 0, y: 0 })
+      }, 200) 
+    }) : {x:0, y:0}
   }
 })
 const httpLink = new createHttpLink({

@@ -45,7 +45,7 @@
           <v-divider />
           <v-card-text style='height: 213px;overflow-y: auto;'>
             <v-layout row :wrap='!$vuetify.breakpoint.xsOnly'>
-              <v-flex v-for='i in 3' :key='i' :pa-1='$vuetify.breakpoint.mdAndUp' xs12 md6 d-flex align-center justify-content-center>
+              <v-flex v-for='i in 6' :key='i' :pa-1='$vuetify.breakpoint.mdAndUp' xs12 md6 d-flex align-center justify-content-center>
                 <v-card style='border-radius: 8px;' hover
                   :class='$vuetify.breakpoint.xsOnly ? "mr-1 my-1" : "my-1"' 
                   color='primary' height='150' :width='$vuetify.breakpoint.xsOnly ? 250 : ""'>
@@ -66,7 +66,7 @@
             </v-btn>
             <v-layout column>
               <span class='mytitle'> 
-                <strong>Documents</strong>
+                <strong>Recent Documents</strong>
               </span>
               <span style='font-size: 12px;'>
                 24 available
@@ -90,7 +90,7 @@
               ? "height: 200px; overflow-y: auto;" : "max-height: 430px; overflow-y: auto;"'
               >
               <v-layout row :wrap='!$vuetify.breakpoint.xsOnly'>
-                <v-flex v-for='i in 24' :key='i' :pa-1='$vuetify.breakpoint.mdAndUp' xs12 sm4 md3 d-flex align-center justify-content-center>
+                <v-flex v-for='i in 8' :key='i' :pa-1='$vuetify.breakpoint.mdAndUp' xs12 sm4 md3 d-flex align-center justify-content-center>
                   <v-card style='border-radius: 8px;' hover
                     :class='$vuetify.breakpoint.smAndDown? "mr-1 my-1" : "my-1"' 
                     color='primary' height='150' :width='$vuetify.breakpoint.xsOnly ? 250 : ""'>
@@ -100,8 +100,8 @@
             </v-card-text>
             <v-divider />
             <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn round outline small>
+              <!--<v-spacer></v-spacer>-->
+              <v-btn @click='$router.push("/forms")' round outline small>
                 new
               </v-btn>
             </v-card-actions>
