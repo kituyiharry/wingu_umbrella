@@ -1,8 +1,8 @@
 <template>
   <v-app :dark='dark' style='font-family: "Montserrat", sans-serif;'> 
     <v-toolbar app dense 
-      height='80' 
-      :class='$vuetify.breakpoint.smAndUp ? "elevation-0" : "elevation-0" ' dark color='primary'>
+      height='80'
+      class="elevation-0" dark color="primary">
       <v-btn outline data-aos='zoom-in' data-aos-delay='100' icon @click='$router.go(-1)'>
         <v-icon small>
           arrow_back
@@ -21,7 +21,7 @@
         attach='#chat' 
         transition='slide-y-reverse-transition' 
         nudge-left='170'
-        nudge-bottom='5'
+        nudge-bottom='4'
         open-on-hover close-on-content-click offset-y>
         <div id='chat' slot='activator'>
           <v-btn id='chat' outline data-aos='zoom-in' data-aos-delay='200' icon round flat>
@@ -42,7 +42,7 @@
         attach='#bell' 
         transition='slide-y-reverse-transition' 
         nudge-left='170'
-        nudge-bottom='5'
+        nudge-bottom='4'
         open-on-hover close-on-content-click offset-y>
         <div id='bell' slot='activator' class='mr-2'>
           <v-btn  outline data-aos='zoom-in' data-aos-delay='300' icon round flat>
