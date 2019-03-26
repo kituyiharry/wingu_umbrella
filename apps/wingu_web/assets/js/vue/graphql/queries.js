@@ -21,3 +21,15 @@ export const COMPANIES = gql`
     }
   }
 `
+
+export const EVENTS = gql`
+  query CompanyEvents{
+    companyEvents(companyId: "8b83339f-b60e-40a4-b169-afeec465ac0d"){
+      id
+      from
+      to
+      title
+      description
+    }
+  }
+`
