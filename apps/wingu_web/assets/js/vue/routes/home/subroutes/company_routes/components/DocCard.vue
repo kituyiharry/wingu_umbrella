@@ -50,7 +50,6 @@ export default{
   border-radius: 8px;
   background-image: linear-gradient(to bottom, #AA076BFF, #61045F00);
   background-color: #61045fff;
-  z-index: 1;
 }
 .v-card--hover:hover{
   background-color: #aa076bff;
