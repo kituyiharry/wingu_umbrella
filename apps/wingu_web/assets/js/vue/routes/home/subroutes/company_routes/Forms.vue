@@ -30,10 +30,14 @@
               </span>
             </v-slide-x-transition>
             <v-spacer></v-spacer>
-            <v-btn small :color='createCard ? "red lighten-2" : "secondary"' @click='createCard=!createCard' round outline>
-              {{ createCard ? "close" : "create" }}
-              <v-icon right small>
-                {{ createCard ? "close" : "create" }}
+              <!--@mouseenter='createCard=true' -->
+              <!--@mouseleave='createCard=false' -->
+            <v-btn small :icon='createCard' :color='createCard ? "red lighten-2" : "secondary"' 
+              @click='createCard=!createCard' 
+              round outline>
+              {{ createCard ? "" : "create" }}
+              <v-icon :right='!createCard' small>
+                {{ createCard ? "close" : "add" }}
               </v-icon>
             </v-btn>
           </v-card-title>
@@ -118,11 +122,8 @@
             ? "height: 200px; overflow-y: auto;" : "max-height: 300px; overflow-y: auto;"'
             >
             <v-layout row :wrap='!$vuetify.breakpoint.xsOnly'>
-              <v-flex v-for='i in 8' :key='i' :pa-1='$vuetify.breakpoint.mdAndUp' xs12 sm6 md4 d-flex align-center justify-content-center>
-                <v-card @click='selectedCard=true' style='border-radius: 8px;' hover
-                  :class='$vuetify.breakpoint.smAndDown? "mr-1 my-1" : "my-1"' 
-                  color='primary' height='150' :width='$vuetify.breakpoint.xsOnly ? 250 : ""'>
-                </v-card>
+              <v-flex v-for='i in 8' :key='i' :pa-1='$vuetify.breakpoint.mdAndUp' xs12 sm12 md6 d-flex align-center justify-content-center>
+                <FormCard />
               </v-flex>
             </v-layout>
           </v-card-text>
@@ -159,16 +160,41 @@
   </v-container>
 </template>
 <script charset="utf-8">
+import FormCard from './components/FormCard.vue'
+import { DOC_CLASS_FORMS } from "../../../../graphql/queries.js"
 export default {
   name: "Forms",
+  components: { FormCard },
   data: () => ({
     selectedCard: true,
     createCard: false
-  })
+  }),
+  apollo: {
+    docForms: {
+      query: DOC_CLASS_FORMS,
+      variables () {
+        return {
+          iD: this.$route.params.docclass
+        }
+      },
+      update(data){
+        console.dir(data)
+      }
+    }
+  }
 }
 </script>
 <style type="text/css" media="screen">
 .my_sub_header{
   font-size: 12px;
+}
+.v-card--hover{
+  border-radius: 8px;
+  background-color: #61045fff;
+  background-image: linear-gradient(to bottom, #AA076BFF, #61045F00);
+}
+.v-card--hover:hover{
+  background-color: #aa076bff;
+  transform: translateY(-7.5px);
 }
 </style>

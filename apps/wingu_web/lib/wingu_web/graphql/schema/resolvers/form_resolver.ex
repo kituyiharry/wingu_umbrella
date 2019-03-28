@@ -33,6 +33,16 @@ defmodule WinguWeb.GraphQL.Resolvers.FormResolver do
     {:ok, company.forms}
   end
 
+  @doc "Collects forms belonging to a docclass"
+  def forms(_parent, %{docclass: id}, %{context: %{"sub" => _id}}) do
+    docforms = from(form in Forms.Form,
+      where: form.document_class_id == ^id,
+      group_by: form.id,
+      select: form
+    )
+    {:ok, Repo.all(docforms)}
+  end
+
   @doc "Creates a form with associated template for a company"
   def create_form(
         _parent,

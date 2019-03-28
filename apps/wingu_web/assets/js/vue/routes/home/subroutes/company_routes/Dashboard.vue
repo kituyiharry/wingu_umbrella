@@ -5,6 +5,7 @@
         <!--style='max-height:286px; overflow-y: auto;'-->
         <!--:full-width='$vuetify.breakpoint.lgAndDown'-->
         <v-date-picker
+          header-color='primary'
           class='elevation-1'
           :events='events'
           :show-week='$vuetify.breakpoint.xsOnly'
@@ -48,7 +49,7 @@
               <v-flex v-for='i in 6' :key='i' :pa-1='$vuetify.breakpoint.mdAndUp' xs12 md6 d-flex align-center justify-content-center>
                 <v-card style='border-radius: 8px;' hover
                   :class='$vuetify.breakpoint.xsOnly ? "mr-1 my-1" : "my-1"' 
-                  color='primary' height='150' :width='$vuetify.breakpoint.xsOnly ? 250 : ""'>
+                  height='150' :width='$vuetify.breakpoint.xsOnly ? 250 : ""'>
                 </v-card>
               </v-flex>
             </v-layout>
@@ -89,13 +90,21 @@
               :style='$vuetify.breakpoint.smAndDown 
               ? "height: 200px; overflow-y: auto;" : "max-height: 430px; overflow-y: auto;"'
               >
-              <v-layout row :wrap='!$vuetify.breakpoint.xsOnly'>
-                <v-flex v-for='i in 8' :key='i' :pa-1='$vuetify.breakpoint.mdAndUp' xs12 sm4 md3 d-flex align-center justify-content-center>
-                  <v-card style='border-radius: 8px;' hover
-                    :class='$vuetify.breakpoint.smAndDown? "mr-1 my-1" : "my-1"' 
-                    color='primary' height='150' :width='$vuetify.breakpoint.xsOnly ? 250 : ""'>
-                  </v-card>
+              <v-layout 
+                v-if="!$apollo.queries.documentClasses.loading" 
+                row :wrap='!$vuetify.breakpoint.xsOnly'>
+                <v-flex v-for='i in $store.state.store.documentClasses' 
+                  :key='i.id' :pa-0='$vuetify.breakpoint.mdAndUp' xs12 sm4 md3 d-flex align-center justify-content-center>
+                  <DocCard :docclass='i' />
                 </v-flex>
+              </v-layout>
+              <v-layout v-else column wrap>
+                <v-card flat height='200'>
+                  <v-layout d-flex align-center justify-content-center 
+                    column fill-height>
+                    <v-progress-circular indeterminate color="orange"></v-progress-circular>
+                  </v-layout>
+                </v-card>
               </v-layout>
             </v-card-text>
             <v-divider />
@@ -109,19 +118,22 @@
         </v-flex>
       </v-layout>
     </v-container>
- </template>
-<script charset="utf-8">
+  </template>
+  <script charset="utf-8">
+import DocCard from './components/DocCard.vue'
+import { COMPANY_DOC_CLASSES } from "../../../../graphql/queries.js"
 export default{
   name: "Dashboard",
+  components: { DocCard },
   data: () => ({
     tday: '2019-03-14',
     events: [
-      '2019-03-14',
-      '2019-03-12',
-      '2019-03-22',
-      '2019-03-2',
+'2019-03-14',
+'2019-03-12',
+'2019-03-22',
+'2019-03-2',
     ],
-    calMenu: false,
+    calMenu: false, 
     documentClasses: [
       {docClass: "Academic", subs: [ 
         {name: "", summary: ""}, {name: "", summary: ""}
@@ -136,11 +148,39 @@ export default{
         {name: "", summary: ""}, {name: "", summary: ""}
       ]},
     ],
-  })
+  }),
+  apollo: {
+    documentClasses: {
+      skip: false,
+      query: COMPANY_DOC_CLASSES, 
+      variables() {
+        return {
+          //iD: "8b83339f-b60e-40a4-b169-afeec465ac0d"
+          iD: this.$route.params.id
+        }
+      },
+      update(data){
+        this.$store.dispatch("prepareDocumentClasses", data.documentClasses)
+      },
+      error(){
+      }
+    }
+  },
+  methods: {
+    log(e){
+      console.dir(this)
+    }
+  }
 }
 </script>
 <style scoped type="text/css" media="screen">
-.v-card--hover:hover {
+.v-card--hover{
+  border-radius: 8px;
+  background-image: linear-gradient(to bottom, #AA076BFF, #61045F00);
+  background-color: #61045fff;
+}
+.v-card--hover:hover{
+  background-color: #aa076bff;
   transform: translateY(-7.5px);
 }
 </style>

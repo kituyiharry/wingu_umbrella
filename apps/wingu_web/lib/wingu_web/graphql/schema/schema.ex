@@ -32,6 +32,13 @@ defmodule WinguWeb.GraphQL.Schema do
       resolve(&Resolvers.FormResolver.forms/3)
     end
 
+    @desc "Forms belonging to a docclass"
+    field :doc_forms, list_of(:form) do
+      arg(:docclass, :id)
+      middleware(:handle_auth)
+      resolve(&Resolvers.FormResolver.forms/3)
+    end
+
     @desc "Get DocumentClasses of a company"
     field :document_classes, list_of(:docclass) do
       arg(:company_id, :id)
