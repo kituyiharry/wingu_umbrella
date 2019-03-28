@@ -33,8 +33,8 @@
         <v-divider />
         <v-card-text id='stations' style='max-height: 230px;overflow-y:scroll;'>
           <v-layout row wrap v-if='$store.state.store.companies.length > 0' class='d-flex align-center justify-content-center'>
-            <v-flex xs4 sm2 lg2 v-for='i in $store.state.store.companies' :key='i.id' class='d-flex align-center justify-content-center'>
-              <div
+            <v-flex class='my-2' xs6 sm4 v-for='i in $store.state.store.companies' :key='i.id'>
+              <div class='mx-2'
                 data-aos='fade-up' data-aos-anchor='#stations' data-aos-anchor-placement='bottom-bottom'
                 >
                 <CompanyElement :company='i' />
@@ -51,16 +51,17 @@
     <v-slide-y-reverse-transition hide-on-leave>
       <div v-show='showRegister'> 
         <v-card-text>
-          Use a counter prop to inform a user of the character limit. The counter does not perform any validation by itself. You will need to pair it with either the internal validation system, or a 3rd party library. 
+          Use a counter prop to inform a user of the character limit. The counter does not perform any validation. You will need to pair it with either the internal validation system. 
         </v-card-text>
         <v-divider />
-        <v-card-text>
+        <v-card-text class='py-0' style='max-height: 213px; overflow: auto;'>
           <v-layout row wrap class='mt-1'>
             <v-flex xs12>
               <v-text-field prepend-inner-icon='business_center' box
                 :class='$vuetify.breakpoint.lgAndUp ? "mx-1" : ""' 
                 counter='63'
                 hint='Official business name for your company'
+                v-model='businessName'
                 clearable
                 label='Business name'>
               </v-text-field>
@@ -69,9 +70,30 @@
               <v-text-field prepend-inner-icon='mail' box 
                 :class='$vuetify.breakpoint.lgAndUp ? "mx-1" : ""' 
                 clearable
+                type='email'
+                v-model='email'
                 hint='Mail address for your business'
                 name='' label='E-mail'>
               </v-text-field>
+            </v-flex>
+            <v-flex xs12>
+              <v-text-field prepend-inner-icon='work' box 
+                :class='$vuetify.breakpoint.lgAndUp ? "mx-1" : ""' 
+                clearable
+                v-model='role'
+                :counter=63
+                hint='Your role in this institution'
+                name='' label='Role'>
+              </v-text-field>
+            </v-flex>
+            <v-flex xs12>
+              <v-textarea prepend-inner-icon='description' box 
+                :class='$vuetify.breakpoint.lgAndUp ? "mx-1" : ""' 
+                clearable :conter='280'
+                v-model='description'
+                hint='Describe your role in a tweet'
+                name='' label='Description'>
+              </v-textarea>
             </v-flex>
           </v-layout>
         </v-card-text>
@@ -90,7 +112,7 @@
       <v-spacer></v-spacer>
       <v-scroll-x-reverse-transition hide-on-leave>
         <div v-show='showRegister'>
-          <v-btn @click='$router.push("/b/8b83339f-b60e-40a4-b169-afeec465ac0d")' small outline color='success' flat round>
+          <v-btn @click='createCompany' small outline color='success' flat round>
             continue
             <v-icon small right>
               keyboard_arrow_right
@@ -108,14 +130,37 @@
   </v-card>
 </template>
 <script charset="utf-8">
+import { CREATE_COMPANY } from '../../../graphql/mutations.js'
 import CompanyElement from './CompanyElement.vue'
 export default{
   name: "HomeCard",
   components: { CompanyElement },
   props: ['showRegister'],
   data: () => ({
+    email: "",
+    businessName: "",
+    role: "",
+    description: ""
     // showRegister: false,
   }),
+  methods: {
+    async createCompany(){
+      let params = {
+        email: this.email,
+        name: this.businessName
+      }
+      let role = this.role
+      let desc = this.description
+      this.$apollo.mutate({
+        mutation: CREATE_COMPANY,
+        variables: {
+          params: params,
+          role: role,
+          description: desc
+        },
+      }).then(console.dir).catch(alert)
+    }
+  }
 }
 </script>
 <style scoped type="text/css" media="screen">

@@ -46,7 +46,7 @@ export default{
   },
   data: () => ({
     showRegister: false,
-  })
+  }),
 }
 </script>
 <style scoped type="text/css" media="screen">

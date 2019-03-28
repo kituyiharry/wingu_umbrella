@@ -1,5 +1,6 @@
 export default{
   state: {
+    home: "Home",
     client: {},
     companies: [],
     documentClasses: [],
@@ -8,6 +9,9 @@ export default{
   mutations: {
     mutateClient(state, client){
       state.client = client
+    },
+    mutateTitle(state, title){
+      state.home = title
     },
     mutateCompanies(state, companies){
       state.companies= companies

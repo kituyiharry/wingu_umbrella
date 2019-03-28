@@ -86,31 +86,56 @@
             ></v-text-field>
           <v-divider />
           <!--<v-card-text style='height: 213px;overflow-y: auto;'>-->
-            <v-card-text 
-              :style='$vuetify.breakpoint.smAndDown 
-              ? "height: 200px; overflow-y: auto;" : "max-height: 430px; overflow-y: auto;"'
-              >
-              <v-layout 
-                v-if="!$apollo.queries.documentClasses.loading" 
-                row :wrap='!$vuetify.breakpoint.xsOnly'>
-                <v-flex v-for='i in $store.state.store.documentClasses' 
-                  :key='i.id' :pa-0='$vuetify.breakpoint.mdAndUp' xs12 sm4 md3 d-flex align-center justify-content-center>
-                  <DocCard :docclass='i' />
-                </v-flex>
-              </v-layout>
-              <v-layout v-else column wrap>
-                <v-card flat height='200'>
-                  <v-layout d-flex align-center justify-content-center 
-                    column fill-height>
-                    <v-progress-circular indeterminate color="orange"></v-progress-circular>
-                  </v-layout>
-                </v-card>
-              </v-layout>
-            </v-card-text>
+            <v-slide-y-reverse-transition hide-on-leave>
+              <v-card-text 
+                v-show='!showDocClassForm'
+                :style='$vuetify.breakpoint.smAndDown 
+                ? "height: 200px; overflow-y: auto;" : "max-height: 430px; overflow-y: auto;"'
+                >
+                <!--v-if="$store.state.store.documentClasses.length > 0" -->
+                <v-layout 
+                  v-if="$apollo.queries.documentClasses.loading || $store.state.store.documentClasses.length>0" 
+                  row :wrap='!$vuetify.breakpoint.xsOnly'>
+                  <v-flex v-for='i in $store.state.store.documentClasses' 
+                    :key='i.id' :pa-0='$vuetify.breakpoint.mdAndUp' xs12 sm4 md3 d-flex align-center justify-content-center>
+                    <DocCard :docclass='i' />
+                  </v-flex>
+                </v-layout>
+                <v-layout v-else column wrap align-center justify-content-center>
+                  <v-card flat width='300' height='150' 
+                    v-if='$store.state.store.documentClasses.length < 1'>
+                    <v-card-text class='mt-3 pa-4 text-xs-justify d-flex align-center justify-content-center'>
+                      <span>
+                        There are no document classes available currently. Click 
+                        <kbd style="cursor: pointer;background-color: purple;" @click='showDocClassForm=!showDocClassForm'>create</kbd> to save a new one 
+                      </span>
+                    </v-card-text>
+                  </v-card>
+                  <v-card v-else flat height='200'>
+                    <v-layout d-flex align-center justify-content-center 
+                      column fill-height>
+                      <v-progress-circular indeterminate color="orange"></v-progress-circular>
+                    </v-layout>
+                  </v-card>
+                </v-layout>
+              </v-card-text>
+            </v-slide-y-reverse-transition>
+            <v-divider />
+            <v-slide-y-transition hide-on-leave>
+              <v-card-text v-show='showDocClassForm'>
+                <v-layout row wrap>
+                  <v-flex xs12 sm6 md5 lg4>
+                    Material icons are delightful, beautifully crafted symbols for common actions and items. Download on desktop to use them in your digital products for Android, iOS, and web.
+                  </v-flex>
+                  <v-flex xs12 sm6  md7 lg8:pa-5='$vuetify.breakpoint.lgAndUp'>
+                  </v-flex>
+                </v-layout>
+              </v-card-text>
+            </v-slide-y-transition>
             <v-divider />
             <v-card-actions>
               <!--<v-spacer></v-spacer>-->
-              <v-btn @click='$router.push("/forms")' round outline small>
+              <v-btn @click='showDocClassForm = !showDocClassForm' round outline small>
                 new
               </v-btn>
             </v-card-actions>
@@ -134,20 +159,7 @@ export default{
 '2019-03-2',
     ],
     calMenu: false, 
-    documentClasses: [
-      {docClass: "Academic", subs: [ 
-        {name: "", summary: ""}, {name: "", summary: ""}
-      ]},
-      {docClass: "Legal", subs: [ 
-        {name: "", summary: ""}, {name: "", summary: ""},
-        {name: "", summary: ""}, {name: "", summary: ""},
-        {name: "", summary: ""}, {name: "", summary: ""},
-        {name: "", summary: ""}, {name: "", summary: ""},
-      ]},
-      {docClass: "Medical", subs: [ 
-        {name: "", summary: ""}, {name: "", summary: ""}
-      ]},
-    ],
+    showDocClassForm: false,
   }),
   apollo: {
     documentClasses: {

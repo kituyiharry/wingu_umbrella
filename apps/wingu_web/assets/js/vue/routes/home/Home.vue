@@ -10,7 +10,7 @@
       </v-btn>
       <v-toolbar-title>
         <v-layout column >
-          <strong>Rocks</strong>
+          <strong style='text-overflow: auto;'>{{ $store.state.store.home | first }}</strong>
           <v-divider />
           <v-divider />
           <span style='font-size: 12px;'>Dashboard</span>
@@ -98,7 +98,7 @@
       </v-menu>
     </v-toolbar>
     <!--<transition name='slide-fade'>-->
-      <router-view></router-view>
+      <router-view ></router-view>
     <!--</transition>-->
     <v-snackbar
       v-model="snackbar"
@@ -131,15 +131,31 @@ export default {
       this.snackbar = true
     }
   },
+  filters: {
+    first(sentence){
+      return sentence.split(" ")[0]
+    }
+  },
+  watch: {
+    $route(to){
+      if(to.path=="/home"){
+         this.$store.commit("mutateTitle","Home");
+      }
+    }
+  },
   data: () => ({
     drawer: false,
-    dark: false,
+    title: "Home",
+    dark: true,
     snackbar: false,
     error: "",
     offsetTop: 0,
     scroll: 0,
   }),
   methods: {
+    log(d){
+      console.dir(d)
+    }
   },
   apollo:{
     client: {
