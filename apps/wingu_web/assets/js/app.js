@@ -47,7 +47,7 @@ const routes = [
     {path: '/user', component: Settings},
     {path: '/b/:id', component: CompanyView, children: [
       {path: '/', component: Dashboard},
-      {path: '/forms', component: Forms},
+      {path: '/forms/:docclass', component: Forms},
     ]},
   ]},
 ]

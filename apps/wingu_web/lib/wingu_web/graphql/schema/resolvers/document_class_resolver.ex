@@ -1,8 +1,10 @@
 defmodule WinguWeb.GraphQL.Resolvers.DocumentClassResolver do  
 
   alias Ecto.Multi
-  alias Wingu.{DocumentClasses, Companies}
+  alias Wingu.{Repo, DocumentClasses, Companies}
   alias WinguWeb.GraphQL.TransactionHelper
+
+  import Ecto.Query
 
   def create_doc_class(_parent, %{company: company, name: n, description: d}, _context) do
     docclass = Multi.new()
@@ -15,4 +17,14 @@ defmodule WinguWeb.GraphQL.Resolvers.DocumentClassResolver do
                end)
     TransactionHelper.handle_transaction(docclass, :insert_doc_class)
   end
+
+  def get_doc_classes(_parent, %{company_id: id}, _context) do
+    document_classes = from(
+      docclass in DocumentClasses.DocumentClass,
+      where: docclass.companies_id == ^id,
+      select: docclass
+    ) |> Repo.all()
+    {:ok, document_classes}
+  end
+
 end

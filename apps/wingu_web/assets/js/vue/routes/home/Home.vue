@@ -69,7 +69,7 @@
         <span slot='activator' id='profile'>
           <v-avatar>
             <v-img
-              v-if='$store.state.store.client.picture != undefined'
+              v-if='$apollo.queries.client.loading!=undefined && $store.state.store.client.picture != undefined'
               :lazy-src="$store.state.store.client.picture"
               :src="$store.state.store.client.picture"
               >

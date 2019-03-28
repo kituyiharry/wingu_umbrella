@@ -1,7 +1,9 @@
 export default{
   state: {
     client: {},
-    companies: []
+    companies: [],
+    documentClasses: [],
+    forms: {}
   },
   mutations: {
     mutateClient(state, client){
@@ -9,6 +11,12 @@ export default{
     },
     mutateCompanies(state, companies){
       state.companies= companies
+    },
+    mutateDocClasses(state, documentClasses){
+      state.documentClasses = documentClasses
+    },
+    mutateForms(state, docId, forms){
+      state.forms[docId] = forms 
     }
   },
   actions: {
@@ -17,6 +25,12 @@ export default{
     },
     prepareCompanies(context, companyModel){
       context.commit("mutateCompanies", companyModel)
+    },
+    prepareDocumentClasses(context, documentClasses){
+      context.commit("mutateDocClasses", documentClasses)
+    },
+    prepareDocumentForms(context, docId, forms){
+      context.commit("mutateDocForms", docId, forms)
     }
   }
 }
