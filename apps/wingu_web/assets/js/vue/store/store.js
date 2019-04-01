@@ -4,7 +4,8 @@ export default{
     client: {},
     companies: [],
     documentClasses: [],
-    forms: {}
+    forms: {},
+    events: {}
   },
   mutations: {
     mutateClient(state, client){
@@ -21,6 +22,9 @@ export default{
     },
     mutateForms(state, docId, forms){
       state.forms[docId] = forms 
+    },
+    mutateEvents(state, {id, ev}){
+      state.events[id] = ev
     }
   },
   actions: {
@@ -35,6 +39,9 @@ export default{
     },
     prepareDocumentForms(context, docId, forms){
       context.commit("mutateDocForms", docId, forms)
+    },
+    prepareEvents(context, {id, ev}){
+      context.commit("mutateEvents", {id: id, ev: ev})
     }
   }
 }

@@ -28,9 +28,11 @@
       <v-card-actions class='white--text' v-show='showCardActions'>
         <v-spacer></v-spacer>
         <v-btn icon round small>
-          <v-icon color='white' small>
-            open_in_new
-          </v-icon>
+          <!--<div v-if='showCardActions' data-aos='zoom-in' data-aos-delay='50'>-->
+            <v-icon color='white' small>
+              open_in_new
+            </v-icon>
+          <!--</div>-->
         </v-btn>
       </v-card-actions>
     </v-slide-y-reverse-transition>

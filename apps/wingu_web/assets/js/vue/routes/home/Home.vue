@@ -9,8 +9,10 @@
         </v-icon>
       </v-btn>
       <v-toolbar-title>
-        <v-layout column >
-          <strong style='text-overflow: auto;'>{{ $store.state.store.home | first }}</strong>
+        <v-layout column>
+          <div style='text-overflow: scroll;'>
+            <strong>{{ $store.state.store.home | first }}</strong>
+          </div>
           <v-divider />
           <v-divider />
           <span style='font-size: 12px;'>Dashboard</span>
@@ -99,7 +101,7 @@
     </v-toolbar>
     <!--<transition name='slide-fade'>-->
       <router-view ></router-view>
-    <!--</transition>-->
+      <!--</transition>-->
     <v-snackbar
       v-model="snackbar"
       color='error'
@@ -139,7 +141,7 @@ export default {
   watch: {
     $route(to){
       if(to.path=="/home"){
-         this.$store.commit("mutateTitle","Home");
+        this.$store.commit("mutateTitle","Home");
       }
     }
   },

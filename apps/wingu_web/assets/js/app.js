@@ -28,6 +28,7 @@ import { ApolloClient } from 'apollo-client'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 import { createHttpLink } from 'apollo-link-http'
 import AOS from 'aos'
+import moment from 'moment'
 
 import App from './vue/App.vue'
 import Landing from './vue/routes/landing/Landing.vue'
@@ -82,6 +83,8 @@ AOS.init({
 
 Vue.$httpLink = Vue.prototype.$httpLink = httpLink
 Vue.$AOS = Vue.prototype.$AOS = AOS
+Vue.$moment = Vue.prototype.$moment = moment 
+
 Vue.use(Vuetify, {
   theme: {
     primary: "#996fd6",
