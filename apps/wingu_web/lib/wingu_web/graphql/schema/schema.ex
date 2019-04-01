@@ -45,6 +45,12 @@ defmodule WinguWeb.GraphQL.Schema do
       middleware(:handle_auth)
       resolve(&Resolvers.DocumentClassResolver.get_doc_classes/3)
     end
+
+    field :docclassinfo, :docclass do
+      arg :id, :id
+      middleware(:handle_auth)
+      resolve(&Resolvers.DocumentClassResolver.docclassinfo/3)
+    end
   end
 
   mutation do

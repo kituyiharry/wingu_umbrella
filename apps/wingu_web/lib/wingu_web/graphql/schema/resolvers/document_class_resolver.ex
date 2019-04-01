@@ -27,4 +27,11 @@ defmodule WinguWeb.GraphQL.Resolvers.DocumentClassResolver do
     {:ok, document_classes}
   end
 
+  def docclassinfo(_parent, %{id: id}, _context) do
+    case Repo.get(DocumentClasses.DocumentClass, id) do
+      %DocumentClasses.DocumentClass{} = doc -> {:ok, doc}
+      _ -> {:error, "Not found"}
+    end
+  end
+
 end

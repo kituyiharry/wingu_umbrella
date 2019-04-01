@@ -5,6 +5,7 @@ export default{
     companies: [],
     documentClasses: [],
     forms: {},
+    docclass: {},
     events: {}
   },
   mutations: {
@@ -25,6 +26,9 @@ export default{
     },
     mutateEvents(state, {id, ev}){
       state.events[id] = ev
+    },
+    mutateDocClass(state, doc){
+      state.docclass = doc
     }
   },
   actions: {
@@ -42,6 +46,9 @@ export default{
     },
     prepareEvents(context, {id, ev}){
       context.commit("mutateEvents", {id: id, ev: ev})
+    },
+    prepareDocumentClass(context, doc){
+      context.commit("mutateDocClass", doc)
     }
   }
 }

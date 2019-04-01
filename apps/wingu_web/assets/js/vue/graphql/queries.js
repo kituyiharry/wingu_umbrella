@@ -52,3 +52,19 @@ export const DOC_CLASS_FORMS = gql`
     }
   }
 `
+
+export const DOCFORM = gql`
+  query DocForm($ID: ID){
+    docclassinfo(id: $ID){
+      id
+      classname
+      classDescription
+      forms{
+        id
+        name
+        summary
+        description
+      }
+    }
+  }
+`
