@@ -42,3 +42,12 @@ export const CREATE_EVENT = gql`
     }
   }
 `
+
+export const DELETE_FORM = gql`
+  mutation DeleteForm($form: ID){
+    deleteForm(form: $form){
+      name
+      description
+    }
+  }
+`

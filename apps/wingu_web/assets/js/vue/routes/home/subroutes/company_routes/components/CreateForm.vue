@@ -2,7 +2,7 @@
   <v-card dark flat tile>
     <v-card-text class='pa-0'>
       <v-layout row wrap>
-        <v-flex class='primary pa-3' xs12 md4>
+        <v-flex class='primary pa-3' xs12 sm4>
           <v-layout row>
             <!--<v-flex xs2>-->
               <v-btn icon outline small>
@@ -26,7 +26,7 @@
           </v-layout>
               <v-divider />
         </v-flex>
-        <v-flex xs12 md8>
+        <v-flex xs12 sm8>
           <!--<v-card flat tile>-->
             <!--<v-card-text class='pa-0'>-->
               <v-layout fill-height row wrap>
