@@ -27,12 +27,17 @@
     <v-slide-y-reverse-transition hide-on-leave>
       <v-card-actions class='white--text' v-show='showCardActions'>
         <v-spacer></v-spacer>
-        <v-btn icon round small>
+        <v-btn outline icon round small>
           <!--<div v-if='showCardActions' data-aos='zoom-in' data-aos-delay='50'>-->
             <v-icon color='white' small>
               open_in_new
             </v-icon>
           <!--</div>-->
+        </v-btn>
+        <v-btn icon @click.stop="()=>({})" small color='red lighten-1'>
+          <v-icon small>
+            delete
+          </v-icon>
         </v-btn>
       </v-card-actions>
     </v-slide-y-reverse-transition>

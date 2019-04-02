@@ -43,49 +43,9 @@
             </v-card-title>
             <v-divider />
             <v-slide-y-transition hide-on-leave>
-              <v-card-text v-show='createCard'>
-                <!--<v-container grid-list-md>-->
-                  <v-layout wrap>
-                    <v-flex xs12 sm6 md4>
-                      <v-text-field box label="Legal first name*" required></v-text-field>
-                    </v-flex>
-                    <v-flex xs12 sm6 md4>
-                      <v-text-field box label="Legal middle name" hint="example of helper text only on focus"></v-text-field>
-                    </v-flex>
-                    <v-flex xs12 sm6 md4>
-                      <v-text-field
-                        box
-                        label="Legal last name*"
-                        hint="example of persistent helper text"
-                        persistent-hint
-                        required
-                        ></v-text-field>
-                    </v-flex>
-                    <v-flex xs12>
-                      <v-text-field box label="Email*" required></v-text-field>
-                    </v-flex>
-                    <v-flex xs12>
-                      <v-text-field box label="Password*" type="password" required></v-text-field>
-                    </v-flex>
-                    <v-flex xs12 sm6>
-                      <v-select
-                        box
-                        :items="['0-17', '18-29', '30-54', '54+']"
-                        label="Age*"
-                        required
-                        ></v-select>
-                    </v-flex>
-                    <v-flex xs12 sm6>
-                      <v-autocomplete
-                        box
-                        :items="['Skiing', 'Ice hockey', 'Soccer', 'Basketball', 'Hockey', 'Reading', 'Writing', 'Coding', 'Basejump']"
-                        label="Interests"
-                        multiple
-                        ></v-autocomplete>
-                    </v-flex>
-                  </v-layout>
-                  <!--</v-container>-->
-                <small>*indicates required field</small>
+              <v-card-text class='pa-0' v-show='createCard'>
+                <CreateForm />
+                <!--<small>*indicates required field</small>-->
               </v-card-text>
             </v-slide-y-transition>
             <v-divider />
@@ -122,7 +82,7 @@
               ? "height: 200px; overflow-y: auto;" : "height: 300px; overflow-y: auto;"'
               >
               <v-layout fill-height row :wrap='!$vuetify.breakpoint.xsOnly'>
-                <v-flex v-for='i in docclass.forms' :key='i.id' :pa-1='$vuetify.breakpoint.mdAndUp' xs12 sm12 md6 d-flex align-center justify-content-center>
+                <v-flex v-for='i in docclass.forms' :key='i.id' :pa-1='$vuetify.breakpoint.mdAndUp' xs12 sm12 md6>
                   <FormCard :form='i'/>
                 </v-flex>
               </v-layout>
@@ -167,35 +127,36 @@
 </template>
 <script charset="utf-8">
 import FormCard from './components/FormCard.vue'
+import CreateForm from './components/CreateForm.vue'
 import { DOCFORM } from "../../../../graphql/queries.js"
 export default {
-name: "Forms",
-components: { FormCard },
-data: () => ({
-selectedCard: true,
-createCard: false,
-docclassinfo: {}
-}),
-computed: {
-docclass: {
-get(){
-return this.$store.state.store.docclass
-}
-}
-},
-apollo: {
-docclassinfo: {
-query: DOCFORM,
-variables () {
-return {
-ID: this.$route.params.docclass
-}
-},
-update(data){
-this.$store.dispatch("prepareDocumentClass", data.docclassinfo)
-}
-}
-}
+  name: "Forms",
+  components: { FormCard, CreateForm },
+  data: () => ({
+    selectedCard: true,
+    createCard: false,
+    docclassinfo: {}
+  }),
+  computed: {
+    docclass: {
+      get(){
+        return this.$store.state.store.docclass
+      }
+    }
+  },
+  apollo: {
+    docclassinfo: {
+      query: DOCFORM,
+      variables () {
+        return {
+          ID: this.$route.params.docclass
+        }
+      },
+      update(data){
+        this.$store.dispatch("prepareDocumentClass", data.docclassinfo)
+      }
+    }
+  }
 }
 </script>
 <style type="text/css" media="screen">
