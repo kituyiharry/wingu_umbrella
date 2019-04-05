@@ -27,7 +27,8 @@ config :ueberauth, Ueberauth,
       {Ueberauth.Strategy.Google,
        [
          request_path: "/auth/google",
-         callback_path: "/auth/google/callback"
+         callback_path: "/auth/google/callback",
+         default_scope: "email profile"
        ]}
   ]
 
