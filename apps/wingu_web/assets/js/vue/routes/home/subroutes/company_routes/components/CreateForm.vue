@@ -1,7 +1,7 @@
 <template>
   <v-card dark tile>
     <v-card-title class='py-0 primary'>
-      <v-progress-linear color='secondary' v-model='progress'></v-progress-linear>
+      <v-progress-linear style='z-index:0;' color='secondary' v-model='progress'></v-progress-linear>
     </v-card-title>
     <v-card-text class='pa-0'>
       <v-tabs
