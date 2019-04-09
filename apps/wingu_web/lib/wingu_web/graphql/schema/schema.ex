@@ -3,7 +3,7 @@ defmodule WinguWeb.GraphQL.Schema do
 
   import_types(WinguWeb.GraphQL.Schema.Types)
   alias WinguWeb.GraphQL.Resolvers
-  require IO
+  #require IO
 
   query do
     @desc "Information about the current client"

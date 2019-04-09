@@ -148,15 +148,15 @@ export default {
   data: () => ({
     drawer: false,
     title: "Home",
-    dark: true,
+    dark: false,
     snackbar: false,
     error: "",
     offsetTop: 0,
     scroll: 0,
   }),
   methods: {
-    log(d){
-      console.dir(d)
+    log(){
+      //console.dir(d)
     }
   },
   apollo:{

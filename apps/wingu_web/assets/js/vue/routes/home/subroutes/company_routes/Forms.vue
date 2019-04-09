@@ -20,21 +20,22 @@
           </v-card>
         </v-flex>
         <v-flex xs12>
-          <v-card>
-            <v-card-title>
-              <v-slide-x-transition>
+          <v-card flat tile>
+            <v-divider />
+            <v-card-title class='primary white--text'>
+              <v-slide-y-transition hide-on-leave>
                 <span class='ml-1' v-show='createCard' style='font-size: 18px;' >
                   <strong>
                     Add new Form
                   </strong>
                 </span>
-              </v-slide-x-transition>
+              </v-slide-y-transition>
               <v-spacer></v-spacer>
               <!--@mouseenter='createCard=true' -->
               <!--@mouseleave='createCard=false' -->
-              <v-btn small :icon='createCard' :color='createCard ? "red lighten-2" : "secondary"' 
+              <v-btn :ripple='false' :v-ripple='false' class='elevation-2' dark :icon='createCard' :color='createCard ? "red" : "secondary"' 
                 @click='createCard=!createCard' 
-                round outline>
+                :round='!createCard'>
                 {{ createCard ? "" : "create" }}
                 <v-icon :right='!createCard' small>
                   {{ createCard ? "close" : "add" }}
@@ -42,12 +43,15 @@
               </v-btn>
             </v-card-title>
             <v-divider />
-            <v-slide-y-transition hide-on-leave>
-              <v-card-text class='pa-0' v-show='createCard'>
-                <CreateForm />
-                <!--<small>*indicates required field</small>-->
-              </v-card-text>
-            </v-slide-y-transition>
+            <!--<v-slide-y-transition hide-on-leave>-->
+              <!--<transition name='slide-fade' mode='out-in'>-->
+                <v-expand-transition>
+                  <v-card-text class='pa-0' v-show='createCard'>
+                    <CreateForm />
+                  </v-card-text>
+                </v-expand-transition>
+                <!--</transition>-->
+              <!--</v-slide-y-transition>-->
             <v-divider />
           </v-card>
         </v-flex>
@@ -171,5 +175,21 @@ export default {
 .v-card--hover:hover{
   background-color: #aa076bff;
   transform: translateY(-7.5px);
+}
+
+.slide-fade-enter-active {
+  transition: transform opacity 1s ease-in;
+}
+.slide-fade-leave-active {
+  /*transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);*/
+  transition: opacity 1s ease-out;
+}
+.slide-fade-leave {
+  opacity: 0;
+}
+.slide-fade-enter, .slide-fade-leave-to
+/* .slide-fade-leave-active below version 2.1.8 */ {
+transform: translateY(-20px);
+opacity: 1;
 }
 </style>

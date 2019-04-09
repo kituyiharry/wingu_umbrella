@@ -51,3 +51,23 @@ export const DELETE_FORM = gql`
     }
   }
 `
+
+export const DELETE_COMPANY = gql`
+  mutation DeleteCompany($iD: ID){
+    deleteCompany(id: $iD){
+      email
+      id
+      name
+    }
+  }
+`
+export const DELETE_EVENT = gql`
+  mutation DeleteEvent($iD: ID){
+    id
+    to
+    from
+    to 
+    title
+    description
+  }
+`
