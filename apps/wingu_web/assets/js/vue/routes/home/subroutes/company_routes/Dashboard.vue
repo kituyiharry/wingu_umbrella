@@ -61,7 +61,7 @@
           <v-divider />
           <v-card-text style='height: 213px;overflow-y: auto;'>
             <v-layout v-if='!$apollo.queries.events.loading && $store.state.store.events[$route.params.id].length>0' row :wrap='!$vuetify.breakpoint.xsOnly'>
-              <v-flex v-for='i in events' :key='i' :pa-1='$vuetify.breakpoint.mdAndUp' xs12 md6 d-flex align-center justify-content-center>
+              <v-flex v-for='i in events' :key='i.id' :pa-1='$vuetify.breakpoint.mdAndUp' xs12 md6 d-flex align-center justify-content-center>
                 <v-card style='border-radius: 8px;' hover
                   :class='$vuetify.breakpoint.xsOnly ? "mr-1 my-1" : "my-1"' 
                   height='150' :width='$vuetify.breakpoint.xsOnly ? 250 : ""'>
