@@ -31,11 +31,12 @@
     <v-speed-dial
       v-model="fab"
       direction="top"
+      class='fab'
       transition="scale-transition"
       open-on-hover :close-on-content-click='false'
       right bottom
       fixed
-      :class='$vuetify.breakpoint.mdAndUp ? "mb-5 mr-5" : ""'
+      :class='$vuetify.breakpoint.mdAndUp ? "mb-5 mr-5" : "mb-4"'
       >
       <div
         data-aos='zoom-in' data-aos-offset='-200' data-aos-delay='400'

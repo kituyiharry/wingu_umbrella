@@ -33,6 +33,8 @@ defmodule Wingu.Companies.Company do
     |> cast(attrs, [:email, :name])
     |> validate_required([:email, :name])
     |> validate_length(:name, min: 1, max: 63)
+    |> validate_format(:email, ~r/@/)
+    |> unique_constraint(:email)
     |> unique_constraint(:email)
   end
 end

@@ -22,7 +22,8 @@ defmodule WinguWeb.GraphQL.Resolvers.EventResolver do
         TransactionHelper.handle_fetch(repo, Companies.Company, id)
       end)
       |> Multi.insert(:insert_event, fn %{:fetch_company => company} ->
-        Ecto.build_assoc(company, :events) |> Events.Event.changeset(clean(params))
+        #Ecto.build_assoc(company, :events) |> Events.Event.changeset(clean(params))
+        Ecto.build_assoc(company, :events) |> Events.Event.changeset(params)
       end)
 
     TransactionHelper.handle_transaction(new_event, :insert_event)
@@ -62,10 +63,10 @@ defmodule WinguWeb.GraphQL.Resolvers.EventResolver do
     TransactionHelper.handle_transaction(delevent, :delete_event)
   end
 
-  @doc false
-  defp clean(%{from: _f, to: _t} = params) do
-    nparams = Map.update!(params, :from, fn date -> DateTime.truncate(date, :second) end)
-    fparams = Map.update!(nparams, :to, fn date -> DateTime.truncate(date, :second) end)
-    fparams
-  end
+  #@doc false
+  #defp clean(%{from: _f, to: _t} = params) do
+    #nparams = Map.update!(params, :from, fn date -> DateTime.truncate(date, :second) end)
+    #fparams = Map.update!(nparams, :to, fn date -> DateTime.truncate(date, :second) end)
+    #fparams
+  #end
 end

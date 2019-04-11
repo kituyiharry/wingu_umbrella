@@ -35,6 +35,8 @@ defmodule Wingu.Companies.Clients do
     clients
     |> cast(attrs, [:role, :description, :companies_id, :clients_id])
     |> validate_required([:role, :description, :companies_id, :clients_id])
+    |> validate_length(:role, min: 3, max: 63)
+    |> validate_length(:description, min: 3, max: 280)
     |> foreign_key_constraint(:companies_id)
     |> foreign_key_constraint(:clients_id)
     |> unique_constraint(:companies_id)

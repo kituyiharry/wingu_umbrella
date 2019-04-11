@@ -3,7 +3,7 @@ defmodule WinguWeb.GraphQL.Schema do
 
   import_types(WinguWeb.GraphQL.Schema.Types)
   alias WinguWeb.GraphQL.Resolvers
-  require IO
+  #require IO
 
   query do
     @desc "Information about the current client"
@@ -44,6 +44,12 @@ defmodule WinguWeb.GraphQL.Schema do
       arg(:company_id, :id)
       middleware(:handle_auth)
       resolve(&Resolvers.DocumentClassResolver.get_doc_classes/3)
+    end
+
+    field :docclassinfo, :docclass do
+      arg :id, :id
+      middleware(:handle_auth)
+      resolve(&Resolvers.DocumentClassResolver.docclassinfo/3)
     end
   end
 
