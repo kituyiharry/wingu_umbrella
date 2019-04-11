@@ -1,5 +1,5 @@
 <template>
-  <v-card color='accent darken-3' flat>
+  <v-card width='100%' id='attachcard' color='accent darken-3' flat>
     <v-card-text class='pa-0'>
       <v-layout row wrap>
         <v-flex xs12>
@@ -14,7 +14,7 @@
     <v-divider />
     <v-card-actions>
       <v-spacer></v-spacer>
-      <v-btn flat round>
+      <v-btn color='secondary' round>
         Add Section
       </v-btn>
     </v-card-actions>
@@ -24,6 +24,13 @@
 export default {
   name: "FormWizard",
   data: () => ({
+    sectionNode: {
+      sections: [
+        {name: "Personal Information", description: "...", nodes: [
+          {label: "First Name"}
+        ]}
+      ]
+    }
   })
 }
 </script>
