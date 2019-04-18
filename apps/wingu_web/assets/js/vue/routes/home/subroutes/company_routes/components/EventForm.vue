@@ -1,5 +1,5 @@
 <template>
-  <v-card :height='$vuetify.breakpoint.mdAndUp ? "286" : ""'>
+  <v-card :height='$vuetify.breakpoint.mdAndUp ? "400" : ""'>
     <v-card-title v-if='$vuetify.breakpoint.xsOnly' class='primary white--text'>
       <v-btn icon small color='secondary'>
         <v-icon small>
@@ -20,7 +20,7 @@
       <v-layout row wrap>
         <v-slide-x-transition>
           <v-flex v-show='$vuetify.breakpoint.smAndUp' xs12 sm5 md5>
-            <v-card style='height:100%' class='white--text' height='286' flat tile color='primary'>
+            <v-card style='height:100%' class='white--text' height='400' flat tile color='primary'>
               <v-card-text>
                 <v-layout column fill-height>
                   <v-flex>
@@ -45,7 +45,7 @@
           </v-flex>
         </v-slide-x-transition>
         <v-flex xs12 sm7 md7
-          :style='$vuetify.breakpoint.smAndUp ? "max-height:285px;overflow-y: scroll;" : ""'>
+          :style='$vuetify.breakpoint.smAndUp ? "max-height:400px;overflow-y: scroll;" : ""'>
           <v-layout row wrap fill-height pa-2>
             <v-flex xs12>
               <v-text-field clearable v-model='title' name='' label='Title' box>

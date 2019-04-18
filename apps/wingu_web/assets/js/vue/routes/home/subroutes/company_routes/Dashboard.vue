@@ -5,14 +5,34 @@
         <v-flex v-show='showCalendar' xs12 sm8 md7>
           <!--style='max-height:286px; overflow-y: auto;'-->
           <!--:full-width='$vuetify.breakpoint.lgAndDown'-->
-          <v-date-picker
-            header-color='primary'
-            class='elevation-1'
-            :events='events'
-            :show-week='$vuetify.breakpoint.xsOnly'
-            full-width
-            :landscape='!$vuetify.breakpoint.xsOnly' 
-            v-model='tday' />
+          <v-card hover height='400'>
+            <v-card-title style='font-size: 32px;' class='primary white--text text-xs-center'>
+              {{ computedDateToFormattedMomentjs(today) }}
+            </v-card-title>
+            <v-calendar
+              :now="today"
+              :value="today"
+              color="primary"
+              >
+              <template v-slot:day="{ present, past, date }">
+                <v-layout
+                  fill-height
+                  >
+                  <template v-if="past && tracked[date]">
+                    <v-sheet
+                      v-for="(percent, i) in tracked[date]"
+                      :key="i"
+                      :title="category[i]"
+                      :color="colors[i]"
+                      :width="`${percent}%`"
+                      height="100%"
+                      tile
+                      ></v-sheet>
+                  </template>
+                </v-layout>
+              </template>
+            </v-calendar>
+          </v-card>
         </v-flex>
       </v-slide-y-transition>
       <!--TODO: Landscape and Potrait support-->
@@ -59,7 +79,7 @@
             </v-btn>
           </v-card-title>
           <v-divider />
-          <v-card-text style='height: 213px;overflow-y: auto;'>
+          <v-card-text style='height: 328px;overflow-y: auto;'>
             <v-layout v-if='!$apollo.queries.events.loading && $store.state.store.events[$route.params.id].length>0' row :wrap='!$vuetify.breakpoint.xsOnly'>
               <v-flex v-for='i in events' :key='i.id' :pa-1='$vuetify.breakpoint.mdAndUp' xs12 md6 d-flex align-center justify-content-center>
                 <v-card style='border-radius: 8px;' hover
@@ -219,8 +239,22 @@ export default{
   data: () => ({
     tday: '2019-03-14',
     showCalendar: true,
+    today: '2019-01-10',
+    tracked: {
+      '2019-01-09': [23, 45, 10],
+      '2019-01-08': [10],
+      '2019-01-07': [0, 78, 5],
+      '2019-01-06': [0, 0, 50],
+      '2019-01-05': [0, 10, 23],
+      '2019-01-04': [2, 90],
+      '2019-01-03': [10, 32],
+      '2019-01-02': [80, 10, 10],
+      '2019-01-01': [20, 25, 10]
+    },
+    colors: ['#1867c0', '#fb8c00', '#000000'],
+    category: ['Development', 'Meetings', 'Slacking'],
     myevents: [
-'2019-03-14',
+      '2019-03-14',
       '2019-03-12',
       '2019-03-22',
       '2019-03-2',
@@ -282,6 +316,9 @@ export default{
           description: this.docDesc
         }
       }).catch(alert).then(alert)
+    },
+    computedDateToFormattedMomentjs(toDate){
+      return this.$moment(toDate).format('ddd, MMMM Do YYYY')
     }
   }
 }

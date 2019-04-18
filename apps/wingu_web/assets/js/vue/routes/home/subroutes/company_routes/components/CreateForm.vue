@@ -8,7 +8,6 @@
         v-model="active"
         color="secondary lighten-3"
         dark centered
-        hide-slider
         >
         <v-tab :v-ripple=false
           v-for="(n, i) in wizard.sections"
@@ -17,7 +16,7 @@
           >
           <v-btn :flat='active!==i' round :class='active!==i ? "black--text" : "white--text" '>
             <v-icon color='green darken-2' small left>
-              {{ active >= i ? "check_circle" : "close" }}
+              {{ active >= i ? "check_circle" : "warning" }}
             </v-icon>
             {{ n.title }}
           </v-btn>
