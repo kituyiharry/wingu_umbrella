@@ -12,34 +12,54 @@
             <v-divider />
             <v-card-text class='py-2 px-0'>
               <v-layout row style='align-items: flex-start;overflow-x: auto;scroll-direction: horizontal;'  class='px-1'>
-                <!--<v-flex xs6 
-                  mr-2>-->
                   <div 
                     v-for='(section,secindex) in sectionNode.sections' :key='secindex' 
                     class="py-2 px-1">
                   <v-card 
                     class='ma-0' 
                     :id='section.name.split(" ")[0].concat(secindex)'
-                    style='border-radius: 8px;' min-height='270' width='300' flat tile color='accent darken-1'>
-                    <v-card-title>
-                      <strong style='font-size: 18px;'>
-                        {{ section.name }}
-                      </strong>
+                    style='border-radius: 8px;' min-height='270' width='320' flat tile color='accent darken-1'>
+                    <v-card-title d-flex>
+                      <v-flex xs10>
+                        <v-text-field v-if='editMode' hint='Name of the section' v-model='section.name' box name='' label='Name'>
+                        </v-text-field>
+                        <strong v-else style='font-size: 18px;'>
+                          {{ section.name }}
+                        </strong>
+                      </v-flex>
                       <v-spacer></v-spacer>
-                      <v-menu open-on-hover attach>
-                      <v-btn slot='activator' flat @click='handleRemoveSection' icon color='black' small>
-                        <v-icon small>
-                          more_vert
-                        </v-icon>
-                      </v-btn>
-                      <v-card height='200' width='200' flat tile>
-                        <v-card-text>
-                        </v-card-text>
-                      </v-card>
-                      </v-menu>
+                      <v-flex xs1>
+                        <v-menu transition='slide-y-reverse-transition' :nudge-left='180' width='219' offset-y offset-overflow attach>
+                          <v-btn slot='activator' flat icon color='black' small>
+                            <v-icon color='white' small>
+                              more_vert
+                            </v-icon>
+                          </v-btn>
+                          <div>
+                            <div class='up-arrow'></div>
+                            <v-card flat style='border-radius: 8px;background-color: #f5ff8d;'>
+                              <v-list style='background-color: #f5ff8d;'>
+                                <v-list-tile 
+                                  style='background-color: #f5ff8d;'
+                                  v-for="(item, i) in sectionMenu"
+                                  :key="i"
+                                  @click="(e)=>{ handleSectionMenu(item.actionSwitch, secindex); }">
+                                  <v-list-tile-avatar> <v-icon small>{{ item.icon }}</v-icon></v-list-tile-avatar>
+                                  <v-list-tile-content>
+                                    <v-list-tile-title>
+                                      {{ item.title }}
+                                    </v-list-tile-title>
+                                    <v-list-tile-sub-title>{{ item.sub }}</v-list-tile-sub-title>
+                                  </v-list-tile-content>
+                                </v-list-tile>
+                              </v-list>
+                            </v-card>
+                          </div>
+                        </v-menu>
+                      </v-flex>
                     </v-card-title>
                     <v-divider />
-                    <v-card-text>
+                    <v-card-text style='max-height: 280px; overflow-y: auto;'> 
                       <v-layout row wrap> 
                         <v-flex pa-1 v-for='(node,index) in section.nodes' :key='index' xs12 sm md>
                           <FormNode v-on:delete='handleRemoveNode' 
@@ -47,23 +67,28 @@
                         </v-flex>
                       </v-layout>
                     </v-card-text>
+                    <v-divider />
+                    <v-card-actions>
+                      <v-spacer></v-spacer>
+                      <v-btn @click='() => { handleRemoveSection(secindex); }' small round color='red'>delete</v-btn>
+                    </v-card-actions>
                   </v-card>
-                  </div>
+                </div>
                 <!--</v-flex>-->
-              </v-layout>
-            </v-card-text>
-          </v-card>
-        </v-flex>
-      </v-layout>
-    </v-card-text>
-    <v-divider />
-    <v-card-actions>
-      <v-spacer></v-spacer>
-      <v-btn color='secondary' round>
-        Add Section
-      </v-btn>
-    </v-card-actions>
-  </v-card>
+            </v-layout>
+          </v-card-text>
+        </v-card>
+      </v-flex>
+    </v-layout>
+  </v-card-text>
+  <v-divider />
+  <v-card-actions>
+    <v-spacer></v-spacer>
+    <v-btn color='secondary' round>
+      Add Section
+    </v-btn>
+  </v-card-actions>
+</v-card>
 </template>
 <script charset="utf-8">
 import FormNode from './FormNode.vue';
@@ -71,6 +96,12 @@ export default {
   name: "FormWizard",
   components: { FormNode },
   data: () => ({
+    editMode: false,
+    sectionMenu: [
+      {title: "Add Node",       icon: "add",    actionSwitch: "add", sub: "Add a new entry"},
+      {title: "Edit Section",   icon: "edit",   actionSwitch: "edit", sub: "Edits section information"},
+      {title: "Remove ", icon: "delete", actionSwitch: "delete", sub: "Deletes this section" },
+    ],
     sectionNode: {
       sections: [
         {name: "Personal Information", description: "...", nodes: [
@@ -103,7 +134,29 @@ export default {
     createSimpleID(nodeLabel, index, sectionIndex, sectionName){
       return sectionIndex.toString().concat(sectionName.concat(index.toString().concat(nodeLabel)))
     },
-    editSection(){
+    handleSectionMenu(actionSwitch, index){
+      switch (actionSwitch) {
+        case 'add':
+          this.handleAddSection(index)
+          break;
+        case 'delete':
+          this.handleRemoveSection(index)
+          break;
+        case 'edit':
+          this.editSection(index)
+          break;
+        default:
+          return null
+      }
+    },
+    editSection(index){
+      console.dir(index)
+      this.editMode = !this.editMode
+    },
+    handleAddSection(sectionIndex){
+      return this.sectionNode.sections[sectionIndex].nodes.splice(sectionIndex, 0, 
+        {label: "A label", action: "action", long: false}
+      )
     },
     handleRemoveSection(index){
       return this.sectionNode.sections.splice(index, 1)
@@ -135,5 +188,13 @@ export default {
 }
 ::-webkit-scrollbar-thumb:window-inactive {
   background: rgba(223,173,145,0.4);
+}
+.up-arrow {
+  border-color: #f5ff8d transparent;
+  border-style: solid;
+  border-width: 0px 7px 7px 7px;
+  margin-left: 187px;
+  height: 0px;
+  width: 0px;
 }
 </style>

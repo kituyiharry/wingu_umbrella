@@ -1,9 +1,10 @@
 <template> 
-  <v-menu offset-x :offset-y='$vuetify.breakpoint.smAndDown' 
-    open-on-hover v-model='menu'  class='flat elevation-0'
+  <v-menu allow-overflow offset-x 
+    :open-on-hover='false' v-model='menu'  class='flat elevation-0'
     :close-on-click='true' :close-on-content-click='false' :nudge-bottom='2' 
     transition='slide-y-reverse-transition' style='width:100%;'>
-    <v-card v-ripple slot='activator' flat light color='secondary lighten-3' style='border-radius: 4px;width:100%;'>
+    <v-card
+      v-ripple slot='activator' flat light :color='menu ? "secondary lighten-4" : "secondary lighten-3"' style='border-radius: 4px;width:100%;'>
       <v-card-title class='px-1' 
         >
         <div>
@@ -31,7 +32,7 @@
       </v-card-title>
     </v-card>
     <div style='display: flex; flex-direction: right;'>
-      <div v-if='$vuetify.breakpoint.mdAndUp' class='up-arrow mt-3'/>
+      <div class='up-arrow mt-3'/>
       <v-card light color='secondary lighten-5' style='border-radius: 8px;' width='340' flat tile>
         <v-card-title>
           <v-icon class='pa-2'>
@@ -54,29 +55,29 @@
         <v-card-text style='max-height: 240px;overflow-y: scroll;'>
           <v-layout column>
             <v-flex>
-              <v-text-field v-model='node.label' box name='' hint='Display text shown' label='Name of field'>
+              <v-text-field max='63' v-model='node.label' box name='' hint='Display text shown' label='Name of field'>
               </v-text-field>
             </v-flex>
             <v-flex>
-              <v-text-field box name='' hint='Summary of  the description' label='Short description'>
+              <v-text-field max='63' box name='' hint='Summary of  the description' label='Short description'>
               </v-text-field>
             </v-flex>
             <v-flex>
-              <v-textarea box name='' hint='Describe the entry' label='Full description'>
+              <v-textarea max='280' box name='' hint='Describe the entry' label='Full description'>
               </v-textarea>
             </v-flex>
           </v-layout>
         </v-card-text>
         <v-divider />
         <v-card-actions>
-          <v-btn small color='error'>
+          <v-btn round small color='error'>
             <v-icon left small>
               delete
             </v-icon>
             discard
           </v-btn>
           <v-spacer></v-spacer>
-          <v-btn small color='green'>
+          <v-btn round small color='green'>
             <v-icon left small>
               save
             </v-icon>
@@ -102,7 +103,7 @@ export default {
   },
   filters:{
     ellipsisze(word){
-      return word.length > 10 ?  word.slice(0, 7).concat('...') : word
+      return word.length > 14 ?  word.slice(0, 11).concat('...') : word
     }
   }
 }
