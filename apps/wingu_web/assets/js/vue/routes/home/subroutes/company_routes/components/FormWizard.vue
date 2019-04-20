@@ -13,7 +13,7 @@
             <v-card-text class='py-2 px-0'>
               <v-layout row style='align-items: flex-start;overflow-x: auto;scroll-direction: horizontal;'  class='px-1'>
                   <div v-for='(section,secindex) in sectionNode.sections' :key='secindex' class="py-2 px-1">
-                    <SectionNode @handleRemove='handleRemoveNode' @handleSectionMenu='handleSectionMenu' :section='section' :secindex='secindex'/>
+                    <SectionNode @handleRemoveSection='handleRemoveSection' @handleRemove='handleRemoveNode' @handleSectionMenu='handleSectionMenu' :section='section' :secindex='secindex'/>
                   </div>
               </v-layout>
             </v-card-text>
@@ -24,7 +24,7 @@
     <v-divider />
     <v-card-actions>
       <v-spacer></v-spacer>
-      <v-btn color='secondary' round>
+      <v-btn @click='handleAddSection' color='secondary' round>
         Add Section
       </v-btn>
     </v-card-actions>
@@ -72,7 +72,7 @@ export default {
     handleSectionMenu(actionSwitch, index){
       switch (actionSwitch) {
         case 'add':
-          this.handleAddSection(index)
+          this.handleAddNode(index)
           break;
         case 'delete':
           this.handleRemoveSection(index)
@@ -87,7 +87,12 @@ export default {
     editSection(){
       this.editMode = !this.editMode
     },
-    handleAddSection(sectionIndex){
+    handleAddSection(){
+      return this.sectionNode.sections.splice(this.sectionNode.sections.length, 0, {
+        name: "New Section", description: "...", nodes: []
+      })
+    },
+    handleAddNode(sectionIndex){
       return this.sectionNode.sections[sectionIndex].nodes.splice(0, 0, 
         {label: "A label", action: "action", long: false}
       )

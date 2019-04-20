@@ -3,8 +3,8 @@
     :open-on-hover='false' v-model='menu'  class='flat elevation-0'
     :close-on-click='true' :close-on-content-click='false' :nudge-bottom='2' 
     transition='slide-y-reverse-transition' style='width:100%;'>
-    <v-card
-      v-ripple slot='activator' flat light :color='menu ? "secondary lighten-4" : "secondary lighten-3"' style='border-radius: 4px;width:100%;'>
+    <v-card v-ripple slot='activator' flat light :color='menu ? "secondary lighten-5" : "secondary lighten-3"' 
+      style='border-radius: 4px;width:100%;'>
       <v-card-title class='px-1' 
         >
         <div>
@@ -70,14 +70,14 @@
         </v-card-text>
         <v-divider />
         <v-card-actions>
-          <v-btn round small color='error'>
+          <v-spacer></v-spacer>
+          <v-btn flat round small color='error'>
             <v-icon left small>
               delete
             </v-icon>
             discard
           </v-btn>
-          <v-spacer></v-spacer>
-          <v-btn round small color='green'>
+          <v-btn flat round small color='green'>
             <v-icon left small>
               save
             </v-icon>

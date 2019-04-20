@@ -5,7 +5,7 @@
         <v-flex v-show='showCalendar' xs12 sm8 md7>
           <!--style='max-height:286px; overflow-y: auto;'-->
           <!--:full-width='$vuetify.breakpoint.lgAndDown'-->
-          <v-card hover height='400'>
+          <v-card height='400'>
             <v-card-title style='font-size: 32px;' class='primary white--text text-xs-center'>
               {{ computedDateToFormattedMomentjs(today) }}
             </v-card-title>
