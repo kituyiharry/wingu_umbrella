@@ -1,5 +1,5 @@
 <template> 
-  <v-menu allow-overflow offset-x 
+  <v-menu allow-overflow offset-x  z-index='6'
     :open-on-hover='false' v-model='menu'  class='flat elevation-0'
     :close-on-click='true' :close-on-content-click='false' :nudge-bottom='2' 
     transition='slide-y-reverse-transition' style='width:100%;'>
@@ -33,7 +33,7 @@
     </v-card>
     <div style='display: flex; flex-direction: right;'>
       <div class='up-arrow mt-3'/>
-      <v-card light color='secondary lighten-5' style='border-radius: 8px;' width='340' flat tile>
+      <v-card light color='secondary lighten-5' style='border-radius: 8px;' width='340' tile>
         <v-card-title>
           <v-icon class='pa-2'>
             edit
@@ -46,7 +46,7 @@
               <hr/>
               <hr/>
               <span>
-              {{ secname | ellipsisze }} || {{ node.label }}
+                {{ secname | ellipsisze }} || {{ node.label }}
               </span>
             </v-layout>
           </div>
@@ -55,7 +55,8 @@
         <v-card-text style='max-height: 240px;overflow-y: scroll;'>
           <v-layout column>
             <v-flex>
-              <v-text-field max='63' v-model='node.label' box name='' hint='Display text shown' label='Name of field'>
+              <v-text-field max='63' v-model='node.label' box name='' 
+                hint='Display text shown' label='Name of field'>
               </v-text-field>
             </v-flex>
             <v-flex>
@@ -94,9 +95,21 @@ export default {
   props: ['node', 'attachId','index', 'secname', 'secindex'],
   data: () => ({
     menu: false,
-    expand: false
+    expand: false,
+    showSnack: true,
+    cancelCallback: null
   }),
   methods: {
+    handleCreateTimeout(){
+      this.cancelCallback = window.setTimeout(() => {
+        this.handleRemoveSection()
+      }, 30000)
+      this.showSnack = true
+      this.showSection= false
+    },
+    handleCancelTimeout(){
+      window.clearTimeout(this.cancelCallback)
+    },
     emitDelete(){
       this.$emit('delete', { sec: this.secindex, ind: this.index })
     }

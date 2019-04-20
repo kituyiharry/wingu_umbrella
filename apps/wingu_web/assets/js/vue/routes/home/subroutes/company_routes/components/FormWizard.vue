@@ -39,23 +39,23 @@ export default {
     editMode: false,
     sectionNode: {
       sections: [
-        {name: "Personal Information", description: "...", nodes: [
+        {name: "Personal Information", summary: "", description: "...", nodes: [
           {label: "First Name", action: "firstname", long: false},
           {label: "Last Name", action: "firstname", long: false},
         ]},
-        {name: "Files", description: "...", nodes: [
+        {name: "Files", summary: "" , description: "...", nodes: [
           {label: "First Name", action: "firstname", long: false},
           {label: "First Name", action: "firstname", long: false},
           {label: "First Name", action: "firstname", long: false},
           {label: "First Name", action: "firstname", long: false},
           {label: "Last Name", action: "firstname", long: false},
         ]},
-        {name: "Personal Information", description: "...", nodes: [
+        {name: "Personal Information", summary: "", description: "...", nodes: [
           {label: "First Name", action: "firstname", long: false},
           {label: "Last Name", action: "firstname", long: false},
           {label: "First Name", action: "firstname", long: false},
         ]},
-        {name: "Personal Information", description: "...", nodes: [
+        {name: "Personal Information", summary: "", description: "...", nodes: [
           {label: "First Name", action: "firstname", long: false},
           {label: "Last Name", action: "firstname", long: false},
         ]},
