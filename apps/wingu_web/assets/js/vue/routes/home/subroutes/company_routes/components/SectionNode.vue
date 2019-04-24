@@ -54,17 +54,17 @@
           <v-card-text style='max-height: 280px;overflow-y: auto;' v-show='editMode'>
             <v-layout column>
               <v-flex>
-                <v-text-field color='white' class='white--text' clearable 
+                <v-text-field counter='63' color='white' class='white--text' clearable 
                   v-model='section.name' box name='' label='Name' hint='Section name' >
                 </v-text-field>
               </v-flex>
               <v-flex>
-                <v-text-field color='white' clearable v-model='section.summary' box name='' label='Summary' 
+                <v-text-field counter='63' color='white' clearable v-model='section.summary' box name='' label='Summary' 
                   hint='Short Descriptions' >
                 </v-text-field>
               </v-flex>
               <v-flex>
-                <v-textarea color='white' box description clearable 
+                <v-textarea counter='280' color='white' box description clearable 
                   v-model='section.description' 
                   name='' 
                   label='Description' 
@@ -75,7 +75,7 @@
           </v-card-text>
         </v-slide-y-transition>
         <v-divider />
-        <v-slide-y-transition hide-on-leave>
+        <v-slide-y-reverse-transition hide-on-leave>
         <v-card-text v-show='!editMode' style='max-height: 280px; overflow-y: auto;'> 
           <v-layout row wrap> 
             <v-flex pa-1 v-for='(node,index) in section.nodes' :key='index' xs12 sm md>
@@ -84,7 +84,7 @@
             </v-flex>
           </v-layout>
         </v-card-text>
-      </v-slide-y-transition>
+      </v-slide-y-reverse-transition>
       <v-divider />
       <v-card-actions>
         <v-spacer></v-spacer>

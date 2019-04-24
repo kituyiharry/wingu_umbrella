@@ -55,16 +55,16 @@
         <v-card-text style='max-height: 240px;overflow-y: scroll;'>
           <v-layout column>
             <v-flex>
-              <v-text-field max='63' v-model='node.label' box name='' 
+              <v-text-field counter='63' v-model='node.label' box name='' 
                 hint='Display text shown' label='Name of field'>
               </v-text-field>
             </v-flex>
             <v-flex>
-              <v-text-field max='63' box name='' hint='Summary of  the description' label='Short description'>
+              <v-text-field counter='63' box name='' hint='Summary of  the description' label='Short description'>
               </v-text-field>
             </v-flex>
             <v-flex>
-              <v-textarea max='280' box name='' hint='Describe the entry' label='Full description'>
+              <v-textarea counter='280' box name='' hint='Describe the entry' label='Full description'>
               </v-textarea>
             </v-flex>
           </v-layout>

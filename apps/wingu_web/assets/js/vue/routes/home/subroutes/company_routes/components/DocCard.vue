@@ -2,7 +2,7 @@
   <v-card
     @mouseenter='showCardActions=true' 
     @mouseleave='showCardActions=false' 
-    @click='$router.push("/forms/".concat(docclass.id))'
+    @click='$router.push("/forms/".concat(docclass.id.concat("/c/".concat($route.params.id))))'
     style='
     '
     hover
