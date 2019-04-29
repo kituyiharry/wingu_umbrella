@@ -1,7 +1,8 @@
 <template>
   <div data-aos='fade-left'>
     <v-slide-x-transition>
-      <v-card hover v-show='showSection' class='ma-0 elevation-2' :id='section.name.split(" ")[0].concat(secindex)' 
+      <v-card hover v-show='showSection' 
+        class='ma-0 elevation-2' :id='section.name.split(" ")[0].concat(secindex)' 
         style='border-radius: 8px;' min-height='270' width='320' flat tile 
         :color=' editMode ? "primary" : "accent darken-1"'>
         <v-card-title d-flex>
@@ -59,8 +60,8 @@
                 </v-text-field>
               </v-flex>
               <v-flex>
-                <v-text-field counter='63' color='white' clearable v-model='section.summary' box name='' label='Summary' 
-                  hint='Short Descriptions' >
+                <v-text-field counter='63' color='white' clearable v-model='section.summary' box name='' 
+                  label='Summary' hint='Short Descriptions' >
                 </v-text-field>
               </v-flex>
               <v-flex>
@@ -77,11 +78,18 @@
         <v-divider />
         <v-slide-y-reverse-transition hide-on-leave>
         <v-card-text v-show='!editMode' style='max-height: 280px; overflow-y: auto;'> 
-          <v-layout row wrap> 
-            <v-flex pa-1 v-for='(node,index) in section.nodes' :key='index' xs12 sm md>
+          <v-layout row wrap v-if='section.nodes.length>0'> 
+            <v-flex data-aos='fade-up' data-aos-offset='-10000000' pa-1 v-for='(node,index) in section.nodes' :key='index' xs12 sm md>
               <FormNode v-on:delete='handleRemoveNode' 
                 :node='node' :index='index' :secname='section.name' :secindex='secindex'/>
             </v-flex>
+          </v-layout>
+          <v-layout v-else>
+            <v-card height='100' color='transparent' flat tile>
+              <v-card-text class='text-xs-center'>
+                No entries available you can <kbd style='background-color:green;' @click='() => { handleSectionMenuTimeout("add"); }'>Add new</kbd> entries
+              </v-card-text>
+            </v-card>
           </v-layout>
         </v-card-text>
       </v-slide-y-reverse-transition>

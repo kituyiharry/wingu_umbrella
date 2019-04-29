@@ -91,7 +91,7 @@ export default {
 <style scoped type="text/css" media="screen">
 .mygradient{
   /*background-image: linear-gradient(to bottom, #00000b00, #dc4225aa);*/
-  max-width: 1280px;
+  max-width: 1440px;
   margin-left: auto;
   margin-right: auto;
 }

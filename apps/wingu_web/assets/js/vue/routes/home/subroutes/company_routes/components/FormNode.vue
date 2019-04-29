@@ -3,7 +3,8 @@
     :open-on-hover='false' v-model='menu'  class='flat elevation-0'
     :close-on-click='true' :close-on-content-click='false' :nudge-bottom='2' 
     transition='slide-y-reverse-transition' style='width:100%;'>
-    <v-card v-ripple slot='activator' flat light :color='menu ? "secondary lighten-5" : "secondary lighten-3"' 
+    <v-card v-ripple slot='activator' flat light 
+      :color='menu ? "secondary lighten-5" : showSnack ? "error lighten-2" : "secondary lighten-3"' 
       style='border-radius: 4px;width:100%;'>
       <v-card-title class='px-1' 
         >
@@ -14,7 +15,7 @@
             </v-flex>
             <v-divider />
             <v-flex  style='font-size: 12px;'>
-              Short summary
+              {{ node.summary }}
             </v-flex>
           </v-layout>
         </div>
@@ -24,12 +25,31 @@
             edit
           </v-icon>
         </v-btn>
-        <v-btn @click.stop='emitDelete' flat color='red' icon small class='ml-1'>
+        <v-btn @click.stop='handleCreateTimeout' flat color='red' icon small class='ml-1'>
           <v-icon small>
             delete
           </v-icon>
         </v-btn>
       </v-card-title>
+      <v-slide-y-transition>
+        <v-card flat class='error lighten-2' v-show='showSnack'>
+          <v-divider />
+          <v-card-title>
+            <span class='white--text text-xs-center'>
+              <em>{{ node.label }}</em> will be deleted
+            </span>
+          </v-card-title>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn @click.stop='emitDelete' color='white' round small flat>
+              ok
+            </v-btn>
+            <v-btn @click.stop='handleCancelTimeout' color='success darken-3' round small flat>
+              cancel
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-slide-y-transition>
     </v-card>
     <div style='display: flex; flex-direction: right;'>
       <div class='up-arrow mt-3'/>
@@ -48,6 +68,11 @@
               <span>
                 {{ secname | ellipsisze }} || {{ node.label }}
               </span>
+              <v-switch
+                v-model="node.isrequired"
+                hide-details
+                label="Optional"
+                ></v-switch>
             </v-layout>
           </div>
         </v-card-title>
@@ -55,17 +80,19 @@
         <v-card-text style='max-height: 240px;overflow-y: scroll;'>
           <v-layout column>
             <v-flex>
+            </v-flex>
+            <v-flex>
               <v-text-field counter='63' v-model='node.label' box name='' 
                 hint='Display text shown' label='Name of field'>
               </v-text-field>
             </v-flex>
             <v-flex>
-              <v-text-field counter='63' box name='' hint='Summary of  the description' label='Short description'>
+              <v-text-field counter='63' v-model='node.summary' box name='' hint='Summary of  the description' label='Short description'>
               </v-text-field>
             </v-flex>
             <v-flex>
-              <v-textarea counter='280' box name='' hint='Describe the entry' label='Full description'>
-              </v-textarea>
+              <v-text-field counter='63' v-model='node.placeholder' box name='' hint='Example input required' label='Example entry'>
+              </v-text-field>
             </v-flex>
           </v-layout>
         </v-card-text>
@@ -96,22 +123,23 @@ export default {
   data: () => ({
     menu: false,
     expand: false,
-    showSnack: true,
+    showSnack: false,
     cancelCallback: null
   }),
   methods: {
     handleCreateTimeout(){
-      this.cancelCallback = window.setTimeout(() => {
-        this.handleRemoveSection()
-      }, 30000)
+      // this.cancelCallback = window.setTimeout(() => {
+      //   this.emitDelete()
+      // }, 3000)
       this.showSnack = true
-      this.showSection= false
     },
     handleCancelTimeout(){
-      window.clearTimeout(this.cancelCallback)
+      //window.clearTimeout(this.cancelCallback)
+      this.showSnack = false 
     },
     emitDelete(){
       this.$emit('delete', { sec: this.secindex, ind: this.index })
+      this.showSnack = false 
     }
   },
   filters:{

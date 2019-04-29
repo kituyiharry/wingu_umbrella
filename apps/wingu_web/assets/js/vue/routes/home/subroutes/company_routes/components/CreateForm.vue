@@ -31,7 +31,8 @@
               <v-divider />
               <v-card-text>
                 <v-layout row wrap>
-                  <v-flex :pa-4='$vuetify.breakpoint.smAndUp' xs12 sm5 offset-sm1 md4 offset-md2 8px class='text-xs-justify'>
+                  <v-flex :pa-4='$vuetify.breakpoint.smAndUp' xs12 sm5 offset-sm1 md4 offset-md2 8px 
+                    class='text-xs-justify'>
                     <v-layout column>
                       <v-card class='mb-2' flat color='accent darken-1'>
                         <v-card-title>
@@ -50,15 +51,15 @@
                   <v-flex xs12 sm5 md4 px-2>
                     <v-layout column mt-4>
                       <v-flex>
-                        <v-text-field box v-model='formname' name='' label='Name'>
+                        <v-text-field color='white' box v-model='formname' name='' label='Name'>
                         </v-text-field>
                       </v-flex>
                       <v-flex>
-                        <v-text-field box v-model='formsummary' name='' label='summary'>
+                        <v-text-field color='white' box v-model='formsummary' name='' label='Summary'>
                         </v-text-field>
                       </v-flex>
                       <v-flex>
-                        <v-textarea box v-model='formdescription' name='' label='Description'>
+                        <v-textarea color='white' box v-model='formdescription' name='' label='Description'>
                         </v-textarea>
                       </v-flex>
                     </v-layout>

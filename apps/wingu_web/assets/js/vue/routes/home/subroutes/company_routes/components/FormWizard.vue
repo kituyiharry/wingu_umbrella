@@ -6,7 +6,7 @@
           <v-card color='accent darken-3' flat tile min-height='382'>
             <v-card-title style='font-size: 24px;' class=''>
               <strong>
-              Create a section with inputs
+                Create a section with inputs
               </strong>
               <v-spacer></v-spacer>
               <v-btn @click='handleAddSection' flat>
@@ -24,12 +24,13 @@
             </v-card-title>
             <v-divider />
             <v-card-text class='py-2 px-0'>
-              <v-layout row style='overflow-x: auto;scroll-direction: horizontal; scroll-behavior: smooth;'  class='px-5'>
-                  <div v-for='(section,secindex) in sectionNode.sections' :key='secindex' class="py-2 px-1">
-                    <SectionNode :class='(secindex+1)==sectionNode.sections.length ? "pr-5" : ""' 
-                      @handleRemoveSection='handleRemoveSection' @handleRemove='handleRemoveNode' 
-                      @handleSectionMenu='handleSectionMenu' :section='section' :secindex='secindex'/>
-                  </div>
+              <v-layout row 
+                style='overflow-x: auto;scroll-direction: horizontal; scroll-behavior: smooth;'  class='px-5'>
+                <div v-for='(section,secindex) in sectionNode.sections' :key='secindex' class="py-2 px-1">
+                  <SectionNode :class='(secindex+1)==sectionNode.sections.length ? "pr-5" : ""' 
+                    @handleRemoveSection='handleRemoveSection' @handleRemove='handleRemoveNode' 
+                    @handleSectionMenu='handleSectionMenu' :section='section' :secindex='secindex'/>
+                </div>
               </v-layout>
             </v-card-text>
           </v-card>
@@ -57,26 +58,6 @@ export default {
     editMode: false,
     sectionNode: {
       sections: [
-        {name: "Personal Information", summary: "", description: "...", nodes: [
-          {label: "First Name"},
-          {label: "Last Name"},
-        ]},
-        {name: "Files", summary: "" , description: "...", nodes: [
-          {label: "First Name",  summary: ""},
-          {label: "First Name", summary: ""},
-          {label: "First Name", summary: ""},
-          {label: "First Name", summary: ""},
-          {label: "Last Name", summary: ""},
-        ]},
-        {name: "Personal Information", summary: "", description: "...", nodes: [
-          {label: "First Name", summary: ""},
-          {label: "Last Name", summary: ""},
-          {label: "First Name", summary: ""},
-        ]},
-        {name: "Personal Information", summary: "", description: "...", nodes: [
-          {label: "First Name", summary: ""},
-          {label: "Last Name", summary: ""},
-        ]},
       ]
     }
   }),
@@ -115,7 +96,7 @@ export default {
     },
     handleAddNode(sectionIndex){
       return this.sectionNode.sections[sectionIndex].nodes.splice(0, 0, 
-        {label: "A label", action: "action", long: false}
+        {label: "A label", summary: "summary", placeholder: "......", required: false}
       )
     },
     handleRemoveSection(index){

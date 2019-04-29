@@ -261,12 +261,12 @@ export default{
 }
 
 .mycontent{
-  max-width: 1366px;
+  max-width: 1440px;
   margin-left: auto;
   margin-right: auto;
 }
 .v-toolbar__content{
-  max-width: 1366px;
+  max-width: 1440px;
   margin: auto;
 }
 .v-menu__content{
