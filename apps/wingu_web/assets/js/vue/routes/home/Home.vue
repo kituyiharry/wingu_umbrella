@@ -184,7 +184,7 @@ export default {
 </script>
 <style type="text/css" media="screen">
 .v-toolbar__content{
-  max-width: 1024px;
+  max-width: 1366px;
   margin: auto;
 }
 .v-menu__content{

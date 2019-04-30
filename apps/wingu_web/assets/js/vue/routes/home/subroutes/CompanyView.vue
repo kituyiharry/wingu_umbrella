@@ -16,14 +16,10 @@
         slider-color="white"
         >
         <v-tab
-          v-for="(n,ind) in speedDialModel"
+          v-for="(n,ind) in tabs"
           :key="ind"
-          :active='2'
           >
-          <v-icon class='mx-2' small>
-            {{ n.icon }}
-          </v-icon>
-          Item {{ ind }}
+           {{ n }}
         </v-tab>
       </v-tabs>
     </div>
@@ -72,6 +68,10 @@ export default {
   data: () => ({
     fab: false,
     offsetTop: 0,
+    tabs: [
+      "Dashboard",
+      "Clients"
+    ],
     speedDialModel: [
       { action: "/", icon: "description", color: "red" },
       { action: "/", icon: "mail", color: "green" },
@@ -91,7 +91,7 @@ export default {
 <style scoped type="text/css" media="screen">
 .mygradient{
   /*background-image: linear-gradient(to bottom, #00000b00, #dc4225aa);*/
-  max-width: 1024px;
+  max-width: 1440px;
   margin-left: auto;
   margin-right: auto;
 }

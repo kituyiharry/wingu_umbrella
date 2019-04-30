@@ -75,6 +75,7 @@ defmodule WinguWeb.GraphQL.Schema.Types do
   input_object :form_section do
     field(:name, :string)
     field(:description, :string)
+    field(:summary, :string)
     field(:nodes, list_of(:subnodes))
   end
 
@@ -82,6 +83,7 @@ defmodule WinguWeb.GraphQL.Schema.Types do
     field(:required, :boolean)
     field(:placeholder, :string)
     field(:label, :string)
+    field(:summary, :string)
   end
 
   object :form_data do

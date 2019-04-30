@@ -22,7 +22,7 @@ export const CREATE_DOC_CLASS = gql`
 
 export const CREATE_FORM = gql`
   mutation NewForm($company: ID, $docclass: ID, $form: FormChange){
-    newForm(form: $form, docclass: $docclass, form: $form){
+    newForm(company: $company, docclass: $docclass, form: $form){
       id
       name
       summary

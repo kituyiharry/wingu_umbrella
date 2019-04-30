@@ -86,7 +86,7 @@
               ? "height: 200px; overflow-y: auto;" : "height: 300px; overflow-y: auto;"'
               >
               <v-layout fill-height row :wrap='!$vuetify.breakpoint.xsOnly'>
-                <v-flex v-for='i in docclass.forms' :key='i.id' :pa-1='$vuetify.breakpoint.mdAndUp' xs12 sm12 md6>
+                <v-flex v-for='i in docclass.forms' :key='i.id' :pa-1='$vuetify.breakpoint.mdAndUp' xs12 sm12 md6 lg4>
                   <FormCard :form='i'/>
                 </v-flex>
               </v-layout>

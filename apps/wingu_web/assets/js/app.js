@@ -48,10 +48,11 @@ const routes = [
     {path: '/user', component: Settings},
     {path: '/b/:id', component: CompanyView, children: [
       {path: '/', component: Dashboard},
-      {path: '/forms/:docclass', component: Forms},
+      {path: '/forms/:docclass/c/:company', component: Forms},
     ]},
   ]},
 ]
+
 const router = new VueRouter({
   //base: '/',
   routes,
@@ -64,14 +65,17 @@ const router = new VueRouter({
     }) : {x:0, y:0}
   }
 })
+
 const httpLink = new createHttpLink({
   uri: '/graphql'
 })
+
 const apolloClient = new ApolloClient({
   link: httpLink,
   cache: new InMemoryCache(),
   connectToDevtools: true
 })
+
 const apolloProvider = new VueApollo({
   defaultClient: apolloClient,
   //defaultOptions...
@@ -91,6 +95,7 @@ Vue.use(Vuetify, {
     secondary: "#F08000"
   }
 })
+
 Vue.use(VueRouter)
 Vue.use(VueApollo)
 Vue.use(Vuex)
@@ -100,6 +105,7 @@ const store = new Vuex.Store({
     store: Store
   }
 })
+
 new Vue({
   //el: '#sahihi',
   apolloProvider: apolloProvider,

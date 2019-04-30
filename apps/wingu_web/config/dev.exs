@@ -26,6 +26,7 @@ config :wingu_web, WinguWeb.Endpoint,
       "node_modules/webpack/bin/webpack.js",
       "--mode",
       "development",
+      "--colors",
       "--watch-stdin",
       cd: Path.expand("../assets", __DIR__)
     ]
