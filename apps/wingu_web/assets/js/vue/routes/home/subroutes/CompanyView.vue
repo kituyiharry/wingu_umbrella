@@ -3,6 +3,7 @@
     <div data-aos='fade-down'>
       <v-tabs
         centered dark :hide-slider='false' v-model='activeTab'
+        align-with-title
         color="primary darken-1" :class='offsetTop > 25 ? "elv" : "elevation-0"'
         style='position: fixed;width: 100%;z-index: 1;'
         slider-color="secondary lighten-2">
@@ -38,25 +39,29 @@
         </v-icon>
       </v-btn>
     </v-speed-dial>
-    <v-tabs-items touchless v-model="activeTab">
-      <v-tab-item>
-        <router-view></router-view>
-      </v-tab-item>
-      <v-tab-item>
-        <Records/>
-      </v-tab-item>
-      <v-tab-item>
-        <Stats />
-      </v-tab-item>
-    </v-tabs-items>
+      <v-tabs-items touchless v-model="activeTab">
+        <v-tab-item>
+          <router-view></router-view>
+        </v-tab-item>
+        <v-tab-item>
+          <Records/>
+        </v-tab-item>
+        <v-tab-item>
+          <Stats />
+        </v-tab-item>
+        <v-tab-item>
+          <Integrations />
+        </v-tab-item>
+      </v-tabs-items>
   </v-content>
 </template>
 <script charset="utf-8">
 import Records from './company_routes/Records.vue';
 import Stats from './company_routes/Stats.vue'
+import Integrations from './company_routes/Integrations.vue';
 export default {
   name: "CompanyView",
-  components: { Records, Stats },
+  components: { Records, Stats, Integrations },
   data: () => ({
     fab: false,
     offsetTop: 0,
@@ -65,6 +70,7 @@ export default {
       {label: "Dashboard", icon: "dashboard"},
       {label: "Records",   icon: "folder_open"},
       {label: "Stats",     icon: "multiline_chart"},
+      {label: "Integrations",     icon: "power"},
     ],
     speedDialModel: [
       { action: "/", icon: "description", color: "red" },
