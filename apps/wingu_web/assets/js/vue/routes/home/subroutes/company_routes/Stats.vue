@@ -2,7 +2,7 @@
   <v-container fluid :class='$vuetify.breakpoint.smAndDown ? "mygradient pa-0 mt-5" :  "mygradient mt-5" '>
     <v-layout row wrap>
       <v-flex xs12>
-        <v-card height='1400' color='secondary'>
+        <v-card height='500' color='secondary'>
         </v-card>
       </v-flex>
     </v-layout>

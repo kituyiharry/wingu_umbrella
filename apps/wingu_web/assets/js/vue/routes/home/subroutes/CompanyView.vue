@@ -39,7 +39,7 @@
         </v-icon>
       </v-btn>
     </v-speed-dial>
-      <v-tabs-items touchless v-model="activeTab">
+      <v-tabs-items v-model="activeTab">
         <v-tab-item>
           <router-view></router-view>
         </v-tab-item>
@@ -53,9 +53,9 @@
           <Integrations />
         </v-tab-item>
       </v-tabs-items>
-  </v-content>
-</template>
-<script charset="utf-8">
+    </v-content>
+  </template>
+  <script charset="utf-8">
 import Records from './company_routes/Records.vue';
 import Stats from './company_routes/Stats.vue'
 import Integrations from './company_routes/Integrations.vue';
@@ -76,7 +76,7 @@ export default {
       { action: "/", icon: "description", color: "red" },
       { action: "/", icon: "mail", color: "green" },
       { action: "/", icon: "domain", color: "teal" },
-    ]
+    ],
   }),
   methods: {
     log(e){

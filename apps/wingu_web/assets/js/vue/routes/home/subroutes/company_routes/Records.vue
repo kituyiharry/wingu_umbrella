@@ -58,77 +58,81 @@
         </v-menu>
       </v-card-actions>
       <v-divider />
-      <v-card-text class='px-2'>
+      <v-card-text class='px-1'>
         <v-layout row wrap>
           <v-flex xs12 sm6 md5 pa-1>
-            <v-card style='border-radius: 8px;' class='elevation-8'>
-              <v-card-text>
-                <v-layout row wrap>
-                  <v-flex xs12 sm6 lg5>
-                    <v-card flat tile>
-                      <v-card-title class='px-0'>
-                        <v-layout row wrap>
-                          <v-flex xs3>
-                            <v-avatar >
-                              <v-icon large>
-                                collections_bookmark
-                              </v-icon>
-                            </v-avatar>
-                          </v-flex>
-                          <v-flex xs9>
+            <v-layout column>
+              <v-flex>
+                <v-card style='border-radius: 8px;' class='elevation-8'>
+                  <v-card-text>
+                    <v-layout row wrap>
+                      <v-flex xs12 sm4 lg5>
+                        <v-card flat tile>
+                          <v-card-title class='px-0'>
                             <v-layout column>
                               <v-flex>
-                                <span class='' style='font-size: 18px;'>
-                                  Collection Title
+                                <span class='' style='font-size: 16px;'>
+                                  Collections 
                                 </span>
                               </v-flex>
                               <v-flex>
                                 <span class='grey--text'>Summary</span>
                               </v-flex>
                             </v-layout>
-                          </v-flex>
-                        </v-layout>
-                      </v-card-title>
-                      <v-divider />
-                      <v-card-text class='pa-0'>
-                        <v-list two-line subheader>
-                          <!--<v-subheader inset>Folders</v-subheader>-->
-                          <v-list-tile
-                            v-for="(item,ind) in ['Date', 'Time']"
-                            :key="ind"
-                            avatar
-                            @click="">
-                            <v-list-tile-avatar>
-                              <v-icon small>date_range</v-icon>
-                            </v-list-tile-avatar>
-                            <v-list-tile-content>
-                              <v-list-tile-title>{{ item }}</v-list-tile-title>
-                              <v-list-tile-sub-title>{{ item }}</v-list-tile-sub-title>
-                            </v-list-tile-content>
-                          </v-list-tile>
-                        </v-list>
-                      </v-card-text>
-                    </v-card>
-                  </v-flex>
-                  <!--<v-divider vertical/>-->
-                  <v-flex xs12 sm6 lg7>
-                    <v-card flat tile>
-                      <v-card-text class='text-xs-justify'>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
-                      </v-card-text>
+                          </v-card-title>
+                          <v-divider />
+                          <v-card-text class='pa-0'>
+                            <v-list two-line subheader>
+                              <!--<v-subheader inset>Folders</v-subheader>-->
+                              <v-list-tile
+                                v-for="(item,ind) in ['Date', 'Time']"
+                                :key="ind"
+                                avatar
+                                @click="">
+                                <!--<v-list-tile-avatar>-->
+                                  <!--<v-icon small>date_range</v-icon>-->
+                                  <!--</v-list-tile-avatar>-->
+                                <v-list-tile-content>
+                                  <v-list-tile-title>{{ item }}</v-list-tile-title>
+                                  <v-list-tile-sub-title>{{ item }}</v-list-tile-sub-title>
+                                </v-list-tile-content>
+                              </v-list-tile>
+                            </v-list>
+                          </v-card-text>
+                        </v-card>
+                      </v-flex>
+                      <!--<v-divider vertical/>-->
+                      <v-flex xs12 sm8 lg7>
+                        <v-card flat tile>
+                          <v-card-text class='text-xs-justify'>
+                            Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
+                            tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At
+                            vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren,
+                            no sea takimata sanctus est Lorem ipsum dolor sit amet.
+                          </v-card-text>
+                        </v-card>
+                      </v-flex>
+                    </v-layout>
+                  </v-card-text>
+                  <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn icon :key='i' v-for='(it,i) in ["delete", "edit", "share"]'>
+                      <v-icon >
+                        {{ it }}
+                      </v-icon>
+                    </v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-flex>
+              <v-flex class='pt-2'>
+                <v-layout row wrap>
+                  <v-flex xs12>
+                    <v-card height='204' style='border-radius: 8px;'>
                     </v-card>
                   </v-flex>
                 </v-layout>
-              </v-card-text>
-              <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn icon :key='i' v-for='(it,i) in ["delete", "edit", "share"]'>
-                  <v-icon >
-                    {{ it }}
-                  </v-icon>
-                </v-btn>
-              </v-card-actions>
-            </v-card>
+              </v-flex>
+            </v-layout>
           </v-flex>
           <v-flex xs12 sm6 md7 pa-1>
             <v-card style='border-radius: 8px;' class='elevation-8'>
@@ -190,21 +194,119 @@
               </v-card-actions>
             </v-card>
           </v-flex>
-          <v-flex xs12 sm4 md3 pa-1>
-            <v-card height='300' style='border-radius: 8px;' class='elevation-8'>
+          <v-flex xs12 sm5 md4 lg3 pa-1>
+            <v-card style='border-radius: 8px;' class='elevation-8'>
+              <v-card-title>
+                <v-layout row wrap>
+                  <v-flex xs3 lg2>
+                    <v-avatar >
+                      <v-icon large>
+                        account_circle
+                      </v-icon>
+                    </v-avatar>
+                  </v-flex>
+                  <v-flex xs9 lg10>
+                    <v-layout column>
+                      <v-flex>
+                        <strong style='font-size: 16px;font-weight: bold;'>Ellen Degeneres</strong>
+                      </v-flex>
+                      <v-flex>
+                        <span class='grey--text'>Middle name dexter</span>
+                      </v-flex>
+                    </v-layout>
+                  </v-flex>
+                </v-layout>
+              </v-card-title>
+              <v-divider />
+              <v-card-text class='pa-0'>
+                <v-layout row wrap>
+                  <v-flex xs9>
+                    <v-list style='border-radius: 8px;' two-line subheader>
+                      <!--<v-subheader inset>Folders</v-subheader>-->
+                      <v-list-tile
+                        v-for="(item,ind) in ['Date', 'Time']"
+                        :key="ind"
+                        avatar
+                        @click="">
+                        <v-list-tile-avatar>
+                          <v-icon small>date_range</v-icon>
+                        </v-list-tile-avatar>
+                        <v-list-tile-content>
+                          <v-list-tile-title>{{ item }}</v-list-tile-title>
+                          <v-list-tile-sub-title>{{ item }}</v-list-tile-sub-title>
+                        </v-list-tile-content>
+                      </v-list-tile>
+                    </v-list>
+                  </v-flex>
+                  <!--<v-divider vertical/>-->
+                  <v-flex xs3>
+                    <v-layout 
+                      class='mt-3 d-flex align-center justify-content-center' 
+                      style='width: 100%;' column wrap>
+                      <v-flex :key='n' v-for='(i,n) in ["mail", "send", "payment"]'>
+                        <v-btn 
+                          small icon>
+                          <v-icon small>
+                            {{ i }}
+                          </v-icon>
+                        </v-btn>
+                      </v-flex>
+                    </v-layout>
+                  </v-flex>
+                </v-layout>
+              </v-card-text>
             </v-card>
           </v-flex>
-          <v-flex xs12 sm8 md9>
-            <v-layout row wrap>
-              <v-flex xs12 sm5 pa-1>
-                <v-card height='300' style='border-radius: 8px;' class='elevation-8'>
+          <v-flex xs12 sm7 md8 pa-1>
+            <!--<v-layout row wrap>-->
+              <!--<v-flex xs10>-->
+                <v-card height='236' style='border-radius: 8px;' class='elevation-8'>
+                  <v-layout row wrap>
+                    <v-flex xs12 sm6 lg4 pa-1>
+                      <v-card flat style='border-radius: 8px;'>
+                        <v-card-title>
+                          <v-layout row wrap>
+                            <v-flex xs3 sm4 lg3>
+                              <v-avatar >
+                                <v-icon large>
+                                  account_circle
+                                </v-icon>
+                              </v-avatar>
+                            </v-flex>
+                            <v-flex xs9 sm8 lg9>
+                              <v-layout column>
+                                <v-flex>
+                                  <strong style='font-size:18px;font-weight: bold;'>
+                                    Data
+                                  </strong>
+                                </v-flex>
+                                <v-flex>
+                                  <span class='gery--text'>An algorithm</span>
+                                </v-flex>
+                              </v-layout>
+                            </v-flex>
+                          </v-layout>
+                        </v-card-title>
+                        <v-card-text>
+                          <v-layout column>
+                          </v-layout>
+                        </v-card-text>
+                      </v-card>
+                    </v-flex>
+                    <v-flex xs12 md6 lg8>
+                      <v-card flat style='border-radius: 8px;'>
+                        <v-card-text>
+                          Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
+                          tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At
+                          vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren,
+                          no sea takimata sanctus est Lorem ipsum dolor sit amet.
+                        </v-card-text>
+                      </v-card>
+                    </v-flex>
+                  </v-layout>
                 </v-card>
-              </v-flex>
-              <v-flex xs12 sm7 pa-1>
-                <v-card height='300' style='border-radius: 8px;' class='elevation-8'>
-                </v-card>
-              </v-flex>
-            </v-layout>
+              <!--</v-flex>-->
+            <!--</v-layout>-->
           </v-flex>
         </v-layout>
       </v-card-text>
