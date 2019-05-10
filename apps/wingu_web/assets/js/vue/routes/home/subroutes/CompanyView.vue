@@ -39,7 +39,7 @@
         </v-icon>
       </v-btn>
     </v-speed-dial>
-      <v-tabs-items v-model="activeTab">
+      <v-tabs-items touchless v-model="activeTab">
         <v-tab-item>
           <router-view></router-view>
         </v-tab-item>

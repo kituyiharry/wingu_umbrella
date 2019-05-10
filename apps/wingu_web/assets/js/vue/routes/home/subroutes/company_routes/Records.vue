@@ -4,7 +4,7 @@
     "mygradient pa-0 mt-5" :  "mygradient mt-5" '>
     <v-card :style='$vuetify.breakpoint.mdAndUp ? 
       "border-radius: 4px; background: linear-gradient(to bottom, indigo, #A229D2)" : 
-      "background: linear-gradient(to bottom, indigo, white )"' 
+      "background: linear-gradient(to right, indigo, blue)"' 
       class="white--text" flat>
       <v-card-title>
         <span style='font-size: 32px;width:100%;font-weight: bold;'>Records</span><br/>

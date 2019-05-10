@@ -2,7 +2,7 @@
   <v-container fluid :class='$vuetify.breakpoint.smAndDown ? "mygradient pa-0 mt-5" :  "mygradient mt-5" '>
     <v-card :style='$vuetify.breakpoint.mdAndUp ? 
       "border-radius: 4px; background: linear-gradient(to bottom, #214e53, #A229D2)" : 
-      "background: linear-gradient(to bottom, #214e53, white )"' 
+      "background: linear-gradient(to right, #214e53, indigo)"' 
       class="white--text" flat>
       <v-card-title>
         <span style='font-size: 32px;width:100%;font-weight: bold;'>Events and Glance</span><br/>
@@ -59,23 +59,78 @@
       <v-card-text class='px-1'>
         <v-layout data-aos='fade-up' row wrap fill-height>
           <v-slide-y-transition hide-on-leave>
-            <v-flex v-show='showCalendar' xs12 sm8 md7 pa-1>
+            <v-flex v-show='showCalendar' xs12 md7 pa-1>
               <!--style='max-height:286px; overflow-y: auto;'-->
               <!--:full-width='$vuetify.breakpoint.lgAndDown'-->
-              <v-card height='400' style='border-radius: 8px;'>
-                <v-card-text>
-                  to be replaced!
+              <v-card style='border-radius: 8px;'>
+                <v-card-text style='min-height: 250px;'>
+                  <v-layout fill-height row wrap>
+                    <v-flex xs12 lg4>
+                      <v-card flat tile>
+                        <v-card-title>
+                          <v-layout column>
+                            <v-flex>
+                              <strong style='font-size:24px;'>Event Name</strong>
+                            </v-flex>
+                            <v-flex>
+                              <span class='grey--text'>Some description stuff</span>
+                            </v-flex>
+                          </v-layout>
+                        </v-card-title>
+                        <v-divider />
+                        <v-card-text>
+                          <v-list two-line subheader>
+                            <v-subheader>General</v-subheader>
+                            <v-list-tile>
+                              <v-list-tile-content>
+                                <v-list-tile-title>Profile photo</v-list-tile-title>
+                                <v-list-tile-sub-title>Change your Google+ profile photo</v-list-tile-sub-title>
+                              </v-list-tile-content>
+                            </v-list-tile>
+                            <v-list-tile avatar>
+                              <v-list-tile-content>
+                                <v-list-tile-title>Show your status</v-list-tile-title>
+                                <v-list-tile-sub-title>Your status is visible to everyone
+                                </v-list-tile-sub-title>
+                              </v-list-tile-content>
+                            </v-list-tile>
+                          </v-list>
+                        </v-card-text>
+                      </v-card>
+                    </v-flex>
+                    <v-flex xs12 lg8> 
+                      <v-layout fill-height column wrap>
+                        <v-flex style='min-height:250px;height: 100%;'>
+                          <div style='height: 100%;' id='eventsVis'/>
+                        </v-flex>
+                      </v-layout>
+                    </v-flex>
+                  </v-layout>
                 </v-card-text>
+                <v-divider />
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-btn icon small flat>
+                    <v-icon small>
+                      share
+                    </v-icon>
+                  </v-btn>
+                  <v-btn icon small flat>
+                    <v-icon small>
+                      delete
+                    </v-icon>
+                  </v-btn>
+                </v-card-actions>
               </v-card>
             </v-flex>
           </v-slide-y-transition>
           <!--TODO: Landscape and Potrait support-->
           <v-slide-y-reverse-transition hide-on-leave>
-            <v-flex v-show='!showCalendar' xs12 sm8 md7>
+            <v-flex v-show='!showCalendar' xs12 md7>
               <EventForm />
             </v-flex>
           </v-slide-y-reverse-transition>
-          <v-flex xs12 sm4 md5 pa-1>
+          <v-flex xs12 md5 pa-1>
             <v-card style='border-radius: 8px;' 
               tile>
               <v-divider v-if='$vuetify.breakpoint.xsOnly'/>
@@ -88,7 +143,7 @@
                 </v-btn>
                 <v-layout column>
                   <span class='mytitle'>
-                    <strong>Events</strong>
+                    <strong>Event Description</strong>
                   </span>
                   <span v-if='$apollo.queries.events.loading'>
                     <v-progress-linear
@@ -96,7 +151,7 @@
                       color="red"
                       ></v-progress-linear>
                   </span>
-                  <span v-else style='font-size: 12px;'>{{$store.state.store.events[$route.params.id].length}} this month</span>
+                  <span v-else style='font-size: 12px;'>Some description text</span>
                 </v-layout>
                 <v-spacer></v-spacer>
                 <v-btn :color='!showCalendar ? "red lighten-2" : "green"' 
@@ -113,12 +168,37 @@
                 </v-btn>
               </v-card-title>
               <v-divider />
-              <v-card-text style='height: 328px;overflow-y: auto;'>
-                <v-layout v-if='!$apollo.queries.events.loading && $store.state.store.events[$route.params.id].length>0' row :wrap='!$vuetify.breakpoint.xsOnly'>
-                  <v-flex v-for='i in events' :key='i.id' :pa-1='$vuetify.breakpoint.mdAndUp' xs12 md6 d-flex align-center justify-content-center>
-                    <v-card style='border-radius: 8px;' hover
-                      :class='$vuetify.breakpoint.xsOnly ? "mr-1 my-1" : "my-1"' 
-                      height='150' :width='$vuetify.breakpoint.xsOnly ? 250 : ""'>
+              <v-card-text style='overflow-y: auto;'>
+                <v-layout v-if='!$apollo.queries.events.loading && $store.state.store.events[$route.params.id].length>0' row :wrap='!$vuetify.breakpoint.xsOnly' column>
+                  <v-flex :px-3='$vuetify.breakpoint.mdAndUp'>
+                    Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
+                    tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At
+                    vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren,
+                    no sea takimata sanctus est Lorem ipsum dolor sit amet.
+                  </v-flex>
+                  <v-divider />
+                  <v-flex>
+                    <v-card flat tile>
+                      <v-card-title class='py-0'>
+                        <strong style='font-size: 20px;'>
+                        Chaperones for contact
+                        </strong>
+                      </v-card-title>
+                      <v-card-text>
+                        <!--<v-layout row class='d-flex align-center'>-->
+                          <!--<v-flex xs3 v-for='i in 3' px-1>-->
+                            <v-avatar size='74' v-for='i in 3' class='ml-2'>
+                              <img src='/images/sahihi.jpg' alt=''>
+                            </v-avatar>
+                          <!--</v-flex>-->
+                        <!--</v-layout>-->
+                      </v-card-text>
+                      <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn flat>
+                          add
+                        </v-btn>
+                      </v-card-actions>
                     </v-card>
                   </v-flex>
                 </v-layout>
@@ -126,7 +206,7 @@
                   <v-card height='100' class='d-flex align-center justify-content-center' flat tile>
                     <v-card-text :mt-3='$vuetify.breakpoint.xsOnly' class='pa-4 text-xs-center d-flex align-center justify-content-center'>
                       <span>
-                        There are no Events available currently. Click 
+                        There are no Events available currently selected
                         <kbd style="cursor: pointer;background-color: purple;" 
                           @click='showCalendar=!showCalendar'>create</kbd> to save a new one 
                       </span>
@@ -272,6 +352,27 @@ import { CREATE_DOC_CLASS  } from "../../../../graphql/mutations.js"
 export default{
   name: "Dashboard",
   components: { DocCard, EventForm },
+  mounted(){
+    // DOM element where the Timeline will be attached
+    var container = document.getElementById('eventsVis');
+
+    // Create a DataSet (allows two way data-binding)
+    var items = new this.$vis.DataSet([
+      {id: 1, content: 'item 1', start: '2013-04-20'},
+      {id: 2, content: 'item 2', start: '2013-04-14'},
+      {id: 3, content: 'item 3', start: '2013-04-18'},
+      {id: 4, content: 'item 4', start: '2013-04-16', end: '2013-04-19'},
+      {id: 5, content: 'item 5', start: '2013-04-25'},
+      {id: 6, content: 'item 6', start: '2013-04-27'}
+    ]);
+
+    // Configuration for the Timeline
+    var options = { height: '100%'};
+
+    // Create a Timeline
+    var timeline = new this.$vis.Timeline(container, items, options);
+    console.dir(timeline)
+  },
   data: () => ({
     tday: '2019-03-14',
     showCalendar: true,
