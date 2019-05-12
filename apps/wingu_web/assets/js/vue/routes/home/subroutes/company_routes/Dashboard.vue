@@ -167,36 +167,55 @@
                   </v-icon>
                 </v-btn>
               </v-card-title>
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-chip small label>
+                  <v-icon small left>
+                    bookmark
+                  </v-icon>
+                  $ 200
+                </v-chip>
+                <v-chip small label>
+                  <v-icon small left>
+                    event_seat
+                  </v-icon>
+                  500
+                </v-chip>
+              </v-card-actions>
               <v-divider />
               <v-card-text style='overflow-y: auto;'>
                 <v-layout v-if='!$apollo.queries.events.loading && $store.state.store.events[$route.params.id].length>0' row :wrap='!$vuetify.breakpoint.xsOnly' column>
-                  <v-flex :px-3='$vuetify.breakpoint.mdAndUp'>
-                    Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
-                    tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At
-                    vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren,
-                    no sea takimata sanctus est Lorem ipsum dolor sit amet.
+                  <v-flex  py-0 :px-3='$vuetify.breakpoint.mdAndUp'>
+                    <!--<v-card flat tile>-->
+                      <!--<v-card-text class='px-0'>-->
+                            Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
+                            tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At
+                            vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren,
+                            no sea takimata sanctus est Lorem ipsum dolor sit amet.
+                      <!--</v-card-text>-->
+                    <!--</v-card>-->
                   </v-flex>
-                  <v-divider />
                   <v-flex>
                     <v-card flat tile>
-                      <v-card-title class='py-0'>
-                        <strong style='font-size: 20px;'>
-                        Chaperones for contact
-                        </strong>
-                      </v-card-title>
-                      <v-card-text>
-                        <!--<v-layout row class='d-flex align-center'>-->
-                          <!--<v-flex xs3 v-for='i in 3' px-1>-->
-                            <v-avatar size='74' v-for='i in 3' class='ml-2'>
-                              <img src='/images/sahihi.jpg' alt=''>
-                            </v-avatar>
-                          <!--</v-flex>-->
-                        <!--</v-layout>-->
+                      <!--<v-card-title class='py-0'>-->
+                        <v-subheader style='font-size: 14px;'>
+                        Chaperones
+                        </v-subheader>
+                      <!--</v-card-title>-->
+                      <v-card-text class='py-0'>
+                        <v-avatar size='48' v-for='i in 
+                          ["https://avataaars.io/?avatarStyle=Circle&topType=LongHairFrida&accessoriesType=Kurt&hairColor=Red&facialHairType=BeardLight&facialHairColor=BrownDark&clotheType=GraphicShirt&clotheColor=Gray01&graphicType=Skull&eyeType=Wink&eyebrowType=RaisedExcitedNatural&mouthType=Disbelief&skinColor=Brown",
+                          "https://avataaars.io/?avatarStyle=Circle&topType=ShortHairFrizzle&accessoriesType=Prescription02&hairColor=Black&facialHairType=MoustacheMagnum&facialHairColor=BrownDark&clotheType=BlazerSweater&clotheColor=Black&eyeType=Default&eyebrowType=FlatNatural&mouthType=Default&skinColor=Tanned",
+                          "https://avataaars.io/?avatarStyle=Circle&topType=LongHairMiaWallace&accessoriesType=Sunglasses&hairColor=BlondeGolden&facialHairType=Blank&clotheType=BlazerSweater&eyeType=Surprised&eyebrowType=RaisedExcited&mouthType=Smile&skinColor=Pale"
+                          ]
+                          ' class=''>
+                          <img :src='i' alt=''>
+                        </v-avatar>
                       </v-card-text>
                       <v-card-actions>
                         <v-spacer></v-spacer>
-                        <v-btn flat>
-                          add
+                        <v-btn small>
+                            stuff
                         </v-btn>
                       </v-card-actions>
                     </v-card>

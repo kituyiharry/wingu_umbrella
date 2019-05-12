@@ -257,12 +257,12 @@
               </v-card-text>
             </v-card>
           </v-flex>
-          <v-flex xs12 sm7 md8 pa-1>
+          <v-flex xs12 sm7 md8>
             <!--<v-layout row wrap>-->
               <!--<v-flex xs10>-->
-                <v-card height='236' style='border-radius: 8px;' class='elevation-8'>
+                <v-card style='border-radius: 8px;' class='ma-1 elevation-8'>
                   <v-layout row wrap>
-                    <v-flex xs12 sm6 lg4 pa-1>
+                    <v-flex xs12 lg3 pa-1>
                       <v-card flat style='border-radius: 8px;'>
                         <v-card-title>
                           <v-layout row wrap>
@@ -273,7 +273,7 @@
                                 </v-icon>
                               </v-avatar>
                             </v-flex>
-                            <v-flex xs9 sm8 lg9>
+                            <v-flex d-flex xs9 sm8 lg9>
                               <v-layout column>
                                 <v-flex>
                                   <strong style='font-size:18px;font-weight: bold;'>
@@ -287,33 +287,36 @@
                             </v-flex>
                           </v-layout>
                         </v-card-title>
-                        <v-card-text>
-                          <v-layout column>
-                          </v-layout>
-                        </v-card-text>
                       </v-card>
                     </v-flex>
-                    <v-flex xs12 md6 lg8>
-                      <v-card flat style='border-radius: 8px;'>
-                        <v-card-text>
-                          Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
-                          tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At
-                          vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren,
-                          no sea takimata sanctus est Lorem ipsum dolor sit amet.
-                        </v-card-text>
-                      </v-card>
+                    <v-divider vertical/>
+                    <v-flex xs12 lg7>
+                      <v-layout row wrap>
+                        <v-flex xs12 md4>
+                          <v-list>
+                            <v-list-tile v-for='i in 5'>
+                              <v-list-tile-content>
+                                <v-list-tile-header>
+                                  Supp
+                                </v-list-tile-header>
+                              </v-list-tile-content>
+                            </v-list-tile>
+                          </v-list>
+                        </v-flex>
+                        <v-divider vertical/>
+                        <v-flex xs12 md7>
+                        </v-flex>
+                      </v-layout>
                     </v-flex>
                   </v-layout>
                 </v-card>
-              <!--</v-flex>-->
-            <!--</v-layout>-->
-          </v-flex>
-        </v-layout>
-      </v-card-text>
-    </v-card>
-  </v-container>
-</template>
-<script charset="utf-8">
+              </v-flex>
+            </v-layout>
+          </v-card-text>
+        </v-card>
+      </v-container>
+    </template>
+    <script charset="utf-8">
 export default {
   name: "Records",
   data: () => ({
@@ -325,108 +328,9 @@ export default {
       { title: 'Home', icon: 'dashboard' },
       { title: 'About', icon: 'question_answer' },
     ],
-    right: null,
-    docclass: null,
-    item: [
-      "Group 1",
-      "Group 2"
-    ],
     docGroup: null,
-    headers: [
-      {
-        text: 'Dessert (100g serving)',
-        align: 'left',
-        sortable: false,
-        value: 'name'
-      },
-      { text: 'Calories', value: 'calories' },
-      { text: 'Fat (g)', value: 'fat' },
-      { text: 'Carbs (g)', value: 'carbs' },
-      { text: 'Protein (g)', value: 'protein' },
-      { text: 'Iron (%)', value: 'iron' }
-    ],
-    desserts: [
-      {
-        name: 'Frozen Yogurt',
-        calories: 159,
-        fat: 6.0,
-        carbs: 24,
-        protein: 4.0,
-        iron: '1%'
-      },
-      {
-        name: 'Ice cream sandwich',
-        calories: 237,
-        fat: 9.0,
-        carbs: 37,
-        protein: 4.3,
-        iron: '1%'
-      },
-      {
-        name: 'Eclair',
-        calories: 262,
-        fat: 16.0,
-        carbs: 23,
-        protein: 6.0,
-        iron: '7%'
-      },
-      {
-        name: 'Cupcake',
-        calories: 305,
-        fat: 3.7,
-        carbs: 67,
-        protein: 4.3,
-        iron: '8%'
-      },
-      {
-        name: 'Gingerbread',
-        calories: 356,
-        fat: 16.0,
-        carbs: 49,
-        protein: 3.9,
-        iron: '16%'
-      },
-      {
-        name: 'Jelly bean',
-        calories: 375,
-        fat: 0.0,
-        carbs: 94,
-        protein: 0.0,
-        iron: '0%'
-      },
-      {
-        name: 'Lollipop',
-        calories: 392,
-        fat: 0.2,
-        carbs: 98,
-        protein: 0,
-        iron: '2%'
-      },
-      {
-        name: 'Honeycomb',
-        calories: 408,
-        fat: 3.2,
-        carbs: 87,
-        protein: 6.5,
-        iron: '45%'
-      },
-      {
-        name: 'Donut',
-        calories: 452,
-        fat: 25.0,
-        carbs: 51,
-        protein: 4.9,
-        iron: '22%'
-      },
-      {
-        name: 'KitKat',
-        calories: 518,
-        fat: 26.0,
-        carbs: 65,
-        protein: 7,
-        iron: '6%'
-      }
-    ],
-  })
+  }),
+  methods: {
+  }
 }
 </script>
