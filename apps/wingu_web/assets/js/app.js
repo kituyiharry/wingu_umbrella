@@ -6,6 +6,7 @@ import "vuetify/dist/vuetify.min.css"
 import "aos/dist/aos.css"
 import "material-design-icons/iconfont/material-icons.css"
 import "vuetify/es5/util/colors"
+import "vis/dist/vis.css"
 
 // webpack automatically bundles all modules in your
 // entry points. Those entry points can be configured
@@ -29,6 +30,7 @@ import { InMemoryCache } from 'apollo-cache-inmemory'
 import { createHttpLink } from 'apollo-link-http'
 import AOS from 'aos'
 import moment from 'moment'
+import vis from 'vis'
 
 import App from './vue/App.vue'
 import Landing from './vue/routes/landing/Landing.vue'
@@ -88,6 +90,7 @@ AOS.init({
 Vue.$httpLink = Vue.prototype.$httpLink = httpLink
 Vue.$AOS = Vue.prototype.$AOS = AOS
 Vue.$moment = Vue.prototype.$moment = moment 
+Vue.$vis = Vue.prototype.$vis = vis
 
 Vue.use(Vuetify, {
   theme: {

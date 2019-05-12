@@ -16,6 +16,7 @@
     "moment": "^2.24.0",
     "phoenix": "file:../../../deps/phoenix",
     "phoenix_html": "file:../../../deps/phoenix_html",
+    "vis": "^4.21.0",
     "vue": "^2.6.8",
     "vue-apollo": "^3.0.0-beta.28",
     "vue-router": "^3.0.2",

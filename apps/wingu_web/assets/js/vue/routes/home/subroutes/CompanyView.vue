@@ -1,82 +1,82 @@
 <template>
   <v-content v-scroll='onScroll' class=''>
-    <!--<v-divider -->
-      <!--color='white'-->
-      <!--v-if='$vuetify.breakpoint.xsOnly'-->
-      <!--style='position: fixed; width: 100%;z-index: 2;'-->
-      <!--/>-->
-    <div 
-        data-aos='fade-down'
-      >
+    <div data-aos='fade-down'>
       <v-tabs
-        centered
-        color="primary" :class='offsetTop > 25 ? "elv" : "elevation-0"'
-        dark 
-        style='position: fixed; width: 100%;z-index: 1;'
-        slider-color="white"
-        >
-        <v-tab
-          v-for="(n,ind) in tabs"
-          :key="ind"
-          >
-           {{ n }}
+        centered dark :hide-slider='false' v-model='activeTab'
+        align-with-title
+        color="primary darken-1" :class='offsetTop > 25 ? "elv" : "elevation-0"'
+        style='position: fixed;width: 100%;z-index: 1;'
+        slider-color="secondary lighten-2">
+        <v-tab :ripple='false' v-for="(n,ind) in tabs" :key="ind">
+          <v-btn :color='(activeTab==ind) ? "secondary lighten-3" : "white lighten-3"' 
+            class='black--text' 
+            depressed :flat='!(activeTab==ind)' round>
+            <v-icon left small>
+              {{ n.icon }}
+            </v-icon>
+            {{ n.label }}
+          </v-btn>
         </v-tab>
       </v-tabs>
     </div>
-    <v-divider v-if='$vuetify.breakpoint.smAndDown'/>
+    <!--<v-divider/>-->
     <v-speed-dial
-      v-model="fab"
-      direction="top"
-      class='fab'
-      transition="scale-transition"
-      open-on-hover :close-on-content-click='false'
-      right bottom
-      fixed
-      :class='$vuetify.breakpoint.mdAndUp ? "mb-5 mr-5" : "mb-4"'
-      >
-      <div
-        data-aos='zoom-in' data-aos-offset='-200' data-aos-delay='400'
-        slot="activator"
-        >
-        <v-btn
-          color="secondary" id='fab'
-          fab icon class='elevation-1'
-          v-model="fab"
-          >
+      v-model="fab" direction="top" class='fab' transition="scale-transition"
+      open-on-hover right bottom fixed
+      :close-on-content-click='false' :class='$vuetify.breakpoint.mdAndUp ? "mb-5 mr-5" : "mb-4"'>
+      <div slot="activator" data-aos='zoom-in' data-aos-offset='-200' data-aos-delay='400'>
+        <v-btn color="secondary" id='fab' fab icon class='elevation-1' v-model="fab">
           <v-icon>
             {{ !fab ? "open_in_browser" : "close" }}
           </v-icon>
         </v-btn>
       </div>
       <v-btn
-        v-for='(i,ind) in speedDialModel' :key='ind'  
-        data-aos='fade-left' :data-aos-delay='ind * 25' 
-        :id='"btn_dial_".concat(ind)'
-        dark round icon 
-        large :color='i.color'>
+        v-for='(i,ind) in speedDialModel' :key='ind'  data-aos='fade-left' :data-aos-delay='ind * 25' 
+        :id='"btn_dial_".concat(ind)' dark round icon large :color='i.color'>
         <v-icon small>
           {{ i.icon }}
         </v-icon>
       </v-btn>
     </v-speed-dial>
-    <router-view></router-view>
+      <v-tabs-items touchless v-model="activeTab">
+        <v-tab-item>
+          <router-view></router-view>
+        </v-tab-item>
+        <v-tab-item>
+          <Records/>
+        </v-tab-item>
+        <v-tab-item>
+          <Stats />
+        </v-tab-item>
+        <v-tab-item>
+          <Integrations />
+        </v-tab-item>
+      </v-tabs-items>
     </v-content>
   </template>
   <script charset="utf-8">
+import Records from './company_routes/Records.vue';
+import Stats from './company_routes/Stats.vue'
+import Integrations from './company_routes/Integrations.vue';
 export default {
   name: "CompanyView",
+  components: { Records, Stats, Integrations },
   data: () => ({
     fab: false,
     offsetTop: 0,
+    activeTab: 0,
     tabs: [
-      "Dashboard",
-      "Clients"
+      {label: "Dashboard", icon: "dashboard"},
+      {label: "Records",   icon: "folder_open"},
+      {label: "Stats",     icon: "multiline_chart"},
+      {label: "Integrations",     icon: "power"},
     ],
     speedDialModel: [
       { action: "/", icon: "description", color: "red" },
       { action: "/", icon: "mail", color: "green" },
       { action: "/", icon: "domain", color: "teal" },
-    ]
+    ],
   }),
   methods: {
     log(e){
