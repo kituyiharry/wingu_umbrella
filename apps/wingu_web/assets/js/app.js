@@ -37,8 +37,8 @@ import Landing from './vue/routes/landing/Landing.vue'
 import Home from './vue/routes/home/Home.vue'
 import Index from './vue/routes/home/subroutes/Index.vue'
 import CompanyView from './vue/routes/home/subroutes/CompanyView.vue'
-import Dashboard from './vue/routes/home/subroutes/company_routes/Dashboard.vue'
-import Forms from './vue/routes/home/subroutes/company_routes/Forms.vue'
+//import Dashboard from './vue/routes/home/subroutes/company_routes/Dashboard.vue'
+//import Forms from './vue/routes/home/subroutes/company_routes/Forms.vue'
 import Settings from './vue/routes/home/subroutes/SettingsView.vue'
 
 import Store from './vue/store/store.js'
@@ -48,10 +48,10 @@ const routes = [
   {path: '/home', component: Home, children: [
     {path: '/', component: Index},
     {path: '/user', component: Settings},
-    {path: '/b/:id', component: CompanyView, children: [
-      {path: '/', component: Dashboard},
-      {path: '/forms/:docclass/c/:company', component: Forms},
-    ]},
+    {path: '/b/:id', component: CompanyView}, // children: [
+      // {path: '/', component: Dashboard},
+      // {path: '/forms/:docclass/c/:company', component: Forms},
+    // ]},
   ]},
 ]
 

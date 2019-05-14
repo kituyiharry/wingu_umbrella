@@ -41,7 +41,7 @@
     </v-speed-dial>
       <v-tabs-items touchless v-model="activeTab">
         <v-tab-item>
-          <router-view></router-view>
+          <Dashboard />
         </v-tab-item>
         <v-tab-item>
           <Records/>
@@ -56,12 +56,13 @@
     </v-content>
   </template>
   <script charset="utf-8">
+import Dashboard from './company_routes/Dashboard.vue'
 import Records from './company_routes/Records.vue';
 import Stats from './company_routes/Stats.vue'
 import Integrations from './company_routes/Integrations.vue';
 export default {
   name: "CompanyView",
-  components: { Records, Stats, Integrations },
+  components: { Dashboard, Records, Stats, Integrations },
   data: () => ({
     fab: false,
     offsetTop: 0,
