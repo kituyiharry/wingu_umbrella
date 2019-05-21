@@ -1,5 +1,5 @@
 <template> 
-  <v-menu allow-overflow offset-x  z-index='6'
+  <v-menu offset-x
     :open-on-hover='false' v-model='menu'  class='flat elevation-0'
     :close-on-click='true' :close-on-content-click='false' :nudge-bottom='2' 
     transition='slide-y-reverse-transition' style='width:100%;'>
@@ -13,7 +13,7 @@
             <v-flex style='font-size: 16px;'>
               {{ node.label }}
             </v-flex>
-            <v-divider />
+            <!--<v-divider />-->
             <v-flex  style='font-size: 12px;'>
               {{ node.summary }}
             </v-flex>
@@ -52,7 +52,7 @@
       </v-slide-y-transition>
     </v-card>
     <div style='display: flex; flex-direction: right;'>
-      <div class='up-arrow mt-3'/>
+      <div v-if='$vuetify.breakpoint.mdAndUp' class='up-arrow mt-3'/>
       <v-card light color='secondary lighten-5' style='border-radius: 8px;' width='340' tile>
         <v-card-title>
           <v-icon class='pa-2'>

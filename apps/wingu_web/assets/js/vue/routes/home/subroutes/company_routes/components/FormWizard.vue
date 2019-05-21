@@ -1,25 +1,19 @@
 <template>
-  <v-card width='100%' id='attachcard' color='accent darken-3' flat>
+  <v-card dark width='100%' id='attachcard' color='primary darken-1' flat style='border-radius: 8px;'>
     <v-card-text class='pa-0'>
-      <v-layout row wrap>
+      <v-layout fill-height row wrap>
         <v-flex xs12>
-          <v-card color='accent darken-3' flat tile min-height='382'>
+          <v-card color='primary darken-3' flat tile min-height='380'>
             <v-card-title style='font-size: 24px;' class=''>
               <strong>
-                Create a section with inputs
+                Create sections 
               </strong>
               <v-spacer></v-spacer>
               <v-btn @click='handleAddSection' flat>
                 <v-icon left small>
                   note_add
                 </v-icon>
-                New section
-              </v-btn>
-              <v-btn flat>
-                <v-icon left small>
-                  sort
-                </v-icon>
-                Rearrange
+                add
               </v-btn>
             </v-card-title>
             <v-divider />
@@ -38,12 +32,12 @@
       </v-layout>
     </v-card-text>
     <v-divider />
-    <v-card-actions>
+    <v-card-actions style='max-height: 50px;'>
       <v-spacer></v-spacer>
-      <v-btn @click='saveForm' color='success' round flat>
+      <v-btn @click='saveForm' color='success'>
         save
       </v-btn>
-      <v-btn @click='handleAddSection' color='error' round flat>
+      <v-btn @click='handleAddSection' color='error'>
         discard
       </v-btn>
     </v-card-actions>
@@ -109,18 +103,21 @@ export default {
 }
 </script>
 <style type="text/css" media="screen">
+/*
 ::-webkit-scrollbar {
   width: 4px;
   height: 4px;
-}
-/* Track */
+  }
+  */
+/* Track 
 ::-webkit-scrollbar-track {
   -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
   -webkit-border-radius: 4px;
   border-radius: 4px;
 }
+ */
 
-/* Handle */
+/* Handle 
 ::-webkit-scrollbar-thumb {
   -webkit-border-radius: 4px;
   border-radius: 4px;
@@ -130,6 +127,7 @@ export default {
 ::-webkit-scrollbar-thumb:window-inactive {
   background: rgba(223,173,145,0.4);
 }
+ */
 .up-arrow {
   border-color: #f5ff8d transparent;
   border-style: solid;

@@ -6,6 +6,11 @@
       transition='slide-y-transition' v-model='showDocGroup'>
       <DocGroups @closeDialog='()=>{ showDocGroup=!showDocGroup; }' showDocClassForm='showDocGroup'/>
     </v-dialog>
+    <v-dialog lazy max-width='900' scrollable 
+      :fullscreen='$vuetify.breakpoint.xsOnly' 
+      transition='slide-y-transition' v-model='showCreateDocClass'>
+      <FormWizard />
+    </v-dialog>
     <v-card :style='$vuetify.breakpoint.mdAndUp ? 
       "border-radius: 4px; background: linear-gradient(to bottom, indigo, #A229D2)" : 
       "background: linear-gradient(to right, indigo, blue)"' 
@@ -287,7 +292,7 @@
               <v-divider />
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn flat small outline>
+                <v-btn @click='showCreateDocClass=true' flat small outline>
                   <v-icon small left>
                     add
                   </v-icon>
@@ -349,9 +354,10 @@
 </template>
 <script charset="utf-8">
 import DocGroups from "./components/DocGroups.vue";
+import FormWizard from "./components/FormWizard.vue";
 export default {
   name: "Records",
-  components: { DocGroups },
+  components: { DocGroups, FormWizard },
   data: () => ({
     drawerItems: [
       { title: 'Home', icon: 'dashboard' },
@@ -385,6 +391,7 @@ export default {
     search: '',
     docGroup: null,
     showDocGroup: false,
+    showCreateDocClass: false
   }),
   methods: {
   }
