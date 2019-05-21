@@ -167,16 +167,6 @@ export default {
 .my_sub_header{
   font-size: 12px;
 }
-.v-card--hover{
-  border-radius: 8px;
-  background-color: #61045fff;
-  background-image: linear-gradient(to bottom, #AA076BFF, #61045F00);
-}
-.v-card--hover:hover{
-  background-color: #aa076bff;
-  transform: translateY(-7.5px);
-}
-
 .slide-fade-enter-active {
   transition: transform opacity 1s ease-in;
 }

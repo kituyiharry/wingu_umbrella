@@ -39,23 +39,20 @@
         </v-icon>
       </v-btn>
     </v-speed-dial>
-      <v-tabs-items touchless v-model="activeTab">
-        <v-tab-item>
-          <Dashboard />
-        </v-tab-item>
-        <v-tab-item>
-          <Records/>
-        </v-tab-item>
-        <v-tab-item>
-          <Stats />
-        </v-tab-item>
-        <v-tab-item>
-          <Integrations />
-        </v-tab-item>
-      </v-tabs-items>
-    </v-content>
-  </template>
-  <script charset="utf-8">
+    <v-tabs-items touchless v-model="activeTab">
+      <v-tab-item>
+        <Records/>
+      </v-tab-item>
+      <v-tab-item>
+        <Dashboard />
+      </v-tab-item>
+      <v-tab-item>
+        <Stats />
+      </v-tab-item>
+    </v-tabs-items>
+  </v-content>
+</template>
+<script charset="utf-8">
 import Dashboard from './company_routes/Dashboard.vue'
 import Records from './company_routes/Records.vue';
 import Stats from './company_routes/Stats.vue'
@@ -68,10 +65,9 @@ export default {
     offsetTop: 0,
     activeTab: 0,
     tabs: [
-      {label: "Dashboard", icon: "dashboard"},
       {label: "Records",   icon: "folder_open"},
-      {label: "Stats",     icon: "multiline_chart"},
-      {label: "Integrations",     icon: "power"},
+      {label: "Events", icon: "dashboard"},
+      {label: "Messages",  icon: "message"},
     ],
     speedDialModel: [
       { action: "/", icon: "description", color: "red" },

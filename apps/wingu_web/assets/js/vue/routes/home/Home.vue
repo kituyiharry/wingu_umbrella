@@ -224,4 +224,13 @@ export default {
 .theme--dark > .correct-up-arrow{
   border-color: #3b3b3b transparent;
 }
+.v-card--hover{
+  border-radius: 8px;
+  background-color: #61045fff;
+  background-image: linear-gradient(to bottom, #AA076BFF, #61045F00);
+}
+.v-card--hover:hover{
+  background-color: #aa076bff;
+  transform: translateY(-8.5px);
+}
 </style>
