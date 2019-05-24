@@ -3,12 +3,12 @@
     <v-toolbar color='#996fd6' 
       :class='$vuetify.breakpoint.xsOnly ? "elevation-1" : "elevation-1"' 
       height='80' app dark prominent fixed>
-      <v-avatar data-aos='zoom-in' data-aos-delay='400' size='36'>
+      <v-avatar data-aos='zoom-in' data-aos-delay='400' size='42'>
         <img src='/images/sahihi.png' alt=''>
       </v-avatar>
       <v-toolbar-title 
         clipped-left
-        class='noselect' style='font-family: "Raleway", sans-serif; font-size:24px;font-weight:bold;'>
+        class='noselect' style='font-family: "Pacifico", sans-serif; font-size:32px;font-weight: regular;'>
         {{name}}
       </v-toolbar-title>
       <span
@@ -213,7 +213,7 @@ export default{
   },
   components: {TitleBox},
   data: () => ({
-    name: "Sahihisha",
+    name: "Cerello",
     menu: false,
     drawer: false,
     lorem: `Lorem ipsum dolor sit amet, mel at clita quando. Te sit oratio vituperatoribus, nam ad ipsum posidonium mediocritatem, explicari dissentiunt cu mea. Repudiare disputationi vim in, mollis iriure nec cu, alienum argumentum ius ad. Pri eu justo aeque torquatos.`,

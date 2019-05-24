@@ -12,7 +12,7 @@ export default{
 }
 </script>
 <style type="text/css" media="screen">
-@import url('https://fonts.googleapis.com/css?family=Montserrat:400,700|Raleway:500,600');
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,700|Raleway:500,600|Pacifico&display=swap');
 html {
   scroll-behavior: smooth;
 }

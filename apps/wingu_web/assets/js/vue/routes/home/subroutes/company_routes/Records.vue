@@ -9,7 +9,7 @@
     <v-dialog lazy max-width='900' scrollable 
       :fullscreen='$vuetify.breakpoint.xsOnly' 
       transition='slide-y-transition' v-model='showCreateDocClass'>
-      <FormWizard />
+      <FormWizard @closeDialog='()=> { showCreateDocClass=!showCreateDocClass; }' />
     </v-dialog>
     <v-card :style='$vuetify.breakpoint.mdAndUp ? 
       "border-radius: 4px; background: linear-gradient(to bottom, indigo, #A229D2)" : 

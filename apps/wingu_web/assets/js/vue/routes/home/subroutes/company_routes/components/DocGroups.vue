@@ -137,13 +137,14 @@
           </v-timeline>
         </v-flex>
         <v-flex xs12 md6 lg7>
-          <v-divider v-if='$vuetify.breakpoint.smAndDown'/>
+          <!--<v-divider v-if='$vuetify.breakpoint.smAndDown'/>-->
           <v-tabs
             v-model="currentItem"
-            color="primary lighten-1" centered lazy show-arrows
+            color="primary lighten-1" centered show-arrows
+            hide-slider
             slider-color="yellow"
             >
-            <v-tabs-slider color="yellow"></v-tabs-slider>
+            <!--<v-tabs-slider color="yellow"></v-tabs-slider>-->
             <v-tab :ripple='false'
               v-for="(item,ind) in items"
               :key="ind"

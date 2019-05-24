@@ -10,7 +10,7 @@
       </v-btn>
       <v-toolbar-title>
         <v-layout column>
-          <div style='text-overflow: scroll;'>
+          <div style='text-overflow: scroll; font-family: Pacifico;font-weight: normal;font-size: 24px;'>
             <strong>{{ $store.state.store.home | first }}</strong>
           </div>
           <v-divider />
