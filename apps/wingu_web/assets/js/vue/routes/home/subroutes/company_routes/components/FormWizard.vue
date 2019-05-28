@@ -27,7 +27,7 @@
         <v-flex 
           class='white--text'
           :style='$vuetify.breakpoint.lgAndUp ? "min-height: 250px; overflow-y: auto;" : ""'
-          xs12 md4 lg5 px-0>
+          xs12 md5 lg5 px-0>
           <v-tabs
             v-model="active"
             color="primary"
@@ -55,14 +55,15 @@
                 style='overflow-y: auto;' flat class='white--text'>
                 <v-card-text>
                   <draggable tag='v-layout'  
-                    :componentData='getComponentData()' v-model='sectionNode.sections'
+                    :componentData='getComponentData()' v-model='tags'
+                    :clone="createNode"
                     :group='{name: "nodes", pull: "clone", put: false}' 
                     handle='#handle' row wrap>
                     <!--<v-layout row :wrap='$vuetify.breakpoint.mdAndUp'>-->
                       <!--<v-flex xs12>-->
-                        <v-flex py-1 px-2
-                          v-for='(n,i) in sectionNode.sections' :key='i' xs12>
-                          <v-card id='dragthis' height='100' 
+                        <v-flex py-1 :px-4='$vuetify.breakpoint.mdAndUp' :px-2='$vuetify.breakpoint.smAndDown'
+                          v-for='(n,i) in tags' :key='i' xs12>
+                          <v-card id='dragthis' height='80' 
                             :width='$vuetify.breakpoint.mdAndUp ? "" : "200"' 
                             style='border: 1px solid #C049F3;'>
                             <v-card-title>
@@ -71,6 +72,18 @@
                                   reorder
                                 </v-icon>
                                 <!--</v-btn>-->
+                              <v-layout row wrap>
+                                <v-flex xs5>
+                                  <v-btn icon flat>
+                                    <v-icon>
+                                      {{ n.action }}
+                                    </v-icon>
+                                  </v-btn>
+                                </v-flex>
+                                <v-flex xs7  style='font-size: 20px;' d-flex align-center justify-content-center class='text-xs-center'>
+                                  {{ n.label }}
+                                </v-flex>
+                              </v-layout>
                             </v-card-title>
                           </v-card>
                         </v-flex>
@@ -81,7 +94,7 @@
               </v-tab-item>
             </v-tabs-items>
           </v-flex>
-          <v-flex xs12 md8 lg7>
+          <v-flex xs12 md7 lg7>
             <!--<v-divider v-if='$vuetify.breakpoint.smAndDown'/>-->
             <v-tabs
               v-model="currentItem"
@@ -91,24 +104,24 @@
               >
               <!--<v-tabs-slider color="yellow"></v-tabs-slider>-->
               <v-tab :ripple='false'
-                v-for="(item,ind) in items"
+                v-for="(item,ind) in sectionNode.sections"
                 :key="ind"
-                :href="'#tab-' + item"
                 >
+                <!--:href="'#tab-' + item"-->
                 <v-btn small 
-                  :class='(currentItem=="tab-"+item) ? "secondary lighten-3 black--text" : "white--text"'
-                  round :flat='!(currentItem=="tab-"+item)'>
-                  {{ item }}
+                  :class='(currentItem==ind) ? "secondary lighten-3 black--text" : "white--text"'
+                  round :flat='!(currentItem==ind)'>
+                  {{ item.name }}
                 </v-btn>
               </v-tab>
             </v-tabs>
 
             <v-tabs-items v-model="currentItem">
               <v-tab-item
-                v-for="(item,ind) in items"
+                v-for="(item,ind) in sectionNode.sections"
                 :key="ind"
-                :value="'tab-' + item"
                 >
+                <!--:value="sectionNode.sections[0]"-->
                 <v-card flat>
                   <v-divider />
                   <!--<v-card-title style='height: 56px;z-index: 2;' class='primary lighten-1 white--text'>-->
@@ -120,14 +133,16 @@
                   <!--<v-divider />-->
                   <v-card-text class='text-xs-justify here' 
                     :style='$vuetify.breakpoint.mdAndUp ? "max-height: 342px; overflow-y: scroll;" : ""'>
-                    <v-layout fill-height row wrap>
-                      <draggable group='nodes'
-                        v-bind="dragOptions" @start="drag=true" @end="drag=false" 
-                        v-model='sectionNode.sections' handle='#handle'>
+                    <v-layout fill-height row wrap style='height:100%;'>
+                      <draggable group='nodes' style='width: 100%;'
+                        v-bind="dragOptions" @change='log' 
+                        @start="prepareDrag" @end="closeDrag" 
+                        v-model='sectionNode.sections[currentItem].nodes' handle='#handle'>
                         <transition-group  
                           type="transition" :name="!drag ? 'flip-list' : null">
-                          <v-flex pa-3 xs12  v-for='(n,i) in sectionNode.sections' :key='i'>
-                            <NodeWrapper :drag='drag' :section='n'/>
+                          <v-flex style='width: 100%;' py-2 :px-3='$vuetify.breakpoint.mdOnly'  :px-4='$vuetify.breakpoint.lgAndUp' xs12  
+                            v-for='(n,i) in sectionNode.sections[currentItem].nodes' :key='i'>
+                            <NodeWrapper  :drag='drag' :dragIndex='dragIndex' :index='i' :section='n'/> 
                           </v-flex>
                         </transition-group>
                         </draggable >
@@ -142,6 +157,12 @@
         <v-divider />
         <v-card-actions>
           <v-spacer></v-spacer>
+          <v-btn depressed dark round color='green lighten-1' @click='handleAddSection' small>
+            <v-icon left small>
+              add
+            </v-icon>
+            add
+          </v-btn>
           <v-btn depressed dark round color='red lighten-2' @click='$emit("closeDialog")' small>
             <v-icon left small>
               close
@@ -160,28 +181,64 @@ export default {
   data: () => ({
     editMode: false,
     active: 1,
-    currentItem: 'tab-location',
+    currentItem: 0,
     items: ["identity", "location"],
     drag: false,
+    dragIndex: null,
+    tags: [
+      {label: "Text",   description:"", action: "text_fields"},
+      {label: "Number", description:"", action: "dialpad"},
+    ],
     sectionNode: {
       sections: [
-        {icon: "date_range", data: "Mon Dec 2018"},
-        {icon: "keyboard", data: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invi Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet."},
-        {icon: "dialpad", data: "Use the footer slot to add none-draggable element inside the vuedraggable"},
-        {icon: "keyboard", data: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invi Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet."},
-        {icon: "date_range", data: "Mon Dec 2018"},
+        {
+          name: "Identity", nodes: [
+            {icon: "date_range", data: "Mon Dec 2018"},
+            {icon: "dialpad", data: "Use the footer slot to add none-draggable element inside the vuedraggable"},
+            {icon: "keyboard", data: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invi Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet."},
+            {icon: "date_range", data: "Mon Dec 2018"},
+          ]
+        },
+        {
+          name: "Information", nodes: [
+            {icon: "date_range", data: "Mon Dec 2018"},
+          ]
+        }
       ]
     }
   }),
   methods: {
+    prepareDrag(i){
+      console.dir(i)
+      this.dragIndex=i.oldIndex
+      this.drag=true
+    },
+    closeDrag(i){
+      this.dragIndex=i.newIndex
+      window.setTimeout(()=>{
+        this.dragIndex=null
+      }, 500)
+      this.drag=false
+    },
     log(e){
-      e.target.focus()
+      console.dir(e)
     },
     sort() {
       this.list = this.list.sort((a, b) => a.order - b.order);
     },
     saveForm(){
       this.$emit("saveForm", this.sectionNode.sections)
+    },
+    createNode(e){
+      console.dir(e)
+      switch(e.action){
+        case "text_fields":
+          return {icon: "keyboard", data: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invi Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet."};
+          break;
+        default: 
+            return {icon: "date_range", data: "Mon Dec 2018"}
+            break;
+      }
     },
     createSimpleID(nodeLabel, index, sectionIndex, sectionName){
       return sectionIndex.toString().concat(sectionName.concat(index.toString().concat(nodeLabel)))

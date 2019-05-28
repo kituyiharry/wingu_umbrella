@@ -1,5 +1,5 @@
 <template>
-  <v-card flat :color='drag ? "primary lighten-2" : ""' 
+  <v-card flat :color='(dragIndex===index) ? "primary lighten-2" : ""' 
     style='border: 2.0px solid #b589f3;border-radius: 4px;'>
     <v-card-title class='py-1'>
       <v-btn id='handle' small icon style='font-size: 9px;' 
@@ -21,8 +21,13 @@
 <script charset="utf-8">
 export default {
   name: "NodeWrapper",
-  props: ['section', 'drag', 'dragIndex'],
+  props: ['index', 'section', 'drag', 'dragIndex'],
   data: () => ({
-  })
+  }),
+  methods: {
+    log(e){
+      console.log(e)
+    }
+  }
 }
 </script>
