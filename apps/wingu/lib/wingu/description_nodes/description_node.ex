@@ -18,6 +18,7 @@ defmodule Wingu.DescriptionNodes.DescriptionNode do
     field :isrequired, :boolean, default: false
     field :label, :string
     field :placeholder, :string
+    field :summary, :string
     field :section_nodes_id, :binary_id
 
     belongs_to :section_node, Wingu.SectionNodes.SectionNode,

@@ -42,6 +42,7 @@ defmodule WinguWeb.Router do
   end
 
   scope "/graphql" do
+    pipe_through [:contextualize]
     forward "/", Absinthe.Plug,
       schema: WinguWeb.GraphQL.Schema,
       socket: WinguWeb.UserSocket

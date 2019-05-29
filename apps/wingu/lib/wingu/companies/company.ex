@@ -22,6 +22,7 @@ defmodule Wingu.Companies.Company do
     has_many :events, Wingu.Events.Event, on_delete: :delete_all
     has_many :stations, Wingu.Stations.Station, on_delete: :delete_all
     has_many :forms, Wingu.Forms.Form, foreign_key: :companies_id, on_delete: :delete_all
+    has_many :document_classes, Wingu.DocumentClasses.DocumentClass, foreign_key: :companies_id, on_delete: :delete_all
 
     timestamps()
   end
@@ -32,6 +33,8 @@ defmodule Wingu.Companies.Company do
     |> cast(attrs, [:email, :name])
     |> validate_required([:email, :name])
     |> validate_length(:name, min: 1, max: 63)
+    |> validate_format(:email, ~r/@/)
+    |> unique_constraint(:email)
     |> unique_constraint(:email)
   end
 end

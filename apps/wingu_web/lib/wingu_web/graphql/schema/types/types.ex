@@ -54,6 +54,13 @@ defmodule WinguWeb.GraphQL.Schema.Types do
     field(:form_data, list_of(:form_data), resolve: assoc(:form_data))
   end
 
+  object :docclass do
+    field :id, :id
+    field :classname, :string
+    field :class_description, :string
+    field :forms, list_of(:form), resolve: assoc(:forms)
+  end
+
   input_object :form_change do
     field(:name, :string)
     field(:summary, :string)
@@ -68,6 +75,7 @@ defmodule WinguWeb.GraphQL.Schema.Types do
   input_object :form_section do
     field(:name, :string)
     field(:description, :string)
+    field(:summary, :string)
     field(:nodes, list_of(:subnodes))
   end
 
@@ -75,6 +83,7 @@ defmodule WinguWeb.GraphQL.Schema.Types do
     field(:required, :boolean)
     field(:placeholder, :string)
     field(:label, :string)
+    field(:summary, :string)
   end
 
   object :form_data do

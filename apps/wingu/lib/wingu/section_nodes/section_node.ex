@@ -18,6 +18,7 @@ defmodule Wingu.SectionNodes.SectionNode do
   schema "section_nodes" do
     field :description, :string
     field :name, :string
+    field :summary, :string
     field :form_templates_id, :binary_id
 
     has_many :description_nodes, Wingu.DescriptionNodes.DescriptionNode,
