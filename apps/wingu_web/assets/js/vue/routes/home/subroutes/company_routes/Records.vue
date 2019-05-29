@@ -2,11 +2,11 @@
   <v-container 
     fluid :class='$vuetify.breakpoint.smAndDown ? 
     "mygradient pa-0 mt-5" :  "mygradient mt-5" '>
-    <v-dialog lazy max-width='900' scrollable :fullscreen='$vuetify.breakpoint.xsOnly' 
+    <v-dialog lazy max-width='800' scrollable :fullscreen='$vuetify.breakpoint.xsOnly' 
       transition='slide-y-transition' v-model='showDocGroup'>
       <DocGroups @closeDialog='()=>{ showDocGroup=!showDocGroup; }' showDocClassForm='showDocGroup'/>
     </v-dialog>
-    <v-dialog lazy max-width='900' scrollable 
+    <v-dialog lazy max-width='800' scrollable 
       :fullscreen='$vuetify.breakpoint.xsOnly' 
       transition='slide-y-transition' v-model='showCreateDocClass'>
       <FormWizard @closeDialog='()=> { showCreateDocClass=!showCreateDocClass; }' />
