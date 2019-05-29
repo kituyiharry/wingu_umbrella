@@ -39,38 +39,35 @@
         </v-icon>
       </v-btn>
     </v-speed-dial>
-      <v-tabs-items touchless v-model="activeTab">
-        <v-tab-item>
-          <router-view></router-view>
-        </v-tab-item>
-        <v-tab-item>
-          <Records/>
-        </v-tab-item>
-        <v-tab-item>
-          <Stats />
-        </v-tab-item>
-        <v-tab-item>
-          <Integrations />
-        </v-tab-item>
-      </v-tabs-items>
-    </v-content>
-  </template>
-  <script charset="utf-8">
+    <v-tabs-items touchless v-model="activeTab">
+      <v-tab-item>
+        <Records/>
+      </v-tab-item>
+      <v-tab-item>
+        <Dashboard />
+      </v-tab-item>
+      <v-tab-item>
+        <Stats />
+      </v-tab-item>
+    </v-tabs-items>
+  </v-content>
+</template>
+<script charset="utf-8">
+import Dashboard from './company_routes/Dashboard.vue'
 import Records from './company_routes/Records.vue';
 import Stats from './company_routes/Stats.vue'
 import Integrations from './company_routes/Integrations.vue';
 export default {
   name: "CompanyView",
-  components: { Records, Stats, Integrations },
+  components: { Dashboard, Records, Stats, Integrations },
   data: () => ({
     fab: false,
     offsetTop: 0,
     activeTab: 0,
     tabs: [
-      {label: "Dashboard", icon: "dashboard"},
       {label: "Records",   icon: "folder_open"},
-      {label: "Stats",     icon: "multiline_chart"},
-      {label: "Integrations",     icon: "power"},
+      {label: "Events", icon: "dashboard"},
+      {label: "Messages",  icon: "message"},
     ],
     speedDialModel: [
       { action: "/", icon: "description", color: "red" },

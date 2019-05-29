@@ -1,90 +1,89 @@
 <template>
-  <v-card dark tile>
-    <v-card-title class='py-0 primary'>
-      <v-progress-linear style='z-index:0;' color='secondary' v-model='progress'></v-progress-linear>
+  <v-card dark tile style='border-radius: 8px;'>
+    <v-card-title class='pa-0' style='border-radius: 8px;'>
+      <v-layout fill-height row wrap>
+        <v-flex xs12>
+          <v-tabs
+            v-model="active" style='border-top-right-radius: 8px; border-top-left-radius: 8px;'
+            color="secondary lighten-3"
+            dark centered
+            >
+            <v-tab :v-ripple=false
+              v-for="(n, i) in wizard.sections"
+              :key="i" class='text-none'
+              :ripple='false'
+              >
+              <v-btn :flat='active!==i' round :class='active!==i ? "black--text" : "white--text" '>
+                <v-icon color='green darken-2' small left>
+                  {{ active >= i ? "check_circle" : "warning" }}
+                </v-icon>
+                {{ n.title }}
+              </v-btn>
+            </v-tab>
+          </v-tabs>
+        </v-flex>
+      </v-layout>
     </v-card-title>
     <v-card-text class='pa-0'>
-      <v-tabs
-        v-model="active"
-        color="secondary lighten-3"
-        dark centered
-        >
-        <v-tab :v-ripple=false
-          v-for="(n, i) in wizard.sections"
-          :key="i" class='text-none'
-          :ripple='false'
+      <v-tabs-items v-model='active' touchless>
+        <v-tab-item lazy
+          v-for="(n,i) in wizard.sections"
+          :key="i"
           >
-          <v-btn :flat='active!==i' round :class='active!==i ? "black--text" : "white--text" '>
-            <v-icon color='green darken-2' small left>
-              {{ active >= i ? "check_circle" : "warning" }}
-            </v-icon>
-            {{ n.title }}
-          </v-btn>
-        </v-tab>
-        <v-tabs-items touchless>
-          <v-tab-item lazy
-            v-for="(n,i) in wizard.sections"
-            :key="i"
-            >
-            <FormWizard @saveForm='saveForm' v-if='n.custom'/>
-            <v-card v-else color='accent darken-3' tile flat pa-2>
-              <v-divider />
-              <v-card-text>
-                <v-layout row wrap>
-                  <v-flex :pa-4='$vuetify.breakpoint.smAndUp' xs12 sm5 offset-sm1 md4 offset-md2 8px 
-                    class='text-xs-justify'>
-                    <v-layout column>
-                      <v-card class='mb-2' flat color='accent darken-1'>
-                        <v-card-title>
-                          <strong>
-                            Description
-                          </strong>
-                        </v-card-title>
-                      </v-card>
-                      <v-card flat color='accent darken-1'>
-                        <v-card-text>
-                          {{ text }}
-                        </v-card-text>
-                      </v-card>
-                    </v-layout>
-                  </v-flex>
-                  <v-flex xs12 sm5 md4 px-2>
-                    <v-layout column mt-4>
-                      <v-flex>
-                        <v-text-field color='white' box v-model='formname' name='' label='Name'>
-                        </v-text-field>
-                      </v-flex>
-                      <v-flex>
-                        <v-text-field color='white' box v-model='formsummary' name='' label='Summary'>
-                        </v-text-field>
-                      </v-flex>
-                      <v-flex>
-                        <v-textarea color='white' box v-model='formdescription' name='' label='Description'>
-                        </v-textarea>
-                      </v-flex>
-                    </v-layout>
-                  </v-flex>
-                </v-layout>
-              </v-card-text>
-              <v-divider />
-              <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn @click='next' color='amber lighten-2' flat round>
-                  back
-                </v-btn>
-                <v-btn @click='next' color='green' flat round>
-                  continue
-                </v-btn>
-              </v-card-actions>
-            </v-card>
-          </v-tab-item>
-        </v-tabs-items>
-      </v-tabs>
+          <FormWizard @saveForm='saveForm' v-if='n.custom'/>
+          <v-card v-else color='accent darken-3' tile flat pa-2>
+            <v-divider />
+            <v-card-text>
+              <v-layout row wrap>
+                <v-flex :pa-2='$vuetify.breakpoint.smAndUp' xs12 sm5 offset-sm1 md4 offset-md2 8px 
+                  class='text-xs-justify'>
+                  <v-layout column>
+                    <v-card class='mb-2' flat color='accent darken-1'>
+                      <v-card-title>
+                        <strong>
+                          Description
+                        </strong>
+                      </v-card-title>
+                    </v-card>
+                    <v-card flat color='accent darken-1'>
+                      <v-card-text>
+                        {{ text }}
+                      </v-card-text>
+                    </v-card>
+                  </v-layout>
+                </v-flex>
+                <v-flex xs12 sm5 md4 px-2>
+                  <v-layout column mt-4>
+                    <v-flex>
+                      <v-text-field color='white' box v-model='formname' name='' label='Name'>
+                      </v-text-field>
+                    </v-flex>
+                    <v-flex>
+                      <v-text-field color='white' box v-model='formsummary' name='' label='Summary'>
+                      </v-text-field>
+                    </v-flex>
+                    <v-flex>
+                      <v-textarea color='white' box v-model='formdescription' name='' label='Description'>
+                      </v-textarea>
+                    </v-flex>
+                  </v-layout>
+                </v-flex>
+              </v-layout>
+            </v-card-text>
+            <v-divider />
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn @click='next' color='amber lighten-2' flat round>
+                back
+              </v-btn>
+              <v-btn @click='next' color='green' flat round>
+                continue
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-tab-item>
+      </v-tabs-items>
     </v-card-text>
-    <!--<v-card-actions>-->
-      <!--<v-spacer></v-spacer>-->
-      <!--<v-btn @click="next">next tab</v-btn>-->
-      <!--</v-card-actions>-->
   </v-card>
 </template>
 <script charset="utf-8">

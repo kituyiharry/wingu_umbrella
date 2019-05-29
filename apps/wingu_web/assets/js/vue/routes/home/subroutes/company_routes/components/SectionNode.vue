@@ -4,7 +4,7 @@
       <v-card hover v-show='showSection' 
         class='ma-0 elevation-2' :id='section.name.split(" ")[0].concat(secindex)' 
         style='border-radius: 8px;' min-height='270' width='320' flat tile 
-        :color=' editMode ? "primary" : "accent darken-1"'>
+        :color='editMode ? "primary" : "accent darken-1"'>
         <v-card-title d-flex>
           <div>
             <v-layout column>
@@ -96,22 +96,22 @@
       <v-divider />
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn v-show='editMode' @click='editMode=!editMode' small flat round color='success'>
+        <v-btn v-show='editMode' @click='editMode=!editMode' small color='success'>
           <strong>
             save
           </strong>
         </v-btn>
-        <v-btn v-show='editMode' @click='editMode=!editMode' small round flat color='error'>
+        <v-btn v-show='editMode' @click='editMode=!editMode' small color='error'>
           <strong>
             discard
           </strong>
         </v-btn>
-        <v-btn v-show='!editMode' @click='editMode=true' small flat round color='secondary'>
+        <v-btn v-show='!editMode' @click='editMode=true' small color='secondary'>
           <strong>
             edit
           </strong>
         </v-btn>
-        <v-btn v-show='!editMode' @click='handleCreateTimeout' small flat round color='error'>
+        <v-btn v-show='!editMode' @click='handleCreateTimeout' small color='error'>
           <strong>
             delete
           </strong>
