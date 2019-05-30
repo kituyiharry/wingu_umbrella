@@ -91,7 +91,6 @@
       <router-view ></router-view>
       <!--</transition>-->
     <v-snackbar
-      v-model="snackbar"
       color='error'
       class='white--text'
       bottom
