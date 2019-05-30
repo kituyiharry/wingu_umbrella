@@ -1,7 +1,7 @@
 <template>
   <v-flex
     style='width: 100%;' 
-    py-2 :px-4='$vuetify.breakpoint.mdAndUp' xs12  
+    py-2 px-3 xs12  
     >
     <v-slide-x-transition mode='out-in'>
       <v-card 
@@ -37,6 +37,16 @@
               </v-icon>
             </v-btn>
           </v-card-title>
+          <v-divider />
+          <v-expand-transition>
+            <v-card-text v-show='settings'>
+              <v-layout  row wrap>
+                <v-flex xs12 pa-2 d-flex align-center>
+                  <v-progress-circular indeterminate/>
+                </v-flex>
+              </v-layout>
+            </v-card-text>
+          </v-expand-transition>
           <v-divider />
           <v-card-text style='font-size: 12px;' class='px-4'>
             {{ section.data }}

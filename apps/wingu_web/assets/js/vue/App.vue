@@ -66,7 +66,7 @@ opacity: 0;
   opacity: 0;
   transform: translate(-2em, 0);
 }
-.v-card__text{
+/*.v-card__text{
   -webkit-hyphens: auto;
   -webkit-hyphenate-limit-before: 3;
   -webkit-hyphenate-limit-after: 3;
@@ -92,5 +92,5 @@ opacity: 0;
   hyphenate-limit-lines: 2;
   hyphenate-limit-last: always;   
   hyphenate-limit-zone: 8%;
-}
+}*/
 </style>

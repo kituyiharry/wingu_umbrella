@@ -1,8 +1,8 @@
 <template>
   <v-app :dark='dark' style='font-family: "Montserrat", sans-serif;'> 
-    <v-toolbar app dense 
+    <v-toolbar app dense
       height='80'
-      class="elevation-0" dark color="primary">
+      class="elevation-0 px-2" dark color="primary">
       <v-btn outline data-aos='zoom-in' data-aos-delay='100' icon @click='$router.go(-1)'>
         <v-icon small>
           arrow_back
@@ -69,26 +69,14 @@
         open-on-click :close-on-click='false'
         open-on-hover offset-y>
         <span slot='activator' id='profile'>
-          <v-avatar>
-            <v-img
-              v-if='$apollo.queries.client.loading!=undefined && $store.state.store.client.picture != undefined'
-              :lazy-src="$store.state.store.client.picture"
-              :src="$store.state.store.client.picture"
-              >
-              <template v-slot:placeholder>
-                <v-layout
-                  fill-height
-                  align-center
-                  justify-center
-                  ma-0>
-                  <v-progress-circular indeterminate color="orange"></v-progress-circular>
-                </v-layout>
-              </template>
-            </v-img>
-            <v-icon v-else small>
-              broken_image
-            </v-icon>
-          </v-avatar>
+          <v-btn  outline data-aos='zoom-in' data-aos-delay='300' icon round flat>
+            <v-badge color='red'>
+              <span slot='badge' style='font-size: 12px;'>6</span>
+              <v-icon small>
+                settings
+              </v-icon>
+            </v-badge>
+          </v-btn>
         </span>
         <div class='correct-up-arrow'>
         </div>
@@ -121,8 +109,10 @@
 </template>
 <script charset="utf-8">
 import { CLIENT, COMPANIES } from '../../graphql/queries.js'
+import Settings from './subroutes/SettingsView.vue';
 export default {
   name: 'Home',
+  components: { Settings },
   mounted(){
     // this.$apollo.queries.client.start()
     if (/localhost/i.test(window.location)) {

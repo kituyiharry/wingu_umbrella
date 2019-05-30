@@ -164,7 +164,7 @@
                                 :drag='drag' :dragIndex='dragIndex' :index='i' :section='n'/> 
                               <v-flex
                                 key='emptySlot'
-                                xs12>
+                                xs12 px-3>
                                 <v-slide-y-reverse-transition>
                                   <v-card 
                                     v-show='sectionNode.sections[currentItem].nodes<1 && !moveCtx' 
