@@ -3,9 +3,9 @@
     <!--fluid -->
     <!--:class='$vuetify.breakpoint.smAndDown ? -->
     <!--"mygradient pa-0 mt-5" :  "mygradient mt-5" '>-->
-    <v-card style="background: linear-gradient(to bottom, indigo, #FFFFFF)"
+    <v-card style="background: linear-gradient(to bottom, #996FD6, #FFFFFF)"
     :class='$vuetify.breakpoint.smAndDown ? 
-    "mygradient white--text pa-0 mt-5" :  "white--text mygradient mt-5 pa-3"'
+    "mygradient white--text pa-0" :  "white--text mygradient pa-3"'
     flat tile>
       <v-dialog lazy max-width='800' scrollable :fullscreen='$vuetify.breakpoint.xsOnly' 
         transition='slide-y-transition' v-model='showDocGroup'>

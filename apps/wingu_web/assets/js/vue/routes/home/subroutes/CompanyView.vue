@@ -36,21 +36,21 @@
           <v-list class="pt-0" dense>
             <v-divider></v-divider>
             <v-divider />
-            <v-list-group
-              prepend-icon="domain"
-              :value="true">
+            <v-list-group v-for='(route, i) in navigationTree'
+              :prepend-icon="route.icon"
+              :value="true" :group='route.lead'>
               <template v-slot:activator>
                 <v-list-tile>
-                  <v-list-tile-title>Users</v-list-tile-title>
+                  <v-list-tile-title>route.name</v-list-tile-title>
                 </v-list-tile>
               </template>
               <v-tooltip right transition='scale-transition'
-                v-for="(item,ind) in items"
+                v-for="(item,ind) in route.routes"
                 :key="item.icon">
-                <v-list-tile slot='activator'>
+                <v-list-tile slot='activator' @click='setAndPush(i,item.route)'>
                   <v-list-tile-action>
                     <div data-aos-offset='-1000000' data-aos='zoom-in' :data-aos-delay='ind*100'>
-                      <v-icon>{{ item.icon }}</v-icon>
+                      <v-icon small>{{ item.icon }}</v-icon>
                     </div>
                   </v-list-tile-action>
 
@@ -59,7 +59,7 @@
                   </v-list-tile-content>
                 </v-list-tile>
                 <span>
-                  {{ item.icon }}
+                  {{ item.name }}
                 </span>
               </v-tooltip>
             </v-list-group>
@@ -68,7 +68,7 @@
         <!--</v-layout>-->
       <!--</v-navigation-drawer>-->
     <v-toolbar height='72' flat app 
-      extension-height='102' extended
+      :scroll-off-screen='$vuetify.breakpoint.xsOnly' extension-height='102' extended
       dark color="primary">
       <!--<v-toolbar-side-icon @click='drawer=!drawer'/>-->
       <!--<v-fab-transition>-->
@@ -121,7 +121,7 @@
         <span slot='activator' id='profile'>
           <v-btn  class='mr-1' outline data-aos='zoom-in' data-aos-delay='300' icon round flat>
             <v-badge color='red'>
-              <span slot='badge' style='font-size: 12px;'>6</span>
+              <span slot='badge' style='font-size: 12px;'>3</span>
               <v-icon small>
                 settings
               </v-icon>
@@ -151,9 +151,11 @@
             <v-tabs class='pa-0' color='primary'
               v-model="tab">
               <v-tabs-slider style='border-radius: 8px;' color="yellow"></v-tabs-slider>
-              <v-tab :ripple='false' v-for="(item,ind) in items" :key="item.icon">
+              <v-tab 
+                v-for="(route,ind) in navigationTree[activeGroup].routes" :key="ind"
+                :to='route.route' :ripple='false'>
                 <v-btn round small :flat='tab!=ind' :class='tab==ind ? "secondary lighten-3 black--text" : ""'>
-                  {{ item.title }}
+                  {{ route.name }}
                 </v-btn>
               </v-tab>
             </v-tabs>
@@ -161,43 +163,8 @@
         </v-card>
       </div>
     </v-toolbar>
-    <v-content>
-      <v-tabs-items v-model="tab">
-        <v-tab-item v-for="item in items" :key="item.icon">
-          <v-container class='pa-0' fluid fill-height>
-            <v-layout fill-height row wrap>
-              <v-card color='transparent' flat>
-                <v-card-text>
-                  <p>
-                    Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
-                    tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At
-                    vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren,
-                    no sea takimata sanctus est Lorem ipsum dolor sit amet.
-                  </p>
-                  <p>
-                    Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
-                    tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At
-                    vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren,
-                    no sea takimata sanctus est Lorem ipsum dolor sit amet.
-                  </p>
-                  <p>
-                    Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
-                    tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At
-                    vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren,
-                    no sea takimata sanctus est Lorem ipsum dolor sit amet.
-                  </p>
-                  <blockquote class='blockquote'>
-                    Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
-                    tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At
-                    vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren,
-                    no sea takimata sanctus est Lorem ipsum dolor sit amet.
-                  </blockquote>
-                </v-card-text>
-              </v-card>
-            </v-layout>
-          </v-container>
-        </v-tab-item>
-      </v-tabs-items>
+    <v-content class='primary'>
+      <router-view/>
     </v-content>
   </v-app>
 </template>
@@ -209,6 +176,10 @@ import Integrations from './company_routes/Integrations.vue';
 export default {
   name: "CompanyView",
   components: { Dashboard, Records, Stats, Integrations },
+  mounted(){
+    console.dir(this.$route)
+    this.tab='this.$route.fullPath'
+  },
   data: () => ({
     fab: false,
     offsetTop: 0,
@@ -217,6 +188,35 @@ export default {
     activeTab: 0,
     drawer: true,
     links: ['Home', 'Contacts', 'Settings'],
+    navigationTree: [
+      {
+        name: "Home", lead: "/i", icon: "home", routes: [
+          {name: "Overview",    icon: "dashboard",           route: "/i/overview"},
+          {name: "Profile",     icon: "account_circle",      route: "/i/profile"},
+          {name: "Permissions", icon: "supervisor_account",  route: "/i/perms"}
+        ],
+      },
+      {
+        name: "Records", lead: "/records", icon: "folder_open", routes: [
+          {name: "Workflows",   icon: "work",       route: "/records/groups"},
+          {name: "Viewer",      icon: "note",       route: "/records/view"},
+          {name: "Editor",      icon: "wrap_text",  route: "/records/edit"}
+        ]
+      },
+      {
+        name: "Events", lead: "/events", icon: "redeem", routes: [
+          {name: "Upcoming",    icon: "event_available",   route: "/events/up"},
+          {name: "Ticketing",   icon: "event_seat",        route: "/events/tickets"},
+        ]
+      },
+      {
+        name: "Monetization", lead: "/money", icon: "payment", routes: [
+          {name: "Institutions", icon: "domain",     route: "/money/finance"},
+          {name: "Statistics",   icon: "data_usage", route: "/money/stats"},
+        ]
+      }
+    ],
+    activeGroup: 0,
     items: [
       { title: 'Home', icon: 'dashboard' },
       { title: 'Home', icon: 'account_circle' },
@@ -246,6 +246,10 @@ export default {
     }
   },
   methods: {
+    setAndPush(index, route){
+      this.activeGroup=index
+      this.$router.push(route.route)
+    },
     log(e){
       alert(e)
     },

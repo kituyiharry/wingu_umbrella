@@ -37,7 +37,8 @@ import Landing from './vue/routes/landing/Landing.vue'
 import Home from './vue/routes/home/Home.vue'
 import Index from './vue/routes/home/subroutes/Index.vue'
 import CompanyView from './vue/routes/home/subroutes/CompanyView.vue'
-//import Dashboard from './vue/routes/home/subroutes/company_routes/Dashboard.vue'
+import Integrations from './vue/routes/home/subroutes/company_routes/Integrations.vue'
+import Records   from './vue/routes/home/subroutes/company_routes/Records.vue'
 //import Forms from './vue/routes/home/subroutes/company_routes/Forms.vue'
 import Settings from './vue/routes/home/subroutes/SettingsView.vue'
 
@@ -48,10 +49,20 @@ const routes = [
   {path: '/home', component: Home, children: [
     {path: '/', component: Index},
     {path: '/user', component: Settings},
-    {path: '/b/:id', component: CompanyView}, // children: [
-      // {path: '/', component: Dashboard},
-      // {path: '/forms/:docclass/c/:company', component: Forms},
-    // ]},
+    {path: '/b/:id', component: CompanyView,  children: [
+      //{path: '/', component: Dashboard},
+      {path: '/i/overview', component: Records},
+      {path: '/i/profile', component: Integrations},
+      {path: '/i/perms', component: Records},
+      {path: '/records/groups', component: Integrations},
+      {path: '/records/view', component: Records},
+      {path: '/records/edit', component: Integrations},
+      {path: '/events/up', component: Records},
+      {path: '/events/tickets', component: Integrations},
+      {path: '/money/finance', component: Records},
+      {path: '/money/stats', component: Integrations},
+      //{path: '/forms/:docclass/c/:company', component: Forms},
+    ]},
   ]},
 ]
 
