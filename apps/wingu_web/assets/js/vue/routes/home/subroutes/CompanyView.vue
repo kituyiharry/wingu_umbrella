@@ -1,56 +1,204 @@
 <template>
-  <v-content v-scroll='onScroll' class=''>
-    <div data-aos='fade-down'>
-      <v-tabs
-        centered dark :hide-slider='false' v-model='activeTab'
-        align-with-title
-        color="primary darken-1" :class='offsetTop > 25 ? "elv" : "elevation-0"'
-        style='position: fixed;width: 100%;z-index: 1;'
-        slider-color="secondary lighten-2">
-        <v-tab :ripple='false' v-for="(n,ind) in tabs" :key="ind">
-          <v-btn :color='(activeTab==ind) ? "secondary lighten-3" : "white lighten-3"' 
-            class='black--text' 
-            depressed :flat='!(activeTab==ind)' round>
-            <v-icon left small>
-              {{ n.icon }}
-            </v-icon>
-            {{ n.label }}
-          </v-btn>
-        </v-tab>
-      </v-tabs>
-    </div>
-    <!--<v-divider/>-->
-    <v-speed-dial
-      v-model="fab" direction="top" class='fab' transition="scale-transition"
-      open-on-hover right bottom fixed
-      :close-on-content-click='false' :class='$vuetify.breakpoint.mdAndUp ? "mb-5 mr-5" : "mb-4"'>
-      <div slot="activator" data-aos='zoom-in' data-aos-offset='-200' data-aos-delay='400'>
-        <v-btn color="secondary" id='fab' fab icon class='elevation-1' v-model="fab">
-          <v-icon>
-            {{ !fab ? "open_in_browser" : "close" }}
+  <v-app :dark='dark' style='font-family: "Montserrat", sans-serif;'> 
+    <!--:permanent='$vuetify.breakpoint.mdAndUp'-->
+      <!--:fixed='$vuetify.breakpoint.mdAndUp' -->
+    <v-navigation-drawer
+      app fixed 
+      :mini-variant="mini" 
+      color='primary' v-model="drawer">
+      <v-toolbar flat class="transparent">
+        <v-list class="pa-0">
+          <v-list-tile avatar>
+            <v-list-tile-avatar>
+              <img src="https://randomuser.me/api/portraits/men/85.jpg">
+            </v-list-tile-avatar>
+
+            <v-list-tile-content>
+              <v-list-tile-title>John Leider</v-list-tile-title>
+            </v-list-tile-content>
+
+            <v-list-tile-action>
+              <!--@click.stop="mini = !mini"-->
+              <v-btn
+                icon
+                >
+                <v-icon>chevron_left</v-icon>
+              </v-btn>
+            </v-list-tile-action>
+          </v-list-tile>
+        </v-list>
+      </v-toolbar>
+
+      <v-list class="pt-0" dense>
+        <v-divider></v-divider>
+
+        <v-list-tile
+          v-for="item in items"
+          :key="item.title"
+          @click=""
+          >
+          <v-list-tile-action>
+            <v-icon>{{ item.icon }}</v-icon>
+          </v-list-tile-action>
+
+          <v-list-tile-content>
+            <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+      </v-list>
+    </v-navigation-drawer>
+    <v-toolbar flat app 
+      extension-height='98' extended
+      dark color="primary">
+      <!--<v-toolbar-side-icon @click='drawer=!drawer'/>-->
+      <!--<v-fab-transition>-->
+        <!--</v-fab-transition>-->
+      <v-toolbar-title>
+        <v-layout column>
+          <div style='text-overflow: scroll; font-family: Pacifico;font-weight: normal;font-size: 18px;'>
+            <!--<strong>{{ $store.state.store.home | first }}</strong>-->
+            <strong>Cerrelo Studio</strong>
+          </div>
+          <!--<v-divider />-->
+          <!--<v-divider />-->
+          <!--<span style='font-size: 12px;'>Dashboard</span>-->
+        </v-layout>
+      </v-toolbar-title>
+      <v-spacer></v-spacer>
+      <!--<v-menu-->
+        <!--attach='#chat' -->
+        <!--transition='slide-y-reverse-transition' -->
+        <!--nudge-left='170'-->
+        <!--nudge-bottom='4'-->
+        <!--open-on-hover close-on-content-click offset-y>-->
+        <!--<div id='chat' slot='activator'>-->
+          <!--<v-btn id='chat' outline data-aos='zoom-in' data-aos-delay='200' icon round flat>-->
+            <!--<v-badge color='red'>-->
+              <!--<span style='font-size: 12px;' slot='badge'>23</span>-->
+              <!--<v-icon small>-->
+                <!--chat-->
+                <!--</v-icon>-->
+              <!--</v-badge>-->
+            <!--</v-btn>-->
+          <!--</div>-->
+        <!--<div class='up-arrow'>-->
+          <!--</div>-->
+        <!--<v-card style='border-radius: 8px;' width='230' height='200'>-->
+          <!--</v-card>-->
+        <!--</v-menu>-->
+        <v-btn v-if='$vuetify.breakpoint.smAndDown' data-aos='zoom-in' data-aos-delay='100' icon @click='drawer=!drawer'>
+          <v-icon >
+            menu
           </v-icon>
         </v-btn>
+      <v-menu 
+        attach='#bell' 
+        transition='slide-y-reverse-transition' 
+        nudge-left='170'
+        nudge-bottom='4'
+        open-on-hover close-on-content-click offset-y>
+        <div id='bell' slot='activator' class='mr-2'>
+          <v-btn  outline data-aos='zoom-in' data-aos-delay='300' icon round flat>
+            <v-badge color='red'>
+              <span slot='badge' style='font-size: 12px;'>6</span>
+              <v-icon small>
+                notifications_none
+              </v-icon>
+            </v-badge>
+          </v-btn>
+        </div>
+        <div class='up-arrow'>
+        </div>
+        <v-card style='border-radius: 8px;' width='230' height='200'>
+        </v-card>
+      </v-menu>
+      <v-menu
+        attach='#profile' 
+        transition='slide-y-reverse-transition' 
+        nudge-left='180'
+        nudge-bottom='3'
+        open-on-click :close-on-click='false'
+        open-on-hover offset-y>
+        <span slot='activator' id='profile'>
+          <v-btn  class='mr-1' outline data-aos='zoom-in' data-aos-delay='300' icon round flat>
+            <v-badge color='red'>
+              <span slot='badge' style='font-size: 12px;'>6</span>
+              <v-icon small>
+                settings
+              </v-icon>
+            </v-badge>
+          </v-btn>
+        </span>
+        <div class='correct-up-arrow'>
+        </div>
+        <v-card style='border-radius: 8px;' width='230' height='200'>
+          <v-card-title>
+            <v-switch v-model='dark'></v-switch>
+          </v-card-title>
+        </v-card>
+      </v-menu>
+      <div style='width:100%;' slot='extension'>
+        <v-card color='transparent' flat>
+          <v-card-title class='pa-0' style='font-size: 32px;'>
+            <strong>
+              Overview
+            </strong>
+            <v-spacer></v-spacer>
+            <v-icon>
+              info
+            </v-icon>
+          </v-card-title>
+          <v-card-actions class='pa-0'>
+            <v-tabs class='pa-0' show-arrows color='primary'
+              v-model="tab">
+              <v-tabs-slider style='border-radius: 8px;' color="yellow"></v-tabs-slider>
+              <v-tab v-for="item in items" :key="item.icon">
+                {{ item.title }}
+              </v-tab>
+            </v-tabs>
+          </v-card-actions>
+        </v-card>
       </div>
-      <v-btn
-        v-for='(i,ind) in speedDialModel' :key='ind'  data-aos='fade-left' :data-aos-delay='ind * 25' 
-        :id='"btn_dial_".concat(ind)' dark round icon large :color='i.color'>
-        <v-icon small>
-          {{ i.icon }}
-        </v-icon>
-      </v-btn>
-    </v-speed-dial>
-    <v-tabs-items touchless v-model="activeTab">
-      <v-tab-item>
-        <Records/>
-      </v-tab-item>
-      <v-tab-item>
-        <Dashboard />
-      </v-tab-item>
-      <v-tab-item>
-        <Stats />
-      </v-tab-item>
-    </v-tabs-items>
-  </v-content>
+    </v-toolbar>
+    <v-content>
+      <v-tabs-items v-model="tab">
+        <v-tab-item v-for="item in items" :key="item.title">
+          <v-container class='pa-0' fluid fill-height>
+            <v-layout row wrap>
+              <v-card flat>
+                <v-card-text>
+                  <p>
+                    Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
+                    tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At
+                    vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren,
+                    no sea takimata sanctus est Lorem ipsum dolor sit amet.
+                  </p>
+                  <p>
+                    Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
+                    tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At
+                    vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren,
+                    no sea takimata sanctus est Lorem ipsum dolor sit amet.
+                  </p>
+                  <p>
+                    Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
+                    tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At
+                    vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren,
+                    no sea takimata sanctus est Lorem ipsum dolor sit amet.
+                  </p>
+                  <blockquote class='blockquote'>
+                    Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod
+                    tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At
+                    vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren,
+                    no sea takimata sanctus est Lorem ipsum dolor sit amet.
+                  </blockquote>
+                </v-card-text>
+              </v-card>
+            </v-layout>
+          </v-container>
+        </v-tab-item>
+      </v-tabs-items>
+    </v-content>
+  </v-app>
 </template>
 <script charset="utf-8">
 import Dashboard from './company_routes/Dashboard.vue'
@@ -63,7 +211,22 @@ export default {
   data: () => ({
     fab: false,
     offsetTop: 0,
+    dark: true,
+    tab: 0,
     activeTab: 0,
+    drawer: true,
+    items: [
+      { title: 'Home', icon: 'dashboard' },
+      { title: 'Home', icon: 'account_circle' },
+      { title: 'Home', icon: 'supervisor_account' },
+      { title: 'Home', icon: 'fingerprint' },
+      { title: 'Home', icon: 'monetization_on' },
+      { title: 'Home', icon: 'folder_open' },
+      { title: 'Home', icon: 'business_center' },
+      { title: 'About', icon: 'question_answer' }
+    ],
+    mini: true,
+    right: null,
     tabs: [
       {label: "Records",   icon: "folder_open"},
       {label: "Events", icon: "dashboard"},
@@ -75,6 +238,11 @@ export default {
       { action: "/", icon: "domain", color: "teal" },
     ],
   }),
+  filters: {
+    first(sentence){
+      return sentence.split(" ")[0]
+    }
+  },
   methods: {
     log(e){
       alert(e)
@@ -102,7 +270,9 @@ export default {
 .v-card--hover:hover {
   transform: translateY(-7.5px);
 }
-.elv{
-  box-shadow: 0 2px 1px -1px rgba(0,0,0,.2),0 1px 1px 0 rgba(0,0,0,0),0 1px 3px 0 rgba(0,0,0,0)!important;
+.circuit_hero{
 }
+/*.elv{
+box-shadow: 0 2px 1px -1px rgba(0,0,0,.2),0 1px 1px 0 rgba(0,0,0,0),0 1px 3px 0 rgba(0,0,0,0)!important;
+}*/
 </style>
