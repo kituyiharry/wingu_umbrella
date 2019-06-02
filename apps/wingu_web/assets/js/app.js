@@ -39,7 +39,9 @@ import Index from './vue/routes/home/subroutes/Index.vue'
 import CompanyView from './vue/routes/home/subroutes/CompanyView.vue'
 import Integrations from './vue/routes/home/subroutes/company_routes/Integrations.vue'
 import Records   from './vue/routes/home/subroutes/company_routes/Records.vue'
-//import Forms from './vue/routes/home/subroutes/company_routes/Forms.vue'
+import Stats from './vue/routes/home/subroutes/company_routes/Stats.vue'
+import FormWizard from './vue/routes/home/subroutes/company_routes/components/FormWizard.vue'
+import DocGroups from './vue/routes/home/subroutes/company_routes/components/DocGroups.vue'
 import Settings from './vue/routes/home/subroutes/SettingsView.vue'
 
 import Store from './vue/store/store.js'
@@ -52,15 +54,15 @@ const routes = [
     {path: '/b/:id', component: CompanyView,  children: [
       //{path: '/', component: Dashboard},
       {path: '/i/overview', component: Records},
-      {path: '/i/profile', component: Integrations},
+      {path: '/i/profile', component:  DocGroups},
       {path: '/i/perms', component: Records},
       {path: '/records/groups', component: Integrations},
       {path: '/records/view', component: Records},
-      {path: '/records/edit', component: Integrations},
+      {path: '/records/edit', component: FormWizard },
       {path: '/events/up', component: Records},
       {path: '/events/tickets', component: Integrations},
       {path: '/money/finance', component: Records},
-      {path: '/money/stats', component: Integrations},
+      {path: '/money/stats', component: Stats},
       //{path: '/forms/:docclass/c/:company', component: Forms},
     ]},
   ]},

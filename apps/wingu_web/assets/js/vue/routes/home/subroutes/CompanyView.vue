@@ -23,9 +23,9 @@
                 </v-list-tile-content>
 
                 <v-list-tile-action>
-                  <!--@click.stop="mini = !mini"-->
                   <v-btn
                     icon
+                  @click.stop="mini = !mini"
                     >
                     <v-icon>chevron_left</v-icon>
                   </v-btn>
@@ -35,19 +35,18 @@
           </v-toolbar>
           <v-list class="pt-0" dense>
             <v-divider></v-divider>
-            <v-divider />
             <v-list-group v-for='(route, i) in navigationTree'
-              :prepend-icon="route.icon"
+              :prepend-icon="route.icon" :key='route.name'
               :value="true" :group='route.lead'>
               <template v-slot:activator>
                 <v-list-tile>
-                  <v-list-tile-title>route.name</v-list-tile-title>
+                  <v-list-tile-title>{{ route.name }}</v-list-tile-title>
                 </v-list-tile>
               </template>
-              <v-tooltip right transition='scale-transition'
+              <v-tooltip :disabled='$vuetify.breakpoint.smAndDown' light close-delay='200' right transition='scale-transition'
                 v-for="(item,ind) in route.routes"
                 :key="item.icon">
-                <v-list-tile slot='activator' @click='setAndPush(i,item.route)'>
+                <v-list-tile active-class='secondary--text lighten-3' slot='activator' @click='()=>{setAndPush(i,item)}' :to='item.route'>
                   <v-list-tile-action>
                     <div data-aos-offset='-1000000' data-aos='zoom-in' :data-aos-delay='ind*100'>
                       <v-icon small>{{ item.icon }}</v-icon>
@@ -55,7 +54,7 @@
                   </v-list-tile-action>
 
                   <v-list-tile-content>
-                    <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+                    <v-list-tile-title>{{ item.name}}</v-list-tile-title>
                   </v-list-tile-content>
                 </v-list-tile>
                 <span>
@@ -67,7 +66,7 @@
         </v-navigation-drawer>
         <!--</v-layout>-->
       <!--</v-navigation-drawer>-->
-    <v-toolbar height='72' flat app 
+    <v-toolbar height='64' flat app 
       :scroll-off-screen='$vuetify.breakpoint.xsOnly' extension-height='102' extended
       dark color="primary">
       <!--<v-toolbar-side-icon @click='drawer=!drawer'/>-->
@@ -140,7 +139,7 @@
         <v-card color='transparent' flat>
           <v-card-title class='pa-0' style='font-size: 36px;'>
             <strong>
-              Overview
+              {{ navigationTree[activeGroup].name }}
             </strong>
             <v-spacer></v-spacer>
             <v-icon>
@@ -154,7 +153,7 @@
               <v-tab 
                 v-for="(route,ind) in navigationTree[activeGroup].routes" :key="ind"
                 :to='route.route' :ripple='false'>
-                <v-btn round small :flat='tab!=ind' :class='tab==ind ? "secondary lighten-3 black--text" : ""'>
+                <v-btn round small :flat='tab!=route.route' :class='tab==route.route ? "secondary lighten-3 black--text" : ""'>
                   {{ route.name }}
                 </v-btn>
               </v-tab>
@@ -164,21 +163,26 @@
       </div>
     </v-toolbar>
     <v-content class='primary'>
-      <router-view/>
+      <transition name='slide-fade' mode='out-in'>
+        <router-view/>
+      </transition>
     </v-content>
   </v-app>
 </template>
 <script charset="utf-8">
-import Dashboard from './company_routes/Dashboard.vue'
-import Records from './company_routes/Records.vue';
-import Stats from './company_routes/Stats.vue'
-import Integrations from './company_routes/Integrations.vue';
+//import Dashboard from './company_routes/Dashboard.vue'
+//import Records from './company_routes/Records.vue';
+//import Stats from './company_routes/Stats.vue'
+//import Integrations from './company_routes/Integrations.vue';
 export default {
   name: "CompanyView",
-  components: { Dashboard, Records, Stats, Integrations },
+  //components: { Dashboard, Records, Stats, Integrations },
   mounted(){
-    console.dir(this.$route)
-    this.tab='this.$route.fullPath'
+    if (this.$vuetify.breakpoint.smAndDown) {
+      this.$nextTick(()=>{
+        this.mini = false
+      }) 
+    }
   },
   data: () => ({
     fab: false,
@@ -247,8 +251,11 @@ export default {
   },
   methods: {
     setAndPush(index, route){
-      this.activeGroup=index
-      this.$router.push(route.route)
+      this.$nextTick((i)=>{
+        this.activeGroup=index
+        this.tab=route.route 
+      })
+      //this.$router.push(route.route)
     },
     log(e){
       alert(e)
