@@ -35,7 +35,7 @@
           </v-toolbar>
           <v-list class="pt-0" dense>
             <v-divider></v-divider>
-            <v-list-group v-for='(route, i) in navigationTree'
+            <v-list-group expand v-for='(route, i) in navigationTree'
               :prepend-icon="route.icon" :key='route.name'
               :value="true" :group='route.lead'>
               <template v-slot:activator>
@@ -46,7 +46,7 @@
               <v-tooltip :disabled='$vuetify.breakpoint.smAndDown' light close-delay='200' right transition='scale-transition'
                 v-for="(item,ind) in route.routes"
                 :key="item.icon">
-                <v-list-tile active-class='secondary--text lighten-3' slot='activator' @click='()=>{setAndPush(i,item)}' :to='item.route'>
+                <v-list-tile active-class='secondary--text lighten-3 ' slot='activator' @click='()=>{setAndPush(i,item)}' :to='item.route'>
                   <v-list-tile-action>
                     <div data-aos-offset='-1000000' data-aos='zoom-in' :data-aos-delay='ind*100'>
                       <v-icon small>{{ item.icon }}</v-icon>
@@ -163,6 +163,7 @@
       </div>
     </v-toolbar>
     <v-content class='primary'>
+    <v-divider />
       <transition name='slide-fade' mode='out-in'>
         <router-view/>
       </transition>
@@ -251,9 +252,9 @@ export default {
   },
   methods: {
     setAndPush(index, route){
-      this.$nextTick((i)=>{
-        this.activeGroup=index
+      this.$nextTick(()=>{
         this.tab=route.route 
+        this.activeGroup=index
       })
       //this.$router.push(route.route)
     },
