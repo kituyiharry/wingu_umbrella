@@ -17,10 +17,10 @@ html {
   scroll-behavior: smooth;
 }
 .slide-fade-enter-active {
-  transition: all .3s ease;
+  transition: all .2s ease;
 }
 .slide-fade-leave-active {
-  transition: all .3s; /*cubic-bezier(1.0, 0.5, 0.8, 1.0);*/
+  transition: all .2s; /*cubic-bezier(1.0, 0.5, 0.8, 1.0);*/
 }
 /*.slide-fade-enter,*/ .slide-fade-leave-to
 /* .slide-fade-leave-active below version 2.1.8 */ {
@@ -35,7 +35,7 @@ opacity: 0;
 
 .fade-enter-active,
 .fade-leave-active {
-  transition-duration: 0.3s;
+  transition-duration: 0.2s;
   transition-property: opacity;
   transition-timing-function: ease;
 }
@@ -49,7 +49,7 @@ opacity: 0;
 .slide-left-leave-active,
 .slide-right-enter-active,
 .slide-right-leave-active {
-  transition-duration: 0.5s;
+  transition-duration: 0.2s;
   transition-property: height, opacity, transform;
   transition-timing-function: cubic-bezier(0.55, 0, 0.1, 1);
   overflow: hidden;

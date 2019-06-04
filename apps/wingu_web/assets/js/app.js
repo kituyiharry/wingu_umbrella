@@ -37,6 +37,7 @@ import Landing from './vue/routes/landing/Landing.vue'
 import Home from './vue/routes/home/Home.vue'
 import Index from './vue/routes/home/subroutes/Index.vue'
 import CompanyView from './vue/routes/home/subroutes/CompanyView.vue'
+import SubIndex from './vue/routes/home/subroutes/company_routes/Index.vue'
 import Integrations from './vue/routes/home/subroutes/company_routes/Integrations.vue'
 import Records   from './vue/routes/home/subroutes/company_routes/Records.vue'
 import Stats from './vue/routes/home/subroutes/company_routes/Stats.vue'
@@ -52,7 +53,7 @@ const routes = [
     {path: '/', component: Index},
     {path: '/user', component: Settings},
     {path: '/b/:id', component: CompanyView,  children: [
-      //{path: '/', component: Dashboard},
+      {path: '/', component: SubIndex},
       {path: '/i/overview', component: Records},
       {path: '/i/profile', component:  DocGroups},
       {path: '/i/perms', component: Records},
