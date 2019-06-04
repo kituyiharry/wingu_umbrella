@@ -54,7 +54,7 @@ const routes = [
     {path: '/user', component: Settings},
     {path: '/b/:id', component: CompanyView,  children: [
       {path: '/', component: SubIndex},
-      {path: '/i/overview', component: Records},
+      {path: '/i/overview', component: SubIndex},
       {path: '/i/profile', component:  DocGroups},
       {path: '/i/perms', component: Records},
       {path: '/records/groups', component: Integrations},

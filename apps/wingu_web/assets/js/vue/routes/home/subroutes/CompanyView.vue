@@ -25,7 +25,7 @@
                 <v-list-tile-action>
                   <v-btn
                     icon
-                  @click.stop="mini = !mini"
+                    @click.stop="mini = !mini"
                     >
                     <v-icon>chevron_left</v-icon>
                   </v-btn>
@@ -66,8 +66,8 @@
         </v-navigation-drawer>
         <!--</v-layout>-->
       <!--</v-navigation-drawer>-->
-    <v-toolbar height='64' app fixed  class='elevation-1'
-      :scroll-off-screen='$vuetify.breakpoint.xsOnly' extension-height='102' :extended='false'
+    <v-toolbar height='56' app fixed  class='elevation-1'
+      :scroll-off-screen='$vuetify.breakpoint.xsOnly' extension-height='90' :extended='false'
       dark color="primary">
       <!--<v-toolbar-side-icon @click='drawer=!drawer'/>-->
       <!--<v-fab-transition>-->
@@ -96,13 +96,13 @@
         nudge-bottom='4'
         open-on-hover close-on-content-click offset-y>
         <div id='bell' slot='activator' class='mr-2'>
-          <v-btn  outline data-aos='zoom-in' data-aos-delay='300' icon round flat>
-            <v-badge color='red'>
-              <span slot='badge' style='font-size: 12px;'>6</span>
+          <v-btn @click='$router.push("/home")' outline data-aos='zoom-in' data-aos-delay='300' icon round flat>
+            <!--<v-badge color='red'>-->
+              <!--<span slot='badge' style='font-size: 12px;'>6</span>-->
               <v-icon small>
-                notifications_none
+                exit_to_app
               </v-icon>
-            </v-badge>
+            <!--</v-badge>-->
           </v-btn>
         </div>
         <div class='up-arrow'>
@@ -135,155 +135,151 @@
           </v-card-title>
         </v-card>
       </v-menu>
-        <div 
-          style='width:100%;' slot='extension'>
-          <!--<v-tabs v-model='activeGroup'>-->
-            <!--<v-tab v-for='(group, ind) in navigationTree' :key='ind'>-->
-              <v-card color='transparent' flat>
-                <v-card-title class='pa-0' style='font-size: 36px;font-weight: 200;'>
-                  <!--<strong>-->
-                    {{ !subindex ?  navigationTree[activeGroup].name : "Welcome" }}
-                    <!--</strong>-->
-                  <v-spacer></v-spacer>
-                  <v-icon>
-                    info
-                  </v-icon>
-                </v-card-title>
-                <v-slide-y-reverse-transition hide-on-leave mode='out-in'>
-                  <v-card-text class='pa-0' style='font-size: 12px;' v-show='subindex'>
-                    Use navigation panel
-                  </v-card-text>
-                </v-slide-y-reverse-transition>
-                <v-slide-y-transition hide-on-leave mode='out-in'>
-                  <v-card-actions 
-                    v-show='!subindex' 
-                    class='pa-0'>
-                    <v-tabs class='pa-0' color='primary'
-                      v-model="tab">
-                      <v-tabs-slider style='border-radius: 16px;' color="yellow"></v-tabs-slider>
-                      <v-tab 
-                        v-for="(route,ind) in navigationTree[activeGroup].routes" :key="ind"
-                        :to='route.route' :ripple='false'>
-                        <v-btn round small :flat='tab!=route.route' :class='tab==route.route ? "secondary lighten-3 black--text" : ""'>
-                          {{ route.name }}
-                        </v-btn>
-                      </v-tab>
-                    </v-tabs>
-                  </v-card-actions>
-                </v-slide-y-transition>
-              </v-card>
-              <!--<v-tab>-->
-                <!--</v-tabs>-->
-            </div>
-          </v-toolbar>
-          <v-content class='primary'>
-            <v-divider />
-            <transition name='slide-fade' mode='out-in'>
-              <router-view/>
-            </transition>
-          </v-content>
-        </v-app>
-      </template>
-      <script charset="utf-8">
-//import Dashboard from './company_routes/Dashboard.vue'
-//import Records from './company_routes/Records.vue';
-//import Stats from './company_routes/Stats.vue'
-//import Integrations from './company_routes/Integrations.vue';
+      <div 
+        style='width:100%;' slot='extension'>
+        <!--<v-tabs v-model='activeGroup'>-->
+          <!--<v-tab v-for='(group, ind) in navigationTree' :key='ind'>-->
+            <v-card color='transparent' flat>
+              <v-card-title class='pa-0' style='font-size: 28px;font-weight: 200;'>
+                <!--<strong>-->
+                  {{ !subindex ?  navigationTree[activeGroup].name : "Welcome" }}
+                  <!--</strong>-->
+                <v-spacer></v-spacer>
+                <v-icon>
+                  info
+                </v-icon>
+              </v-card-title>
+              <v-slide-y-reverse-transition hide-on-leave mode='out-in'>
+                <v-card-text class='pa-0' style='font-size: 12px;' v-show='subindex'>
+                  Use navigation panel
+                </v-card-text>
+              </v-slide-y-reverse-transition>
+              <v-slide-y-transition hide-on-leave mode='out-in'>
+                <v-card-actions 
+                  v-show='!subindex' 
+                  class='pa-0'>
+                  <v-tabs class='pa-0' color='primary'
+                    v-model="tab">
+                    <v-tabs-slider style='border-radius: 16px;' color="yellow"></v-tabs-slider>
+                    <v-tab 
+                      v-for="(route,ind) in navigationTree[activeGroup].routes" :key="ind"
+                      :to='route.route' :ripple='false'>
+                      <v-btn round small :flat='tab!=route.route' :class='tab==route.route ? "secondary lighten-3 black--text" : ""'>
+                        {{ route.name }}
+                      </v-btn>
+                    </v-tab>
+                  </v-tabs>
+                </v-card-actions>
+              </v-slide-y-transition>
+            </v-card>
+            <!--<v-tab>-->
+              <!--</v-tabs>-->
+          </div>
+        </v-toolbar>
+        <v-content class=''>
+          <v-divider />
+          <transition name='slide-fade' mode='out-in'>
+            <router-view @updateModel='log'/>
+          </transition>
+        </v-content>
+      </v-app>
+    </template>
+    <script charset="utf-8">
 export default {
-name: "CompanyView",
-//components: { Dashboard, Records, Stats, Integrations },
-mounted(){
-/*if (this.$vuetify.breakpoint.smAndDown) {
+  name: "CompanyView",
+  //components: { Dashboard, Records, Stats, Integrations },
+  mounted(){
+    /*if (this.$vuetify.breakpoint.smAndDown) {
 this.$nextTick(()=>{
 this.mini = false
 }) 
 }*/
-},
-data: () => ({
-fab: false,
-offsetTop: 0,
-dark: true,
-tab: 0,
-activeTab: 0,
-drawer: false,
-links: ['Home', 'Contacts', 'Settings'],
-navigationTree: [
-{
-name: "Home", lead: "/i", icon: "home", routes: [
-{name: "Overview",    icon: "dashboard",           route: "/i/overview"},
-{name: "Profile",     icon: "account_circle",      route: "/i/profile"},
-{name: "Permissions", icon: "supervisor_account",  route: "/i/perms"}
-],
-},
-{
-name: "Records", lead: "/records", icon: "folder_open", routes: [
-{name: "Workflows",   icon: "work",       route: "/records/groups"},
-{name: "Viewer",      icon: "note",       route: "/records/view"},
-{name: "Editor",      icon: "wrap_text",  route: "/records/edit"}
-]
-},
-{
-name: "Events", lead: "/events", icon: "redeem", routes: [
-{name: "Upcoming",    icon: "event_available",   route: "/events/up"},
-{name: "Ticketing",   icon: "event_seat",        route: "/events/tickets"},
-]
-},
-{
-name: "Monetization", lead: "/money", icon: "payment", routes: [
-{name: "Institutions", icon: "domain",     route: "/money/finance"},
-{name: "Statistics",   icon: "data_usage", route: "/money/stats"},
-]
-}
-],
-activeGroup: 0,
-items: [
-{ title: 'Home', icon: 'dashboard' },
-{ title: 'Home', icon: 'account_circle' },
-{ title: 'Home', icon: 'supervisor_account' },
-{ title: 'Home', icon: 'fingerprint' },
-{ title: 'Home', icon: 'monetization_on' },
-{ title: 'Home', icon: 'folder_open' },
-{ title: 'Home', icon: 'business_center' },
-{ title: 'About', icon: 'question_answer' }
-],
-mini: true,
-right: null,
-tabs: [
-{label: "Records",   icon: "folder_open"},
-{label: "Events", icon: "dashboard"},
-{label: "Messages",  icon: "message"},
-],
-speedDialModel: [
-{ action: "/", icon: "description", color: "red" },
-{ action: "/", icon: "mail", color: "green" },
-{ action: "/", icon: "domain", color: "teal" },
-],
-}),
-filters: {
-first(sentence){
-return sentence.split(" ")[0]
-}
-},
-methods: {
-setAndPush(index, route){
-this.$nextTick(()=>{
-this.tab=route.route 
-this.activeGroup=index
-})
-//this.$router.push(route.route)
-},
-log(e){
-alert(e)
-},
-onScroll(e){
-this.offsetTop = e.target.scrollingElement.scrollTop;
-}
-},
-computed: {
-  subindex(i){
-    return i.$route.fullPath.match(/b\/*/g)!==null;
+  },
+  data: () => ({
+    fab: false,
+    offsetTop: 0,
+    dark: false,
+    tab: 0,
+    activeTab: 0,
+    drawer: false,
+    links: ['Home', 'Contacts', 'Settings'],
+    navigationTree: [
+      {
+        name: "Home", lead: "/i", icon: "home", routes: [
+          {name: "Overview",    icon: "dashboard",           route: "/i/overview"},
+          {name: "Profile",     icon: "account_circle",      route: "/i/profile"},
+          {name: "Permissions", icon: "supervisor_account",  route: "/i/perms"}
+        ],
+      },
+      {
+        name: "Records", lead: "/records", icon: "folder_open", routes: [
+          {name: "Workflows",   icon: "work",       route: "/records/groups"},
+          {name: "Viewer",      icon: "note",       route: "/records/view"},
+          {name: "Editor",      icon: "wrap_text",  route: "/records/edit"}
+        ]
+      },
+      {
+        name: "Events", lead: "/events", icon: "redeem", routes: [
+          {name: "Upcoming",    icon: "event_available",   route: "/events/up"},
+          {name: "Ticketing",   icon: "event_seat",        route: "/events/tickets"},
+        ]
+      },
+      {
+        name: "Monetization", lead: "/money", icon: "payment", routes: [
+          {name: "Institutions", icon: "domain",     route: "/money/finance"},
+          {name: "Statistics",   icon: "data_usage", route: "/money/stats"},
+        ]
+      }
+    ],
+    activeGroup: 0,
+    items: [
+      { title: 'Home', icon: 'dashboard' },
+      { title: 'Home', icon: 'account_circle' },
+      { title: 'Home', icon: 'supervisor_account' },
+      { title: 'Home', icon: 'fingerprint' },
+      { title: 'Home', icon: 'monetization_on' },
+      { title: 'Home', icon: 'folder_open' },
+      { title: 'Home', icon: 'business_center' },
+      { title: 'About', icon: 'question_answer' }
+    ],
+    mini: true,
+    right: null,
+    tabs: [
+      {label: "Records",   icon: "folder_open"},
+      {label: "Events", icon: "dashboard"},
+      {label: "Messages",  icon: "message"},
+    ],
+    speedDialModel: [
+      { action: "/", icon: "description", color: "red" },
+      { action: "/", icon: "mail", color: "green" },
+      { action: "/", icon: "domain", color: "teal" },
+    ],
+  }),
+  filters: {
+    first(sentence){
+      return sentence.split(" ")[0]
+    }
+  },
+  methods: {
+    setAndPush(index, route){
+      this.$nextTick(()=>{
+        this.tab=route.route 
+        this.activeGroup=index
+      })
+      //this.$router.push(route.route)
+    },
+    log(e){
+      alert(e)
+    },
+    onScroll(e){
+      this.offsetTop = e.target.scrollingElement.scrollTop;
+    }
+  },
+  computed: {
+    subindex(i){
+      return i.$route.fullPath.match(/b\/*/g)!==null;
+    }
   }
-}
 }
 </script>
 <style scoped type="text/css" media="screen">

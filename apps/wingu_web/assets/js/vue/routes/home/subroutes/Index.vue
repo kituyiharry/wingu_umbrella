@@ -72,7 +72,7 @@
             <v-divider />
             <v-card-actions class='px-4'>
               <v-spacer></v-spacer>
-              <v-btn small @click="$router.push('/b/c7565100-f984-4121-9b90-169fdc0a339f')"
+              <v-btn small @click="$router.push('/b/overview')"
                 color='red lighten-1'>
                 <v-icon small left>
                   exit_to_app
