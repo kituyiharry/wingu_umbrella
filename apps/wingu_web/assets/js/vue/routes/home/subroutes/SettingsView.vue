@@ -1,10 +1,4 @@
 <template>
-  <v-content>
-    <v-container fluid>
-      <v-layout row wrap>
-      </v-layout>
-    </v-container>
-  </v-content>
 </template>
 <script charset="utf-8">
 export default {
@@ -13,3 +7,10 @@ export default {
   })
 }
 </script>
+<style type="text/css" media="screen">
+.v-toolbar__extension{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+</style>

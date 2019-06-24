@@ -1,8 +1,8 @@
 <template>
   <v-app style='font-family: "Montserrat", sans-serif;'>
     <v-toolbar color='#996fd6' 
-      :class='$vuetify.breakpoint.xsOnly ? "elevation-1" : "elevation-1"' 
-      height='80' app dark prominent fixed>
+      :class='$vuetify.breakpoint.xsOnly ? "elevation-1" : "elevation-0"' 
+      height='80' app dark >
       <v-avatar data-aos='zoom-in' data-aos-delay='400' size='42'>
         <img src='/images/sahihi.png' alt=''>
       </v-avatar>

@@ -1,20 +1,21 @@
 <template>
-  <v-container 
-    fluid :class='$vuetify.breakpoint.smAndDown ? 
-    "mygradient pa-0 mt-5" :  "mygradient mt-5" '>
-    <v-dialog lazy max-width='800' scrollable :fullscreen='$vuetify.breakpoint.xsOnly' 
-      transition='slide-y-transition' v-model='showDocGroup'>
-      <DocGroups @closeDialog='()=>{ showDocGroup=!showDocGroup; }' showDocClassForm='showDocGroup'/>
-    </v-dialog>
-    <v-dialog lazy max-width='800' scrollable 
-      :fullscreen='$vuetify.breakpoint.xsOnly' 
-      transition='slide-y-transition' v-model='showCreateDocClass'>
-      <FormWizard @closeDialog='()=> { showCreateDocClass=!showCreateDocClass; }' />
-    </v-dialog>
-    <v-card :style='$vuetify.breakpoint.mdAndUp ? 
-      "border-radius: 4px; background: linear-gradient(to bottom, indigo, #A229D2)" : 
-      "background: linear-gradient(to right, indigo, blue)"' 
-      class="white--text" flat>
+  <!--<v-container -->
+    <!--fluid -->
+    <!--:class='$vuetify.breakpoint.smAndDown ? -->
+    <!--"mygradient pa-0 mt-5" :  "mygradient mt-5" '>-->
+    <v-card style="background: linear-gradient(to bottom, #996FD6, #FFFFFF)"
+    :class='$vuetify.breakpoint.smAndDown ? 
+    "mygradient white--text pa-0" :  "white--text mygradient pa-3"'
+    flat tile>
+      <v-dialog lazy max-width='800' scrollable :fullscreen='$vuetify.breakpoint.xsOnly' 
+        transition='slide-y-transition' v-model='showDocGroup'>
+        <DocGroups @closeDialog='()=>{ showDocGroup=!showDocGroup; }' showDocClassForm='showDocGroup'/>
+      </v-dialog>
+      <v-dialog lazy max-width='800' scrollable 
+        :fullscreen='$vuetify.breakpoint.xsOnly' 
+        transition='slide-y-transition' v-model='showCreateDocClass'>
+        <FormWizard @closeDialog='()=> { showCreateDocClass=!showCreateDocClass; }' />
+      </v-dialog>
       <v-card-title>
         <span style='font-size: 32px;width:100%;font-weight: bold;'>Records</span><br/>
         <span>Your data available here</span>
@@ -24,21 +25,21 @@
         <!--<v-menu :close-on-content-click='false' slide-y-transition offset-y>-->
           <!--<div>-->
             <!--<div class="up-arrow" style='margin-left: 30px;'>-->
-            <!--</div>-->
+              <!--</div>-->
             <!--<v-card class='elevation-5'>-->
               <!--<v-card-title>-->
                 <!--<strong style='font-size:16px;' class='px-3'>Collections</strong>-->
-              <!--</v-card-title>-->
+                <!--</v-card-title>-->
               <!--<v-divider />-->
               <!--<v-card-text style='height:200px;overflow-y: auto;'>-->
-              <!--</v-card-text>-->
-            <!--</v-card>-->
-          <!--</div>-->
+                <!--</v-card-text>-->
+              <!--</v-card>-->
+            <!--</div>-->
           <!--<v-card slot='activator' class='elevation-3' style='border-radius: 8px;'>-->
             <!--<v-list two-line dense subheader>-->
               <!--<v-subheader>-->
                 <!--Select a document-->
-              <!--</v-subheader>-->
+                <!--</v-subheader>-->
               <!--<v-divider />-->
               <!--<v-list-tile-->
                 <!--avatar ripple-->
@@ -47,24 +48,24 @@
                 <!--<v-list-tile-avatar>-->
                   <!--<v-avatar size='32'>-->
                     <!--<v-icon>settings</v-icon>-->
-                  <!--</v-avatar>-->
-                <!--</v-list-tile-avatar>-->
+                    <!--</v-avatar>-->
+                  <!--</v-list-tile-avatar>-->
 
                 <!--<v-list-tile-content>-->
                   <!--<v-list-tile-title>Medical Records</v-list-tile-title>-->
                   <!--<v-list-tile-sub-title>A Wordy insert Description here</v-list-tile-sub-title>-->
-                <!--</v-list-tile-content>-->
+                  <!--</v-list-tile-content>-->
 
                 <!--[><v-list-tile-action><]-->
                   <!--[><v-btn icon ripple><]-->
                     <!--[><v-icon color="grey lighten-1">info</v-icon><]-->
                     <!--[></v-btn><]-->
                   <!--[></v-list-tile-action><]-->
-              <!--</v-list-tile>-->
+                <!--</v-list-tile>-->
 
-            <!--</v-list>-->
-          <!--</v-card>-->
-        <!--</v-menu>-->
+              <!--</v-list>-->
+            <!--</v-card>-->
+          <!--</v-menu>-->
       </v-card-actions>
       <v-divider />
       <v-card-text class='px-0'>
@@ -350,7 +351,7 @@
         </v-layout>
       </v-card-text>
     </v-card>
-  </v-container>
+  <!--</v-container>-->
 </template>
 <script charset="utf-8">
 import DocGroups from "./components/DocGroups.vue";

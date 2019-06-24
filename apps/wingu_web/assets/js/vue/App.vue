@@ -1,8 +1,8 @@
 <!--Entry module for the entire application-->
 <template style='font-family: "Montserrat", sans-serif;'>
-  <!--<transition name="slide-fade">-->
+  <transition name="slide-fade">
     <router-view></router-view>
-  <!--</transition>-->
+  </transition>
 </template>
 <script charset="utf-8">
 export default{
@@ -17,25 +17,25 @@ html {
   scroll-behavior: smooth;
 }
 .slide-fade-enter-active {
-  transition: all .3s ease;
+  transition: all .2s ease;
 }
 .slide-fade-leave-active {
-  transition: all .3s; /*cubic-bezier(1.0, 0.5, 0.8, 1.0);*/
+  transition: all .2s; /*cubic-bezier(1.0, 0.5, 0.8, 1.0);*/
 }
 /*.slide-fade-enter,*/ .slide-fade-leave-to
 /* .slide-fade-leave-active below version 2.1.8 */ {
-transform: translateX(10px);
+transform: translateX(20px);
 opacity: 0;
 }
 .slide-fade-enter
 /* .slide-fade-leave-active below version 2.1.8 */ {
-transform: translateX(-10px);
+transform: translateX(-20px);
 opacity: 0;
 }
 
 .fade-enter-active,
 .fade-leave-active {
-  transition-duration: 0.3s;
+  transition-duration: 0.2s;
   transition-property: opacity;
   transition-timing-function: ease;
 }
@@ -49,7 +49,7 @@ opacity: 0;
 .slide-left-leave-active,
 .slide-right-enter-active,
 .slide-right-leave-active {
-  transition-duration: 0.5s;
+  transition-duration: 0.2s;
   transition-property: height, opacity, transform;
   transition-timing-function: cubic-bezier(0.55, 0, 0.1, 1);
   overflow: hidden;
@@ -66,7 +66,7 @@ opacity: 0;
   opacity: 0;
   transform: translate(-2em, 0);
 }
-.v-card__text{
+/*.v-card__text{
   -webkit-hyphens: auto;
   -webkit-hyphenate-limit-before: 3;
   -webkit-hyphenate-limit-after: 3;
@@ -92,5 +92,5 @@ opacity: 0;
   hyphenate-limit-lines: 2;
   hyphenate-limit-last: always;   
   hyphenate-limit-zone: 8%;
-}
+}*/
 </style>

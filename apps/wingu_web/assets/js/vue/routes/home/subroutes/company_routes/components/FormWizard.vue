@@ -57,8 +57,9 @@
                   style='overflow-y: auto;' flat class='white--text'>
                   <v-card-text>
                     <draggable tag='v-layout'  
+                          :move='move' 
                       :componentData='getComponentData()' v-model='tags'
-                      :clone="createNode"
+                      :clone="createNode" @start='prepareDrag' @end='closeDrag'
                       :group='{name: "nodes", pull: "clone", put: false}' 
                       handle='#handle' row wrap>
                       <!--<v-layout row :wrap='$vuetify.breakpoint.mdAndUp'>-->
@@ -136,7 +137,7 @@
                   :key="ind"
                   >
                   <!--:value="sectionNode.sections[0]"-->
-                  <v-card flat>
+                  <v-card flat :min-height='$vuetify.breakpoint.mdAndUp ? "342" : "auto"'>
                     <v-divider />
                     <!--<v-card-title style='height: 56px;z-index: 2;' class='primary lighten-1 white--text'>-->
                       <!--<v-icon small dark class='pa-2'>-->
@@ -145,32 +146,28 @@
                       <!--<h2 class='pl-1'>{{ item }}</h2>-->
                       <!--</v-card-title>-->
                     <!--<v-divider />-->
-                    <v-card-text class='text-xs-justify here' 
+                    <v-card-text :class='drag ? "text-xs-justify here secondary lighten-3" : "text-xs-justify here"' 
                       :style='$vuetify.breakpoint.mdAndUp ? "height: 342px; overflow-y: scroll;" : "height:auto;"'>
                       <v-layout fill-height row wrap>
                         <draggable group='nodes' style='width: 100%;'
-                          v-bind="dragOptions" :move='log' 
+                          v-bind="dragOptions" 
                           @start="prepareDrag" @end="closeDrag" :remove='log' 
-                          :list='sectionNode.sections[currentItem].nodes' handle='#handle'>
+                          v-model='sectionNode.sections[currentItem].nodes' handle='#handle'>
                           <!--<div style="min-height:100px;">-->
                             <transition-group
                               type="transition" :name="!drag ? 'flip-list' : ''">
-                              <v-flex
-                                style='width: 100%;' 
-                                py-2 :px-4='$vuetify.breakpoint.mdAndUp' xs12  
-                                v-for='(n,i) in sectionNode.sections[currentItem].nodes' :key='i+n.icon'>
-                                <NodeWrapper 
-                                  :id='`node-${i+n.icon}`'
-                                  :ref='`node-${i+n.icon}`'
-                                  @transitionEnd='log' @popItem='handleRemoveNode' 
-                                  :drag='drag' :dragIndex='dragIndex' :index='i' :section='n'/> 
-                              </v-flex>
+                              <NodeWrapper 
+                                v-for='(n,i) in sectionNode.sections[currentItem].nodes' :key='n.key'
+                                :id='`node-${i+n.icon}`'
+                                :ref='`node-${i+n.icon}`'
+                                @transitionEnd='log' @popItem='handleRemoveNode' 
+                                :drag='drag' :dragIndex='dragIndex' :index='i' :section='n'/> 
                               <v-flex
                                 key='emptySlot'
-                                xs12>
+                                xs12 px-3>
                                 <v-slide-y-reverse-transition>
                                   <v-card 
-                                    v-show='sectionNode.sections[currentItem].nodes<1' 
+                                    v-show='sectionNode.sections[currentItem].nodes<1 && !moveCtx' 
                                     flat style='border: 1.2px solid #b589f3;border-radius: 4px;'>
                                     <v-card-text>
                                       No Data available! Drag an item using <v-icon small>drag_handle</v-icon> from panels available to add and configure them here.
@@ -218,6 +215,7 @@ export default {
     editMode: false,
     active: 1,
     currentItem: 0,
+    moveCtx: false,
     items: ["identity", "location"],
     drag: false,
     dragIndex: null,
@@ -235,25 +233,22 @@ export default {
       sections: [
         {
           name: "Identity", nodes: [
-            {icon: "date_range", data: "Mon Dec 2018", show: true},
-            {icon: "dialpad", data: "Use the footer slot to add none-draggable element inside the vuedraggable", show: true},
-            {icon: "keyboard", data: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invi Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.", show: true},
-            {icon: "date_range", data: "Mon Dec 2018", show: true},
           ]
         },
         {
           name: "Information", nodes: [
-            {icon: "date_range", data: "Mon Dec 2018", show: true},
           ]
         }
       ]
     }
   }),
   methods: {
-    prepareDrag(i){
+    uniq(){
+      return '_' + Math.random().toString(36).substr(2, 9);
+    },
+    prepareDrag(){
       //this.dragIndex=i.oldIndex
       this.drag=true
-      //console.dir(i)
     },
     closeDrag(i){
       //console.dir(i)
@@ -262,6 +257,10 @@ export default {
       //  this.dragIndex=null
       //}, 500)
       this.drag=false
+      this.moveCtx = false
+    },
+    move(e){
+      this.moveCtx = true
     },
     log(e){
       console.dir(e)
@@ -274,11 +273,12 @@ export default {
     },
     createNode(e){
       //console.dir(e)
+      let uKey= this.uniq()
       switch(e.action){
         case "text_fields":
-          return {icon: "keyboard", data: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invi Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.", show: true};
+          return {icon: "keyboard", key: uKey, data: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invi Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.", show: true};
         default: 
-          return {icon: "date_range", data: "Mon Dec 2018", show: true}
+          return {icon: "date_range", key: uKey, data: "Mon Dec 2018", show: true}
       }
     },
     createSimpleID(nodeLabel, index, sectionIndex, sectionName){

@@ -177,7 +177,7 @@
                   :style='$vuetify.breakpoint.mdAndUp ? "max-height: 330px; overflow-y: scroll;" : ""'>
                   <v-layout row wrap>
                     <v-flex pa-2 xs12  v-for='i in 9'>
-                      <v-card  v-ripple flat 
+                      <v-card flat 
                         style='border: 2.0px solid #b589f3;border-radius: 4px;'>
                         <v-card-title class='py-1'>
                           <v-btn small icon style='font-size: 9px;' class='black--text mr-2' size='20' 

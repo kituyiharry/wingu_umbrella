@@ -37,8 +37,12 @@ import Landing from './vue/routes/landing/Landing.vue'
 import Home from './vue/routes/home/Home.vue'
 import Index from './vue/routes/home/subroutes/Index.vue'
 import CompanyView from './vue/routes/home/subroutes/CompanyView.vue'
-//import Dashboard from './vue/routes/home/subroutes/company_routes/Dashboard.vue'
-//import Forms from './vue/routes/home/subroutes/company_routes/Forms.vue'
+import SubIndex from './vue/routes/home/subroutes/company_routes/Index.vue'
+import Integrations from './vue/routes/home/subroutes/company_routes/Integrations.vue'
+import Records   from './vue/routes/home/subroutes/company_routes/Records.vue'
+import Stats from './vue/routes/home/subroutes/company_routes/Stats.vue'
+import FormWizard from './vue/routes/home/subroutes/company_routes/components/FormWizard.vue'
+import DocGroups from './vue/routes/home/subroutes/company_routes/components/DocGroups.vue'
 import Settings from './vue/routes/home/subroutes/SettingsView.vue'
 
 import Store from './vue/store/store.js'
@@ -48,10 +52,20 @@ const routes = [
   {path: '/home', component: Home, children: [
     {path: '/', component: Index},
     {path: '/user', component: Settings},
-    {path: '/b/:id', component: CompanyView}, // children: [
-      // {path: '/', component: Dashboard},
-      // {path: '/forms/:docclass/c/:company', component: Forms},
-    // ]},
+    {path: '/b/:id', component: CompanyView,  children: [
+      {path: '/', component: SubIndex},
+      {path: '/i/overview', component: SubIndex},
+      {path: '/i/profile', component:  DocGroups},
+      {path: '/i/perms', component: Records},
+      {path: '/records/groups', component: Integrations},
+      {path: '/records/view', component: Records},
+      {path: '/records/edit', component: FormWizard },
+      {path: '/events/up', component: Records},
+      {path: '/events/tickets', component: Integrations},
+      {path: '/money/finance', component: Records},
+      {path: '/money/stats', component: Stats},
+      //{path: '/forms/:docclass/c/:company', component: Forms},
+    ]},
   ]},
 ]
 
