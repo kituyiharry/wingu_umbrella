@@ -37,7 +37,7 @@
             <v-divider></v-divider>
             <v-list-group expand v-for='(route, i) in navigationTree'
               :prepend-icon="route.icon" :key='route.name'
-              :value="true" :group='"/"'>
+              :value="true" :group='route.lead'>
               <template v-slot:activator>
                 <v-list-tile>
                   <v-list-tile-title>{{ route.name }}</v-list-tile-title>
@@ -48,7 +48,7 @@
                 :key="item.icon">
                 <v-list-tile active-class='secondary--text lighten-3 ' slot='activator' @click='()=>{setAndPush(i,item)}' :to='item.route'>
                   <v-list-tile-action>
-                    <div data-aos-offset='-1000000' data-aos='zoom-in' :data-aos-delay='ind*100'>
+                    <div data-aos-offset='-1000000' data-aos='zoom-in' :data-aos-delay='(i+ind)*100'>
                       <v-icon small>{{ item.icon }}</v-icon>
                     </div>
                   </v-list-tile-action>
@@ -66,9 +66,15 @@
         </v-navigation-drawer>
         <!--</v-layout>-->
       <!--</v-navigation-drawer>-->
-    <v-toolbar height='56' app fixed  class='elevation-1'
-      :scroll-off-screen='$vuetify.breakpoint.xsOnly' extension-height='90' :extended='false'
+      <!--class='elevation-5'-->
+      <v-toolbar height='56' app fixed :flat='offsetTop < 80'
+      :scroll-off-screen='$vuetify.breakpoint.smAndDown' extension-height='102' :extended='false'
       dark color="primary">
+      <v-btn v-if='$vuetify.breakpoint.smAndDown' data-aos='zoom-in' data-aos-delay='100' icon @click='drawer=!drawer'>
+        <v-icon >
+          menu
+        </v-icon>
+      </v-btn>
       <!--<v-toolbar-side-icon @click='drawer=!drawer'/>-->
       <!--<v-fab-transition>-->
         <!--</v-fab-transition>-->
@@ -84,11 +90,6 @@
         </v-layout>
       </v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn v-if='$vuetify.breakpoint.smAndDown' data-aos='zoom-in' data-aos-delay='100' icon @click='drawer=!drawer'>
-        <v-icon >
-          menu
-        </v-icon>
-      </v-btn>
       <v-menu 
         attach='#bell' 
         transition='slide-y-reverse-transition' 
@@ -135,15 +136,15 @@
           </v-card-title>
         </v-card>
       </v-menu>
-      <div 
-        style='width:100%;' slot='extension'>
+      <div style='width:100%;' slot='extension'>
+        <!--<v-divider />-->
         <!--<v-tabs v-model='activeGroup'>-->
           <!--<v-tab v-for='(group, ind) in navigationTree' :key='ind'>-->
             <v-card color='transparent' flat>
-              <v-card-title class='pa-0' style='font-size: 28px;font-weight: 200;'>
-                <!--<strong>-->
+              <v-card-title class='pa-0' style='font-family: "Raleway", sans-serif;font-size: 36px;'>
+                <strong>
                   {{ !subindex ?  navigationTree[activeGroup].name : "Welcome" }}
-                  <!--</strong>-->
+                  </strong>
                 <v-spacer></v-spacer>
                 <v-icon>
                   info
@@ -161,7 +162,7 @@
                   <v-tabs class='pa-0' color='primary'
                     v-model="tab">
                     <v-tabs-slider style='border-radius: 16px;' color="yellow"></v-tabs-slider>
-                    <v-tab 
+                    <v-tab show-arrows
                       v-for="(route,ind) in navigationTree[activeGroup].routes" :key="ind"
                       :to='route.route' :ripple='false'>
                       <v-btn round small :flat='tab!=route.route' :class='tab==route.route ? "secondary lighten-3 black--text" : ""'>
@@ -176,8 +177,8 @@
               <!--</v-tabs>-->
           </div>
         </v-toolbar>
-        <v-content class=''>
-          <v-divider />
+        <v-content v-scroll='onScroll' class='primary'>
+          <!--<v-divider />-->
           <transition name='slide-fade' mode='out-in'>
             <router-view @updateModel='log'/>
           </transition>

@@ -1,8 +1,8 @@
 <!--Entry module for the entire application-->
 <template style='font-family: "Montserrat", sans-serif;'>
-  <!--<transition name="slide-fade">-->
+  <transition name="slide-fade">
     <router-view></router-view>
-  <!--</transition>-->
+  </transition>
 </template>
 <script charset="utf-8">
 export default{
@@ -24,12 +24,12 @@ html {
 }
 /*.slide-fade-enter,*/ .slide-fade-leave-to
 /* .slide-fade-leave-active below version 2.1.8 */ {
-transform: translateX(10px);
+transform: translateX(20px);
 opacity: 0;
 }
 .slide-fade-enter
 /* .slide-fade-leave-active below version 2.1.8 */ {
-transform: translateX(-10px);
+transform: translateX(-20px);
 opacity: 0;
 }
 

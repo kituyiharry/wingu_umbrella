@@ -1,8 +1,8 @@
 <template>
   <v-app :dark='dark' style='font-family: "Montserrat", sans-serif;'> 
-    <!--<transition name='slide-fade'>-->
+    <transition name='slide-left' mode='out-in'>
       <router-view ></router-view>
-      <!--</transition>-->
+      </transition>
     <v-snackbar
       color='error'
       class='white--text'
@@ -21,10 +21,10 @@
 </template>
 <script charset="utf-8">
 import { CLIENT, COMPANIES } from '../../graphql/queries.js'
-import Settings from './subroutes/SettingsView.vue';
+//import Settings from './subroutes/SettingsView.vue';
 export default {
   name: 'Home',
-  components: { Settings },
+  //components: { Settings },
   mounted(){
     // this.$apollo.queries.client.start()
     if (/localhost/i.test(window.location)) {

@@ -1,8 +1,21 @@
 <template> 
-  <v-container fluid>
-    <v-layout fill-height row wrap>
-      <v-flex data-aos='fade-up' :py-1='$vuetify.breakpoint.xsOnly' :pa-3='$vuetify.breakpoint.smAndUp' v-for='(n,i) in indexModel' :key='i' xs12 sm6 lg3>
-        <Notifier @update='updateModel' :i='i' :model='n'/>
+  <v-container fill-height class='pa-3'
+    style="background: linear-gradient(to bottom, #996FD6, #FFFFFF)"
+    fluid>
+    <v-layout fill-height row wrap class='pb-1'>
+      <!--<v-flex xs12>-->
+        <!--<v-subheader>-->
+          <!--Hoes mad!-->
+          <!--</v-subheader>-->
+        <!--</v-flex>-->
+      <v-flex 
+        :py-1='$vuetify.breakpoint.xsOnly' 
+        :py-2='$vuetify.breakpoint.smAndUp' px-2
+        v-for='(n,i) in indexModel' 
+        :key='i' xs12 sm6 md4 lg3>
+        <div :data-aos='$vuetify.breakpoint.smAndDown ? "fade" : "fade-right"' :data-aos-delay='i*50'>
+          <Notifier @update='updateModel' :i='i' :model='n'/>
+        </div>
       </v-flex>
     </v-layout>
   </v-container>
