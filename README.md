@@ -1,6 +1,6 @@
 # Wingu System
 
-![Site](./doc/2020-06-29-21-31-32.mkv.gif "site")
+![Site](./extra/2020-06-29-21-31-32.mkv.gif "site")
 
 Wingu is a fullstack application written in Using
 [Phoenix](http://phoenixframework.org) and [VueJS](http://vuejs.org). The
@@ -83,7 +83,7 @@ Elixirs' pattern matching proves useful in this Context and its clear to see
 what would happen in case out OAuth didn't work. Guardian sign_in create
 a signed token in the `conn` struct using the client identification.
 
-![Cookie](./doc/Cerello_Cookie_Screenshot_20200629_211433.png "")
+![Cookie](./extra/Cerello_Cookie_Screenshot_20200629_211433.png "")
 
 ### Database Handling with Ecto
 
