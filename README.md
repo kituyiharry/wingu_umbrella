@@ -13,28 +13,28 @@ Functionally the various operations are:
 
 ## Backend:
 
-  1. OAuth workflow with [Guardian](https://github.com/ueberauth/guardian) and
+  1. *OAuth* workflow with [Guardian](https://github.com/ueberauth/guardian) and
      UeberAuth, particularly the [Google Strategy](https://github.com/ueberauth/ueberauth_google)
-  2. Database Handling with [Ecto](https://github.com/elixir-ecto/ecto)
-  3. GraphQL Document server with [Absinthe](https://github.com/absinthe-graphql/absinthe)
+  2. Database Handling with [Ecto.Multi](https://github.com/elixir-ecto/ecto)
+  3. *GraphQL* Document server with [Absinthe](https://github.com/absinthe-graphql/absinthe)
   4. SAML token handling (Under Construction)
 
 ### OAuth with Guardian and UeberAuth
 
 OAuth according to (OAuth Website)[oauth.net/2/] is:
 
->   "..industry-standard protocol  for authorization.  OAuth 2.0  focuses on
->  client developer simplicity while providing specific authorization flows
->  for web  applications, desktop  applications, mobile phones,  and living
+>   "..Industry-standard protocol for authorization.  *OAuth 2.0* focuses on
+>  client developer simplicity while  providing specific authorization flows
+>  for  web applications,  desktop applications,  mobile phones,  and living
 >  room devices.."
 
-UeberAuth is an implementation of the OAuth Authentication API which empowers
-developers to use _Strategies_ as "*Plugs*". [Plug](https://github.com/elixir-plug/plug)
-allow for Composable modules which are incredibly verstile in a Phoenix
-application. The UeberAuth strategy used here is google which requires one to
-write callbacks and functionality for handling the sign in using Google as the
-provider, an example callback
-is:
+UeberAuth   is   an  implementation   of   the   OAuth  Authentication   API
+which   empowers    developers   to    use   _Strategies_    as   "*Plugs*".
+[Plug](https://github.com/elixir-plug/plug)  allow for  *Composable modules*
+which  are incredibly  _verstile_ in  a Phoenix  application. The  UeberAuth
+strategy  used here  is google  which requires  one to  write callbacks  and
+functionality for  handling the  sign in  using Google  as the  provider, an
+example callback is:
 
 ```elixir
 # Author: Harry Kituyi
@@ -80,8 +80,8 @@ end
 ```
 
 Elixirs' pattern matching proves useful in this Context and its clear to see
-what would happen in case out OAuth didn't work. Guardian sign_in create
-a signed token in the `conn` struct using the client identification.
+what would happen  in case out OAuth didn't work.  Guardian sign_in create a
+signed token in the `conn` struct using the client identification.
 
 ![Cookie](./extra/Cerello_Cookie_Screenshot_20200629_211433.png "")
 
@@ -193,6 +193,57 @@ The great thing about this is:
   2. We don't perform multiple transactions for complex operations
 
 ### GraphQL with Absinthe
+
+According to [graphql.org](graphql.org) : 
+
+> "GraphQL is  a  query language  for  APIs and  a  runtime for  fulfilling
+> those  queries with  your existing  data.  GraphQL provides  a complete  and
+> understandable description of the data in  your API, gives clients the power
+> to ask  for exactly  what they  need and  nothing more,  makes it  easier to
+> evolve APIs over time, and enables powerful developer tools."
+
+The absinthe family of libraries allow for creation of GraphQL Endpoints that
+are also Composable similar to UeberAuth. It uses plug under the hood making it
+just as Composable without tightly coupling it to Phoenix.
+
+GraphQL endpoints have to be secure too but Absinthe allows the developer to
+define a plug that runs early in the pipeline to create an "**Authenticated
+Context**" for signed in users. This function returns a tuple of {:error, _ },
+when the user is unauthenticated preventing the pipeline from proceeding
+
+```elixir
+  ...
+  @doc "Return resolution when context is authenticated"
+  def handle_auth(%{context: %{"sub" => _sub}} = resolution, _config) do
+    resolution
+  end
+
+  @doc "Return error if not auth"
+  def handle_auth(resolution, _config) do
+    resolution |> Absinthe.Resolution.put_result({:error, "Unathenticated"})
+  end
+ ...
+ ...
+ ...
+
+  query do
+    @desc "Information about the current client"
+    field :client, :client do
+      middleware(:handle_auth)          # Authenticated middleware check
+      resolve(&Resolvers.ClientResolver.client/3)
+    end
+  ...
+
+```
+
+Therefore Unathenticated requests raise Errors
+
+![Unauth-GQL](./extra/Cerello_Auth_Screenshot_20200629_210141.png "unauthenticated")
+
+Documents that don't properly resolve are also shown as errors to the developer.
+Here it is in an Interactive window.
+
+![err](./extra/Cerello_Mutation_Screenshot_20200629_212858.png "err")
 
 
 
