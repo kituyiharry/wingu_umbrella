@@ -6,7 +6,7 @@ Wingu is a fullstack application written in Using
 [Phoenix](http://phoenixframework.org) and [VueJS](http://vuejs.org). The
 phoenix backend exposes a [GraphQL](http://graphql.org) API which links to the
 UI using [Vue-Apollo](https://github.com/vuejs/vue-apollo). The site is supposed
-to reflect a typical website operations but are really there to show a fraction
+to reflect typical website operations but are really there to show a fraction
 of the functionality one can achieve with Elixir.
 
 Functionally the various operations are:
@@ -30,7 +30,7 @@ OAuth according to (OAuth Website)[oauth.net/2/] is:
 
 UeberAuth   is   an  implementation   of   the   OAuth  Authentication   API
 which   empowers    developers   to    use   _Strategies_    as   "*Plugs*".
-[Plug](https://github.com/elixir-plug/plug)  allow for  *Composable modules*
+[Plug](https://github.com/elixir-plug/plug)  allowing for  *Composable modules*
 which  are incredibly  _verstile_ in  a Phoenix  application. The  UeberAuth
 strategy  used here  is google  which requires  one to  write callbacks  and
 functionality for  handling the  sign in  using Google  as the  provider, an
